@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Resumen envio BAPRO" pageWidth="802" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="38f65d2d-0e89-4d4c-8681-b5b1a78b81d5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<parameter name="fechaDesde" class="java.util.Date"/>
+	<parameter name="fechaHasta" class="java.util.Date"/>
+	<queryString language="SQL">
+		<![CDATA[select sum(COALESCE(d.montoCuotaSocial,0)) as cuotasSocialesEnviadas,sum(CASE d.codigoRespuestaBanco when "OK" then COALESCE(d.montoCuotaSocial,0) else 0 END) AS cuotasSocialesCobradas,
+(sum(COALESCE(d.montoCuota,0)) + sum(COALESCE(d.montoPunitorios,0))) as cuotasCreditoEnviadas,sum(CASE d.codigoRespuestaBanco when "OK" then (COALESCE(d.montoCuota,0) + COALESCE(d.montoPunitorios,0))else 0 END) AS cuotasCreditoCobradas,
+d.fechaEnvio, r.nombre AS reparticion, count(*) as cantidadEnviada,
+d.discos_id as idDisco
+from Aux_disco d
+inner join Cliente c on d.cliente_id = c.id
+inner join Reparticion r on c.reparticion_id = r.id
+where DATE(d.fechaEnvio) >= $P{fechaDesde}
+and DATE(d.fechaEnvio) <= $P{fechaHasta}
+and d.generado = 1
+group by d.discos_id, d.fechaEnvio, r.nombre
+order by d.discos_id, d.fechaEnvio, r.nombre]]>
+	</queryString>
+	<field name="fechaEnvio" class="java.util.Date"/>
+	<field name="cantidadEnviada" class="java.lang.Integer"/>
+	<field name="reparticion" class="java.lang.String"/>
+	<field name="cuotasSocialesEnviadas" class="java.lang.Double"/>
+	<field name="cuotasSocialesCobradas" class="java.lang.Double"/>
+	<field name="cuotasCreditoEnviadas" class="java.lang.Double"/>
+	<field name="cuotasCreditoCobradas" class="java.lang.Double"/>
+	<field name="idDisco" class="java.lang.Integer"/>
+	<variable name="totalCuotasSocialesEnviadas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cuotasSocialesEnviadas}]]></variableExpression>
+	</variable>
+	<variable name="totalCuotasSocialesCobradas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cuotasSocialesCobradas}]]></variableExpression>
+	</variable>
+	<variable name="totalCuotasCreditoEnviadas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cuotasCreditoEnviadas}]]></variableExpression>
+	</variable>
+	<variable name="totalCuotasCreditoCobradas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cuotasCreditoCobradas}]]></variableExpression>
+	</variable>
+	<variable name="totalEnviado" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cuotasSocialesEnviadas}+$F{cuotasCreditoEnviadas}]]></variableExpression>
+	</variable>
+	<variable name="totalCobrado" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cuotasSocialesCobradas}+$F{cuotasCreditoCobradas}]]></variableExpression>
+	</variable>
+	<variable name="totalEnvios" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidadEnviada}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c2ad434b-bc0d-47da-af26-4119987242aa" mode="Opaque" x="0" y="0" width="802" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMEN ENVÍO BAPRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1976af44-baba-4b17-8f8d-d7ce2d9075fa" mode="Opaque" x="0" y="14" width="48" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="53762fc3-71ba-473d-89d6-024797f4d8e0" mode="Opaque" x="48" y="14" width="754" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="50e07d3d-6784-4e68-b05e-ddc737425b35" mode="Opaque" x="0" y="28" width="48" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="840cfd1d-9f29-4450-9908-227fc970bd35" mode="Opaque" x="48" y="28" width="754" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="21a2cc5e-08c4-4b88-bc3c-fb953d843e86" mode="Opaque" x="48" y="0" width="51" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Fecha envío]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="021be61b-82bd-4d58-985c-452b41fc1964" mode="Opaque" x="99" y="0" width="52" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cantidad enviada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d338010-7762-4274-b080-65ee37ab5e27" mode="Opaque" x="322" y="0" width="80" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cuotas sociales enviadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4c4bb160-e80b-4e32-bad0-c32dab18cd1b" mode="Opaque" x="402" y="0" width="80" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cuotas sociales cobradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bbaa90f2-93eb-4d07-8add-87bdc64eb5b9" mode="Opaque" x="642" y="0" width="80" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Total enviado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cf121b78-4009-4870-a71e-074c54c51c08" mode="Opaque" x="151" y="0" width="171" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Repartición]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="596b6801-abdd-4d93-a572-a3bef6c741ca" mode="Opaque" x="482" y="0" width="80" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cuotas crédito enviadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ff720596-ba50-4614-a18b-9459fc3a62b1" mode="Opaque" x="722" y="0" width="80" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Total cobrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="536a957a-36fb-4e80-9068-e0db64670f96" mode="Opaque" x="562" y="0" width="80" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cuotas crédito cobradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="145b2ecf-441e-4fff-bc2a-2acb7a22f79a" mode="Opaque" x="0" y="0" width="48" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Nro. disco]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="8085b030-65f5-4a9c-91e1-cb5df0d8c5b2" x="48" y="0" width="51" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaEnvio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="75412b96-9f04-4eb8-a5d1-c15fccd4fce5" x="99" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadEnviada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="1587729c-5a5b-4a75-a1a8-dcb8ef49f664" x="482" y="0" width="80" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotasCreditoEnviadas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="2b4e7f05-b19f-4828-bc7a-faefab5229fc" x="562" y="0" width="80" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotasCreditoCobradas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="fd1216f8-867e-48e5-bdcb-8c29eb270efb" x="322" y="0" width="80" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotasSocialesEnviadas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="4aeb1326-df07-4521-a8bb-622ead5b5ad0" x="402" y="0" width="80" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotasSocialesCobradas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5fbe4b10-38e9-4a68-8707-6bb5761413ca" x="151" y="0" width="171" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reparticion}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="3fb86949-441b-4c6b-b769-ee9d53343cef" x="642" y="0" width="80" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotasSocialesEnviadas}+$F{cuotasCreditoEnviadas}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="ab4aac12-ccd7-45d6-b010-d2460d3e63c5" x="722" y="0" width="80" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotasSocialesCobradas}+$F{cuotasCreditoCobradas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="22db14cc-75b2-4865-b5af-919d213ae0c9" x="0" y="0" width="48" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idDisco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement uuid="d92aee92-1cc1-4792-a232-d198a0cba35f" mode="Opaque" x="0" y="0" width="99" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="7854d87a-47c4-44cb-97eb-4f61116400bc" x="322" y="0" width="80" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCuotasSocialesEnviadas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="1d596918-fe10-43f1-b067-544da9646199" x="402" y="0" width="80" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCuotasSocialesCobradas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="23e59762-73aa-4f92-88b0-8d0d55e1ef8c" x="482" y="0" width="80" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCuotasCreditoEnviadas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="5d0fa089-6f83-4898-ae83-adce4e484f35" x="562" y="0" width="80" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCuotasCreditoCobradas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="5b4c2e20-ec52-4ce7-827d-f4c297a57162" x="642" y="0" width="80" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalEnviado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="c6efdd6f-413c-4135-850e-093dac9c79a8" x="722" y="0" width="80" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCobrado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a08fe749-789d-4a68-bc22-8c0063d9bd41" x="99" y="0" width="52" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalEnvios}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="aa945ea1-318a-4958-9a4d-9ba0ba8db420" x="151" y="0" width="171" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

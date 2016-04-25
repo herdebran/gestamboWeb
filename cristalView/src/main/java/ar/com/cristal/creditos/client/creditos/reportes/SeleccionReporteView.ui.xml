@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:snoop="urn:import:ar.com.snoop.gwt.commons.client.widget"
+	xmlns:dp="urn:import:ar.com.snoop.gwt.commons.client.widget.datepicker">
+
+	<g:HTMLPanel> 
+	
+	<div class="gwt-TitledPanel">
+		<div class="title">Reportes por tipo y rango de fechas</div>
+	
+	<div style="float:left">Complete los datos para realizar la consulta</div>
+	<br></br><br></br>
+	<table>
+		<thead></thead>
+		<tbody>
+
+			<tr>
+				<td width="80px">Fecha desde</td>
+				<td width="80px"><dp:FullDatePicker ui:field="fechaDesde"></dp:FullDatePicker></td>
+				<td width="40px"></td>
+				<td width="80px">Fecha hasta</td>
+				<td width="80px"><dp:FullDatePicker ui:field="fechaHasta"></dp:FullDatePicker></td>
+				<td width="40px"></td>
+				<td width="80px">Motivo</td>
+				<td><snoop:ListBox ui:field="tipoReporte" multipleSelect="false" width="280px"></snoop:ListBox></td>
+			</tr>
+			<tr>
+			    <td width="80px">Descripci&oacute;n</td>
+			    <td colspan="7"><g:TextArea ui:field="descripcion" width="100%" ></g:TextArea></td>
+			</tr>
+			
+		</tbody>
+	</table>
+	<br></br><br></br><br></br>
+	
+	<g:Button ui:field="buttonReporte" text="Generar Reporte " />
+	
+	
+	</div>
+		
+	</g:HTMLPanel>
+</ui:UiBinder>

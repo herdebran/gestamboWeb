@@ -1,0 +1,28 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+			<div  ui:field="containerPopUp">
+			<div class="gwt-TitledPanel">
+			<div class="title">Procesos Administrativos de Sincronizacion</div>
+			<div class="clear20"></div>
+			<div style="float:right">
+  				<g:Button ui:field="botonEscribirRdoPago" styleName="gwt-Button" text="Escribir Tabla SMS Recor. Pago"></g:Button>
+ 				<g:Button ui:field="botonLeerRdoPago" styleName="gwt-Button" text="Leer Envios Rdo Pago"></g:Button>
+ 			</div>
+	
+			<div class="clear20"></div>
+			
+			<div align="right">
+ 				<g:Button ui:field="botonCerrar" styleName="gwt-Button" text="Cerrar" visible="true"></g:Button>
+ 			</div>
+
+	</div>
+	</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

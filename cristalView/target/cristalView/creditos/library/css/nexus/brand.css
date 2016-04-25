@@ -1,0 +1,94 @@
+/*
+Define layout organization for NEXUS sections
+*/
+@import 'gralLayout.css';
+/*
+wrapper_content,
+nxs1, nxs2, content
+------------------------------------------------------------
+*/
+
+@import 'gralText.css';
+/*  /// DEFINITIONS ///  */
+/* General definitions for tipography : size, colors
+
+HTML, BODY
+INPUT, SELECT, TEXTAREA
+TABLE, CAPTION, TH, TD
+------------------------------------------------------------
+*/
+
+@import 'gralForms.css';
+/*  /// DEFINITIONS ///  */
+/* Form definitions. Legends, Filedsets, Checkboxs, Textbox, etc.
+
+FORM, FIELDSET, LEGEND,
+INPUT, SELECT, TEXTAREA
+LABEL, LABEL.nobold
+------------------------------------------------------------
+*/
+
+
+@import 'styles.css';
+/*  /// DEFINITIONS ///  */
+/*
+.velo					>> velo for the modal popups (internal popups)
+#popTitle				>>
+div.modulewrapper		>>
+div.modulecontent		>>
+MESSAGE ERROR			>> div#msgSYS :: div#msgSYS.err
+USERMENU				>> DIV.usermenu_wrapper, DIV.usermenu_content, DIV.title (h1), UL.actions
+div.panel1				>> panel para agrupar info.
+DIV.quickMSG			>> Short message on-demand. click/over
+------------------------------------------------------------
+*/
+
+
+@import "popups.css";
+/*  /// DEFINITIONS ///  */
+/* Popup definitions
+
+- popPageWidth: Controls all the popup page
+- popHeader: DIV Header zone, H1 Title
+- popWrapper: Prevents undesired widths of DIVs
+- popContent: Where the content is placed
+- popFooter: DIV Footer zone, DIV popWinButtons > A
+------------------------------------------------------------
+*/
+
+
+@import "controls.css";
+/*  /// DEFINITIONS ///  */
+/* Controls for NEXUS APP
+
+- Main Nav
+- Subnav			>> DIV.subnav
+- Actions
+- TABs
+- OneChoice			>> LABELS OPTIONS and CHECKBOXES
+- Collapsible box1	>> pending
+- Collapsible box2	>> DIV.colbox2
+- Collapsible box3	>>
+
+------------------------------------------------------------
+*/
+
+@import 'measures.css';
+/*  /// DEFINITIONS ///  */
+/* Common measures for layout*/
+
+@import "colors.css";
+/*  /// DEFINITIONS ///  */
+/* Common colors */
+
+
+
+@import "datePicker-nexus.css";
+
+@import "suggestBox.css";
+
+@import "WaitWindow.css";
+
+@import "gwt-Nexus-Theme.css";
+
+@import "buttons.css";

@@ -1,0 +1,93 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.datepicker.client"
+	xmlns:e="urn:import:ar.com.cristal.creditos.client.creditos.lineasdecredito.crud"
+	xmlns:s="urn:import:ar.com.snoop.gwt.commons.client.widget" xmlns:d="urn:import:ar.com.snoop.gwt.commons.client.widget.datepicker"
+	xmlns:snoop="urn:import:ar.com.snoop.gwt.commons.client.widget">
+	
+
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel ui:field="pantallaPerfiles">
+
+		<div class="gwt-TitledPanel">
+				
+			<div class="title">Perfiles</div>
+
+			<table>
+					<tr>
+							<td>
+								<g:Label text="Nombre del perfil" styleName="textoCSS" />
+							</td>
+							<td>
+								<s:RegExpTextBoxImpl ui:field="txtNombrePerfil" width="200px" ></s:RegExpTextBoxImpl>
+							</td>
+					</tr>
+					<tr>
+
+							<td>
+								<g:Label text="Descripción" styleName="textoCSS" />
+							</td>
+								<td>
+
+								<g:TextArea ui:field="txtDescripcionPerfil"
+											characterWidth="80" visibleLines="3"></g:TextArea>
+								</td>
+
+					</tr>
+							
+					
+				</table>
+		
+			
+			 
+			 
+			 <div style="float:right">
+			 <g:Button ui:field="botonNuevoPerfil" styleName="gwt-Button" text="Nuevo" title="Limpia los campos para crear un nuevo Perfil"></g:Button>
+			 &nbsp; 
+			 <g:Button ui:field="botonGuardarNombrePerfil" styleName="gwt-Button" text="Guardar Perfil" title="Guarda la información del Perfil"></g:Button>
+			 </div>
+			 
+			 <div style="clear:both"></div>
+
+			<div class="clear5"></div>
+			<div style="overflow-y: scroll; height: 150px">
+				<e:FlexTableDinamica ui:field="tablaPerfiles" width="960px"></e:FlexTableDinamica>
+			</div>
+
+	
+
+
+  
+<!-- ......................................widgets de la pantalla de planes de financiacion y la tabla.............................. -->
+
+<div class="clear20"></div>
+
+
+
+
+<div class="title">Componentes de un perfil</div>
+<div>
+
+	<div style="clear:both"></div> 
+		
+	<div class="clear5"></div>
+	
+	<div style="overflow-y: scroll; height: 225px">
+	
+		<e:FlexTableDinamica ui:field="tablaComponentes" width="960px"></e:FlexTableDinamica>
+	</div>
+</div>
+
+<div class="clear10"></div>
+<div style="float:right">
+	 <g:Button ui:field="botonGuardarConfiguracionPerfil" styleName="gwt-Button" text="Guardar Perfil"></g:Button>
+ </div>
+
+</div> <!--  Titled Panel -->
+</g:HTMLPanel>
+
+</ui:UiBinder> 

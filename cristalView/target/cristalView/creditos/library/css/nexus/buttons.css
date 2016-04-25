@@ -1,0 +1,98 @@
+
+
+.btn-aceptar, .btn-borrar, .btn-buscar, .btn-cancelar, .btn-guardar, .btn-volver{
+	border-width: 0px;
+	width: 59px;
+	height: 21px;
+	cursor: pointer;
+}
+
+.btn-eliminar, .btn-agregar{
+	border-width: 0px;
+	width: 12px;
+	height: 12px;
+	cursor: pointer;
+} 
+
+.btn-aceptar, .btn-borrar, .btn-buscar, .btn-cancelar, .btn-guardar, .btn-volver, .btn-eliminar, .btn-agregar , .btn-invalido , .btn-valido{
+	background: url("../../images/btn2-aceptar.gif") no-repeat top;
+}
+
+.btn-borrar{
+	background: url("../../images/btn2-borrar.gif") no-repeat top;
+}
+
+.btn-buscar{
+	background: url("../../images/btn2-buscar.gif") no-repeat top;
+}
+
+.btn-cancelar{
+	background: url("../../images/btn2-cancelar.gif") no-repeat top;
+}
+
+.btn-guardar{
+	background: url("../../images/btn2-guardar.gif") no-repeat top;
+}
+
+.btn-volver{
+	background: url("../../images/btn2-volver.gif") no-repeat top;
+}
+
+.btn-art-lapiz, .btn-art-icon-delete, .btn-ver_listado_03, .btn-art-lupa{
+	border-width: 0px;
+	cursor: pointer;
+	
+}
+
+.btn-art-icon-delete{
+	background: url("../../images/art-icon-delete.gif") no-repeat top;
+	width: 11px;
+	height: 11px;
+}
+
+.btn-art-lapiz{
+	background: url("../../images/art-lapiz.gif") no-repeat top;
+	width: 11px;
+	height: 12px;
+}
+
+.btn-copiar{
+	background: url("../../images/btn-copiar.png") no-repeat top;
+	width: 18px;
+	height: 18px;
+}
+
+.btn-ver_listado_03{
+	background: url("../../images/ver_listado_03.png") no-repeat top;
+	width: 16px;
+	height: 16px;
+}
+
+.btn-eliminar{
+	background: url("../../images/icono_cancelar.gif") no-repeat top;
+}
+
+.btn-agregar{
+	background: url("../../images/icono_aceptar.gif") no-repeat top;
+}
+
+
+.btn-art-lupa{
+	background: url("../../images/art-lupa.gif") no-repeat top;
+	width: 16px;
+	height: 16px;
+}
+
+.btn-invalido{
+	background: url("../../images/art-cruz-lc.gif") no-repeat top;
+	border-width: 0px;
+	width: 16px;
+	height: 16px;
+}
+
+.btn-valido{
+	background: url("../../images/art-tilde-lc.gif") no-repeat top;
+	border-width: 0px;
+	width: 16px;
+	height: 16px;
+}

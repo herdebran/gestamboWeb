@@ -1,0 +1,675 @@
+/*
+	---------------------------------------
+	General definitions (for NEXUS only)
+	---------------------------------------
+	Here you'll find styles and definitions that apply for
+	explicit NEXUS's designs.
+
+	Martin Hansen.	
+*/
+/* - */
+/* ************************************************************************************************ */
+/* -------------------------- */
+UL { margin:0; padding:0; list-style:none; }
+LI { padding:0; margin:0; }
+/* -------------------------- */
+A {	font-size: 100%; padding: 0; margin: 0; }
+A IMG {
+	border: none 0px;	
+}
+A:link, A:visited { color: #666; text-decoration: none; }
+A:active, A:focus, A:hover { text-decoration: underline; }
+
+/* -------------------------------------------------------------------------------- */
+/* --- --- --- --- --- --- --- */
+/* COMMENT Link -------------- */
+A.lnk_comment:link, A.lnk_comment:active,
+A.lnk_comment:visited {
+	text-decoration: none;
+	background-color: inherit; background-image:url("../images/feedbackon.gif"); background-position: 3px 2px; background-repeat: no-repeat;
+	border: 1px solid #fff; /* customize this if you'll do it cross */
+}
+
+A.lnk_comment:hover, A.lnk_comment:focus { background-color:#efefef; }
+
+/* --- --- --- --- --- --- --- */
+/* EDIT Link ------------------ */
+A.lnk_edit:link, A.lnk_edit:active,
+A.lnk_edit:visited {
+	text-decoration:none;
+	background-color: inherit; background-image: url("../images/art-lapiz.gif"); background-position: 3px 3px; background-repeat:no-repeat;
+}
+
+A.lnk_edit:hover, A.lnk_edit:focus { background-color:#efefef; }
+
+/* --- --- --- --- --- --- --- */
+/* ADD Link ------------------ */
+A.lnk_add:link, A.lnk_add:active,
+A.lnk_add:visited {
+	text-decoration:none;
+	background-color:inherit; background-image: url("../images/art_plus.gif"); background-position: 3px 3px; background-repeat: no-repeat;
+}
+
+A.lnk_add:hover, A.lnk_add:focus { background-color: #efefef; background-image: url("../images/art_plus_over.gif"); }
+
+/* --- --- --- --- --- --- --- */
+/* Microsoft WORD Link ------------------ */
+A.lnk_msword:link, A.lnk_msword:active,
+A.lnk_msword:visited {
+	color: #000;
+	text-decoration: none;
+
+	background-color: inherit;
+	background-image:url("../images/art-icon_word.gif"); background-position: 0px 0px; background-repeat:no-repeat;
+	padding-left: 20px; padding-top: 2px; padding-bottom: 2px; padding-right:7px;
+	float:left;
+}
+
+/* --- --- --- --- --- --- --- */
+/* Microsoft EXCEL Link ------------------ */
+A.lnk_msexcel:link, A.lnk_msexcel:active,
+A.lnk_msexcel:visited {
+	color: #000;
+	text-decoration: none;
+
+	background-color: inherit;
+	background-image:url("../images/art-icon-excel.gif"); background-position: 0px 0px; background-repeat:no-repeat;
+	padding-left: 20px; padding-top: 2px; padding-bottom: 2px; padding-right:7px;
+	float:left;
+}
+/* - */
+/* - */
+/* - */
+/* -------------------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------- */
+/* INTERAL POPUPS */
+/*	This defs are used for setting up the look&feel of
+	internal popups...
+*/
+.velo {
+	position:absolute;
+	top:0px;
+	left:0px;
+	cursor:not-allowed;
+	background: url('../images/maskimg.gif');
+	filter:alpha(opacity=85);
+	-moz-opacity:0.85;
+	opacity:0.85;
+}
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/* FORMS */
+
+/*	Styling for content.
+	Example: <div id="someID" class="frmcontent">CONTENT FORM</div>
+*/
+DIV.frmcontent {
+	padding:8px;
+
+	border-top:1px solid #C4C4C4;
+
+	background-image:url("../images/bkg_frmContent.gif");
+	background-position:left top;
+	background-repeat:repeat-x;
+	background-color:#FEFEFE;
+}
+
+TABLE.form TR { height: 18px;} /* im not sure about this */
+
+/* Table Aling */
+TD.alignRight { text-align: right; }
+TD.alignLeft { text-align: left; }
+TD.alignCenter { text-align: center; }
+
+/*
+** Close form whith buttons **
+------------------------------
+EXAMPLE:
+	<div class="form_buttons">
+		<a href="#" name="" id="" title="Aceptar">Aceptar</a>
+		<a href="#" name="" id="" title="Cancelar">Cancelar</a>
+	</div>
+*/
+DIV.form_buttons {
+	height:19px;
+	text-align:center;
+	clear:both;
+
+	border-top:1px solid #fff;
+	border-bottom:1px solid #fff;
+
+	padding-left:10px;
+	padding-top:6px;
+
+	background-color: #efefef;
+	background-image: url("../images/bkg_frmButtons.gif");
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+DIV.form_buttons A,
+DIV.form_buttons A:link,
+DIV.form_buttons A:active,
+DIV.form_buttons A:visited {
+	font-size:90%;
+	font-weight:bold;
+	text-transform: uppercase;
+	
+	color: #666;
+	background: inherit;
+	margin-left: 5px;
+	margin-right: 5px;
+	text-decoration: none;
+}
+
+DIV.form_buttons A:hover,
+DIV.form_buttons A:focus {
+	background-color: #eee;
+}
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/* to give all modules same background */
+DIV.modulewrapper {
+	color: inherit;
+	background-color: #efefef;
+	border: 1px solid #999;
+	padding:0;
+	margin:0;
+}
+
+/* **************************************
+Module Content
+For modules with background grey
+--------------------- */
+DIV.modulecontent {
+	color: inherit;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+
+	padding:8px;
+	margin:0;
+
+	background-image: url("../images/modulecontent_bkg.gif");
+	background-color: #ECECEC;
+	background-position: left bottom;
+	background-repeat: repeat-x;
+}
+
+/* **************************************
+Module Content 2
+For modules with background A53953
+--------------------- */
+DIV.modulecontent2 {
+	color: inherit;
+	border: 1px solid #fff;
+
+	padding:8px;
+	margin:0;
+	
+	background-image:url("../images/modulecontent2_bkg.gif");background-color: #A53953;background-position: left top;background-repeat:repeat-x;
+}
+
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/*  COLLAPSIBLE GROUP H1 */
+/* 	---------------------------------------
+	Note: This defs were written to be whitin
+	a container DIV who gives the right
+	styles to margins, width and others...
+*/
+DIV.boxCollapsibleON,
+DIV.boxCollapsibleOFF {
+	width: 99%;
+
+	float: left;
+	position: relative;
+
+	margin: 0px;
+	padding:0px;
+	
+	border-style: solid;
+	border-width: 1px;
+}
+
+DIV.boxCollapsibleON {	border-color: #A53953; }
+DIV.boxCollapsibleOFF {	border-color: #8B8B8B; }
+
+/* --- H1 TITLE --- */
+DIV.boxCollapsibleON H1.titleGroup,
+DIV.boxCollapsibleOFF H1.titleGroup {
+	margin:0;
+	padding:0;	
+	
+	height: 18px;
+	vertical-align: middle;
+	
+	color: #fff;
+	font-size: 100%;
+	font-weight: bold;
+
+	background-position: left top;
+	background-repeat:repeat-x;
+}
+
+DIV.boxCollapsibleON H1.titleGroup { background-image: url("../images/h1_bkg_desplegable.jpg"); cursor: pointer; }
+DIV.boxCollapsibleOFF H1.titleGroup {background-image: url("../images/h1_bkg_desplegable_off.jpg"); cursor: default; }
+
+DIV.boxCollapsibleON H1.titleGroup A.titleLink,
+DIV.boxCollapsibleOFF H1.titleGroup A.titleLink {
+	display: block;
+	position: relative;
+
+	font-size: 100%;
+	font-weight: bold;
+
+	background-position: 3px 1px;
+	background-repeat:no-repeat;
+
+	padding-left: 30px;
+	padding-top: 2px;
+	padding-bottom: 5px;
+}
+
+DIV.boxCollapsibleON H1.titleGroup A.titleLink { color: #fff; background-image:url("../images/ttlGroup_arrowUP.gif"); }
+DIV.boxCollapsibleOFF H1.titleGroup A.titleLink { color: #ccc; background-image:url("../images/equipos/ttlGroup_arrowDWNoff.gif"); background-color: transparent; }
+
+
+/* --- DIV CONTENT of CollapsibleGroup --- */
+DIV.boxCollapsibleON DIV.boxcontent,
+DIV.boxCollapsibleOFF DIV.boxcontent {
+	padding: 8px;
+	background-color: #fff;
+	background-image:;
+	background-position:;
+	background-repeat:;
+}
+
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/*  mnuComboStyle GROUP H3 */
+/* 	---------------------------------------
+	Note: This defs were written to be whitin
+	a container DIV who gives the right
+	styles to margins, width and others...
+*/
+DIV.boxCollapsibleON DIV.mnuComboStyle { border: 1px solid #A53953; margin: 3px 0px; }
+
+DIV.boxCollapsibleON DIV.mnuComboStyle H3.titleGroup {
+	margin:0;
+	padding-left: 20px;
+	padding-top: 2px;
+	
+	height: 17px;
+	vertical-align: middle;
+	
+	color: #fff;
+	font-size: 100%;
+	font-weight: bold;
+	
+	background-image: url("../images/h3_bkg_combostyle.jpg");
+	background-position: left top;
+	background-repeat:repeat-x;
+	
+	cursor: pointer;
+}
+
+DIV.boxCollapsibleON DIV.mnuComboStyle H3.titleGroup A { color: #fff; }
+DIV.boxCollapsibleON DIV.mnuComboStyle DIV.content {}
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/* Title Combo Style control */
+/* 	---------------------------------------
+	Note:
+	Combo title control must be used only
+	inside a boxCollapsible div.
+	Share some defs with:
+	 - DIV.boxCollapsible
+	 - H1.titleGroup
+	---------------------------------------
+*/
+/* --- H1 TITLE --- */
+DIV.boxCollapsibleON H1.ttlComboStyle,
+DIV.boxCollapsibleOFF H1.ttlComboStyle {
+	margin:0;
+	padding-left: 30px;
+	
+	height: 20px;
+	vertical-align: middle;
+	
+	color: #fff;
+	font-size: 100%;
+	font-weight: bold;
+}
+
+DIV.boxCollapsibleON H1.ttlComboStyle {
+/* setted up above in general boxCollapsible definitions */
+	background-position: left top;background-image: url("../images/h1_bkg_desplegable.jpg");background-repeat:repeat-x;	
+	cursor: pointer;
+}
+
+DIV.boxCollapsibleOFF H1.ttlComboStyle {
+/* setted up above in general boxCollapsible definitions */
+	background-position: left top;background-image: url("../images/h1_bkg_desplegable_off.jpg");background-repeat: repeat-x;
+}
+
+/* SPAN ttlComboStyle_arrow.gif*/
+DIV.boxCollapsibleON H1.ttlComboStyle SPAN.ttlCombo {
+	height: 20px;
+	
+	color: inherit;
+	border-left: 1px solid #B86626;border-right: 1px solid #B86626;
+	background-position: left top;background-image: url("../images/equipos/bkg_ttlCombo.gif");background-color: #B86626;background-repeat: repeat-x;
+
+	float:left;
+	position:relative;
+}
+
+/* OFF OFF OFF OFF OFF */
+/* ttlComboStyle SPAN & LINK OFF */
+DIV.boxCollapsibleOFF H1.ttlComboStyle SPAN.ttlCombo {
+	height: 21px;
+	
+	color: inherit;
+	border-left: 1px solid #6F6F6F;
+	border-right: 1px solid #6F6F6F;
+	background-color: #979797;
+	background-image: url("../images/equipos/bkg_ttlComboOff.gif");
+	background-position: left top;
+	background-repeat: repeat-x;
+
+	float:left;
+	position:relative;
+}
+
+DIV.boxCollapsibleON H1.ttlComboStyle A.ttlCombo,
+DIV.boxCollapsibleOFF H1.ttlComboStyle A.ttlCombo {
+	height: 18px;
+
+	padding-top: 3px;
+	padding-left: 8px;
+	padding-right: 30px;
+	background-color: transparent;
+
+	background-position: 95% 4px;
+	background-repeat: no-repeat;
+	float:left;
+	position:relative;
+}
+
+DIV.boxCollapsibleON H1.ttlComboStyle A.ttlCombo {color: #fff;background-image: url("../images/equipos/ttlComboStyle_arrow.gif");}
+DIV.boxCollapsibleON H1.ttlComboStyle A.ttlCombo:link,
+DIV.boxCollapsibleON H1.ttlComboStyle A.ttlCombo:visited,
+DIV.boxCollapsibleON H1.ttlComboStyle A.ttlCombo:active { text-decoration: none; }
+
+DIV.boxCollapsibleOFF H1.ttlComboStyle A.ttlCombo {color: #ccc;background-image: url("../images/equipos/ttlComboStyle_arrowOff.gif");}
+DIV.boxCollapsibleOFF H1.ttlComboStyle A.ttlCombo:link,
+DIV.boxCollapsibleOFF H1.ttlComboStyle A.ttlCombo:visited,
+DIV.boxCollapsibleOFF H1.ttlComboStyle A.ttlCombo:active { text-decoration: none; }
+
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/* GRIDs
+CLASS: <table class="grid"></table>
+EXAMPLE:
+          A test table with merged cells
+    /-----------------------------------------\
+    |          |  height |  weight |  percent |
+    |-----------------------------------------|
+    |  Males   | 1.9     | 0.003   |   40%    |
+    |-----------------------------------------|
+    | Females  | 1.7     | 0.002   |   43%    |
+    \-----------------------------------------/
+*/
+/* --------------------------------------- */
+TABLE.grid { border-left: 1px solid #E5E5E5; border-top: 1px solid #E5E5E5;}
+TABLE.grid, TABLE.grid TD, TABLE.grid TR, TABLE.grid TH { border-collapse: collapse; border-spacing: 0;}
+TABLE.grid TR { height:17px; }
+TABLE.grid TD, TABLE.grid TH {
+	border-bottom: 1px solid #ccc;
+	border-left: 1px #efefef solid;
+	border-right: 1px solid #ccc;
+	border-top: 1px #efefef solid;
+}
+
+TABLE.grid TD {	background: #F9F9F9; text-align: center;}
+TABLE.grid TH {	color: #fff; background: #A53953; font-weight: bold; padding: 2px 8px; text-align: left; white-space: nowrap; text-align:center; }
+/* -------------------------- */
+/* GRIDs - Two lines headering
+EXAMPLE:
+          A test table with merged cells
+    /----------------------------------------------------\
+    |          |      Average      |     Other Values    |        <-------- First Line Title // <tr class="firstLine"></tr>
+    |----------------------------------------------------|
+    |          |  height | weight  |   some   |   some   |        <-------- Second Line Title // <tr class="secondLine"></tr>
+    |----------------------------------------------------|
+    |  Males   | 1.9     | 0.003   |   40%    |   40%    |
+    |----------------------------------------------------|
+    | Females  | 1.7     | 0.002   |   43%    |   43%    |
+    \----------------------------------------------------/
+
+
+*/
+TABLE.grid TR.firstLine TD { color: #000; background: #efefef;}
+TABLE.grid TR.secondLine TD { color: #fff; background: #A53953;}
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/* DIV Scroller
+/* --------------------------------------- */
+/* to create scroll within a DIV tag */
+DIV.wrapscrollX { border:2px inset;overflow-x:scroll;overflow-y:hidden;}
+DIV.wrapscrollY { border:2px inset;overflow-x:hidden;overflow-y:scroll;}
+DIV.wrapscrollXY { border:2px inset;overflow-x:scroll;overflow-y:scroll;}
+
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/* SYSTEM MESSAGE
+/* --------------------------------------- */
+
+DIV#msgsys {
+	width: 98%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+/*div#msgsys div.msgIcon {
+	float: left;
+	width: 21px;
+	height: 20px;
+	margin-left: 2px;
+	margin-top: 2px;
+	margin-right: 10px;
+	
+	color: inherit;
+}*/
+
+DIV#msgsys DIV.msgContent {
+	width: 80%;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	font-size: 100%;
+	font-weight: bold;
+	color: #000;
+	border: 1px solid #ccc;
+	background-color: #f4f4f4;
+
+}
+
+/* ------ Styling errmsg ----- */
+DIV#msgsys.err {}
+
+/*div#msgsys.err div.msgIcon {
+	background-image: url('../images/msgsys-icoErr.gif');
+	background-color: transparent;
+	background-position: left top;
+	background-repeat: no-repeat;
+}*/
+
+DIV#msgsys.err DIV.msgContent {
+	color: #fff;
+	border: 1px solid #ff0000;
+	background-color: #ff0000;
+
+	background-image: url('../images/msgsys-err-bkg.gif');
+	background-color: transparent;
+	background-position: left top;
+	background-repeat: repeat-x;
+
+}
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/* USERMENU 2
+/* --------------------------------------- */
+DIV.usermenu_wrapper { width: 100%; border: 1px solid #8E0122; float:left; position:relative; }
+DIV.usermenu_wrapper DIV.usermenu_content {
+	font-size: 100%;
+
+	margin:0;
+	padding:0;
+	padding-bottom:10px;
+	
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #C0C0C0;
+	border-bottom: 1px solid #C0C0C0;
+	
+	background-image: url('../images/paniol/usermenu_bkg.gif');
+	background-color: #981836;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+}
+
+DIV.usermenu_content DIV.title {
+	width: 100%;
+	background-image: url('../images/paniol/title_bkg.gif');
+	background-color: #981836;
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+DIV.usermenu_content DIV.title H1 {
+	float: left;
+	width: 100%;
+	font-size: 100%;
+	color: #fff;
+
+	text-align:center;
+	height: 19px;
+	text-transform:uppercase;
+	padding-top: 4px;
+	padding-bottom:10px;
+}
+
+DIV.usermenu_content UL.actions { width:100%; position:relative; }
+DIV.usermenu_content UL.actions LI { margin-bottom:10px; }
+
+DIV.usermenu_content UL.actions A:link,
+DIV.usermenu_content UL.actions A:visited,
+DIV.usermenu_content UL.actions A.active:link,
+DIV.usermenu_content UL.actions A.active:visited {
+	float: left;
+	width: 93%;
+	background-color: transparent;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	
+	vertical-align:middle;
+		
+	color: #fff;
+	font-size: 100%;
+}
+
+DIV.usermenu_content UL.actions A:active,
+DIV.usermenu_content UL.actions A:focus,
+DIV.usermenu_content UL.actions A:hover {
+	background-color: #8E0122;
+	color: inherit;
+	text-decoration: none;
+	background-image: url('../images/paniol/itemactionsover_bkg.gif');
+	background-color: #981836;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+}
+
+DIV.usermenu_content UL.actions A.active:link,
+DIV.usermenu_content UL.actions A.active:visited {
+	background-image: url('../images/paniol/itemactions_bkg.gif');
+	background-color: transparent;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+}
+
+DIV.usermenu_content UL.actions A.active:active,
+DIV.usermenu_content UL.actions A.active:focus,
+DIV.usermenu_content UL.actions A.active:hover {  }
+/* ----------------------------------------------------------------- */
+
+div.panel1 {
+	/* position and others attrib. (float, width, margin) must be configured local */
+	background-color:#f1f1f1;
+	background-image: url("../images/bkg_panel1.gif");
+	background-position:top left;
+	background-repeat:repeat-x;
+
+	padding:5px;
+	border-bottom: 1px solid #bebebe;
+}
+
+/* ----------------------------------------------------------------- */
+DIV.quickMSG {
+	color: inherit;
+	border: 1px solid #BEBEBE;
+	background-color: #fff;
+	background-image: url("../images/bkg_qckmsgtop.gif");
+	background-position: left top;
+	background-repeat: repeat-x;
+	width: 600px;
+}
+
+DIV.quickMSG DIV.content {padding:8px;float:left;}
+
+DIV.quickMSG A.close:link,
+DIV.quickMSG A.close:active,
+DIV.quickMSG A.close:visited {
+	font-size: 90%;font-weight: bold;
+	width:100%;
+	padding:2px 2px 2px 2px;
+	float:left;clear:both;
+	text-decoration:none;
+	text-align:right;
+}
+
+DIV.quickMSG A.close:hover,
+DIV.quickMSG A.close:focus {background-color: #EAEAEA; }
+
+.overflowAuto { overflow: auto; }
+
+.overflowScroll { overflow: scroll; }

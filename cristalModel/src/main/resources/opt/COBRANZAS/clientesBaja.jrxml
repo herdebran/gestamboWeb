@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Clientes dados de Baja" pageWidth="1002" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1002" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="dc19964f-5d0d-417d-9f22-8d7de72a1420">
+	<property name="ireport.zoom" value="1.652892561983471"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<parameter name="fechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA["2013-03-03"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select c.id as nroCliente, concat(c.apellido,', ' ,  c.nombre) as nombreCliente,
+r.nombre as reparticion, l.nombre as localidad,
+case when concat(c.caracteristica, c.telefono, c.caracteristica1, c.telefono1) is null then '' else concat(c.caracteristica, ' ', c.telefono, ' cel.', c.caracteristica1, ' ', c.telefono1) end as telefonos,
+c.fechaBaja, concat(u.apellido, ', ' , u.nombre) as usuario
+from Cliente c
+inner join Localidad l on c.localidad_id = l.id
+inner join Reparticion r on c.reparticion_id = r.id
+left join Usuario u on c.usuarioBajaId = u.id
+where estado = 'BAJA'
+and date(c.fechaBaja) >= $P{fechaDesde}
+     and date(c.fechaBaja) <= $P{fechaHasta}
+ order by nombreCliente]]>
+	</queryString>
+	<field name="nroCliente" class="java.lang.Long"/>
+	<field name="nombreCliente" class="java.lang.String"/>
+	<field name="reparticion" class="java.lang.String"/>
+	<field name="localidad" class="java.lang.String"/>
+	<field name="telefonos" class="java.lang.String"/>
+	<field name="fechaBaja" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3f7e3d62-4fc9-4f12-bd11-35b3d0587286" mode="Opaque" x="0" y="0" width="904" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clientes dados de Baja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3717a67f-9907-4305-9234-30d01221a4a4" mode="Opaque" x="0" y="14" width="35" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="5eb15b83-ab1a-4c73-9804-3cd8cda76587" mode="Opaque" x="35" y="14" width="869" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d24150bf-2ebc-4337-85e9-ea4486727dd4" mode="Opaque" x="0" y="28" width="35" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="5f660664-94b9-4028-a9d9-3182bbc6d5a2" mode="Opaque" x="35" y="28" width="869" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="50fab7a9-9c09-4899-a0cd-27cc565ed6e1" mode="Opaque" x="753" y="0" width="151" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12788671-8c16-4cd6-b0db-9253cbe32d7a" mode="Opaque" x="692" y="0" width="61" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Fecha Baja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="457eef5e-97f3-4ad6-a5b0-31cf855f8862" mode="Opaque" x="35" y="0" width="178" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d3c681d-88b2-4f73-a4f6-fb367216e4eb" mode="Opaque" x="0" y="0" width="35" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[N° Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12788671-8c16-4cd6-b0db-9253cbe32d7a" mode="Opaque" x="538" y="0" width="154" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Repartición]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12788671-8c16-4cd6-b0db-9253cbe32d7a" mode="Opaque" x="213" y="0" width="166" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Teléfonos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12788671-8c16-4cd6-b0db-9253cbe32d7a" mode="Opaque" x="379" y="0" width="159" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Localidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b43c0307-8f14-4a52-b674-85e8d957cfdc" x="0" y="0" width="35" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroCliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cab70c8e-4c6c-4e5d-9dac-b0bee65fb38e" x="35" y="0" width="178" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="c30211df-d885-4dc1-8f6d-ebfc46b951f8" x="692" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaBaja}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cab70c8e-4c6c-4e5d-9dac-b0bee65fb38e" x="753" y="0" width="151" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cab70c8e-4c6c-4e5d-9dac-b0bee65fb38e" x="213" y="0" width="166" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefonos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cab70c8e-4c6c-4e5d-9dac-b0bee65fb38e" x="379" y="0" width="159" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{localidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cab70c8e-4c6c-4e5d-9dac-b0bee65fb38e" x="538" y="0" width="154" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reparticion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

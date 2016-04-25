@@ -1,0 +1,1076 @@
+/** Add css rules here for your application. */
+@IMPORT url("measures.css");
+
+@IMPORT url("popups.css");
+
+@IMPORT url("datePicker-nexus.css");
+
+@IMPORT url("buttons.css");
+
+@IMPORT url("icons.css");
+
+@IMPORT url("menu.css");
+
+@IMPORT url("mainMenuStyle.css");
+
+.waiting {
+	cursor: wait;
+}
+
+body,td,.normalText {
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-size-adjust: none;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+}
+
+A {
+	color: white;
+	cursor: pointer;
+	font-family: Arial,Verdana,  sans-serif;
+	font-size: 11px;
+}
+
+*,body {
+	margin: 0px;
+	padding: 0px;
+}
+
+.alignCenter {
+	text-align: center !important;
+}
+
+.alignRight {
+	text-align: right !important;
+}
+
+.alignLeft {
+	text-align: left !important;
+}
+
+.dataTable TD {
+	text-align: center;
+}
+
+.dataTable span.gwt-RadioButton {
+    padding: 5px;
+}
+
+.TableHeader {
+	background-color: #0669E0;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+
+/** Estilos tablas */
+.TableHeader A:link,.TableHeader A:active,.TableHeader A:visited {
+	color: #fff;
+	text-decoration: none;
+}
+
+.TableHeader A:hover {
+	text-decoration: underline;
+}
+
+.TableRow1 {
+	background-color: #A4CDDF;
+	color:black;
+	
+}
+
+.TableRow2 {
+	background-color: #DCDCDC;
+	color:black;
+	
+}
+
+
+.dialogMiddleCenter.TableRow1 td {
+	background-color: #A4CDDF;
+	color:black;
+	
+}
+
+.dialogMiddleCenter .TableRow2 td {
+	background-color: #DCDCDC;
+	color:black;
+	
+}
+
+
+
+.TableRow1Pointer{
+	background-color: #A4CDDF;
+	color:black;
+	cursor: pointer;
+}
+
+.TableRow2Pointer {
+	background-color: #DCDCDC;
+	color:black;
+	cursor: pointer;
+}
+
+
+.TableRow2Pointer td {
+	font-size: 10px;
+}
+.TableRow1Pointer td {
+	font-size: 10px;
+}
+
+
+.TableRowMontoNegativoPointer {
+	background-color: #FF4626;
+	color:white;
+	cursor: pointer;
+}
+
+
+.TableRowSelected {
+	background-color: #F2A57C;
+	cursor: pointer;
+}
+
+.NoPointerTableRowSelected {
+	background-color: #F2A57C;
+}
+
+
+.TableCellCurrency { 
+	text-align:right;
+	padding-right:5px;
+}
+
+
+/** Fin Estilos tablas */
+.gwt-HeaderMenu .menu {
+	background-color: #0669E0;
+	background-image: url(../images/toolbar/back-menu-bar.gif);
+	height: 30px;
+	text-align: left;
+	width: 100%;
+}
+
+.gwt-MenuItem {
+	cursor: pointer;
+}
+
+
+.gwt-HeaderMenu .gwt-MenuItem a{
+	/**	background-image: url(../images/toolbar/back-menu-bar.gif);*/
+	border-right: 1px solid #0669E0;
+	color: #EEEEEE;
+	display: block;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: bold;
+	padding: 6px;
+	text-decoration: none;
+}
+
+
+.submenuPrincipal .gwt-MenuItem {
+	background-color: #FEFEFE;
+	border-bottom: 1px solid #E9E9E9;
+	color: #7A2D03;
+	display: block;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 4px 8px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.submenuPrincipal .gwt-MenuItem-selected {
+	background-image: url(../images/toolbar/back-menu-item-hover.gif);
+	color: white;
+}
+
+.gwt-MenuBarPopup .menuPopupTopCenter {
+	background-image: url(../images/toolbar/back-menu-drop-down.gif);
+	background-repeat: repeat-x;
+	height: 10px;
+}
+
+.gwt-MenuBarPopup {
+	border-color: #AAAAAA;
+	border-style: solid;
+	border-width: 0 1px 1px;
+	background-color: #FFF;
+}
+
+.gwt-TextBox,.gwt-ListBox {
+	font-family: Arial;
+	font-size: 11px;
+	font-weight: normal;
+	margin: 0;
+}
+
+.gwt-TextBox {
+	border: 1px solid #BCBCBC;
+	padding: 1px;
+}
+
+.gwt-central-panel {
+	background-color: #DADADA;
+	min-width: 100%;
+	padding: 0;
+	text-align: center;
+}
+
+.gwt-BuscarCuentaFilterForm,.gwt-BuscarCuentaResultPanel {
+	margin: 5px;
+	background-color: #F7F7F7;
+	background-image: url(../images/sch_bkg.gif);
+	background-repeat: repeat-x;
+	border-color: #FFFFFF;
+	border-style: groove ridge ridge groove;
+	border-width: 2px;
+	display: block;
+}
+
+.titulo {
+	color: gray;
+	display: block;
+	font-weight: normal !important;
+	margin: 4px 10px;
+	width: 100% !important;
+	text-align: left;
+}
+
+.gwt-filtrosBuscador {
+	display: block;
+	height: 24px;
+	margin: 0 0 0px;
+	padding: 0;
+	text-align: left;
+}
+
+.gwt-TitledPanel {
+/* 	border: 1px solid #0669E0; */
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-bottom: 5px;
+	text-align: left;
+	letter-spacing: 1px;
+	font-size: 13px;
+}
+
+
+
+.title {
+	width: 100% !IMPORTANT;
+	margin-top: 0px !IMPORTANT;
+	margin-left: 0px !IMPORTANT;
+	margin-right: 0px !IMPORTANT;
+	vertical-align: middle;
+	background-color: #006AA4;
+	background-repeat: repeat-x;
+	text-indent: 5px;
+	line-height: 25px ! IMPORTANT;
+	color: #FFFFFF;
+	font-family: Arial, Verdana, Geneva, Kalimati, sans-serif;
+	font-size: 13px;
+	margin-bottom: 5px;
+	letter-spacing: 1px;	
+}
+
+
+.title .gwt-Label{
+	
+	font-size: 13px;
+	
+}
+
+
+
+.header td {
+/* 	background-color: #006AA4; Color institucional - azul */
+	background-color: #777;
+	color: #FFFFFF;
+	font-weight: normal;
+	text-align: center;
+	line-height: 14px;
+	padding: 0px 3px 0px 3px;
+}
+
+.gwt-BuscarCuentaResultTable td,.gwt-VerazResultTable td,.dataTable td {
+	border-right: 1px solid #EBEBEB;
+/* 	border-bottom: 1px solid #EBEBEB; */
+	height: 24px;
+}
+
+/*.gwt-BuscarCuentaResultPanel .resultTableWrapper {
+	height: 200px;
+	overflow: auto;	
+}*/
+
+
+
+.resultTableWrapper {
+	height: 200px;
+	overflow: auto;
+	background-color: #FFF;
+	border: 1px solid gray;
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.resultTableSS {
+	height: 150px;
+	overflow: auto;
+	background-color: #FFF;
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.resultTableOperacionesEnCurso {
+	height: 240px;
+	overflow: auto;
+	background-color: #FFF;
+	border: 1px solid gray;
+	margin-left: 8px;
+	margin-right: 495px;
+}
+
+.resultTableOperacionesEnCursoHead {
+	height: 26px;
+	overflow: auto;
+	background-color: #FFF;
+	border: 1px solid gray;
+	margin-left: 8px;
+	margin-right: 495px;
+}
+
+.resultTableOperacionesEnCursoSinScroll {
+	overflow: auto;
+	background-color: #FFF;
+	border: 1px solid gray;
+	margin-left: 8px;
+	margin-right: 495px;
+}
+
+.gwt-BuscarCuentaResultPanel {
+	text-align: left;
+}
+
+.gwt-OportunidadesResultPanel {
+	text-align: left;
+}
+
+.gwt-NormalizarDomicilioUI .resultTableScroll {
+	height: 150px;
+	overflow: scroll;
+	border: medium;
+	width: 480px;
+}
+
+.showTableDomicilioNormalizado {
+	display: block;
+	width: 480px;
+}
+
+.hideTableDomicilioNormalizado {
+	display: none;
+}
+
+.gwt-labelDisabled {
+	font-size: 25px;
+	font-weight: bold;
+	color: gray;
+}
+
+.layout td {
+	padding-bottom: 2px;
+	padding-top: 2px;
+	height: 23px;
+}
+
+.layout td,.gwt-InlineLabel {
+	font-family: Arial, Verdana, Geneva, Kalimati, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+	text-indent: 4px;
+}
+
+.gwt-Label{
+	font-family: Arial, Verdana, Geneva, Kalimati, sans-serif;
+	font-size: 11px;
+/* 	font-weight: bold; */
+	text-align: left;
+	text-indent: 4px;
+}
+
+
+.gwt-Label-right {
+	font-family: Arial, Verdana, Geneva, Kalimati, sans-serif;
+	font-size: 11px;
+/* 	font-weight: bold; */
+	text-align: right;
+	text-indent: 4px;
+}
+
+.selectedRow td {
+	background-color: #F2A57C;
+}
+
+.WaitWindow {
+	display: none;
+	/*
+	background-color: #AA0000;
+	color: #FFFFFF;
+	*/
+}
+
+.gwt-LoadingPopup {
+}
+
+.gwt-LoadingPopup-blackPanel {
+	width: 247px;
+	height: 60px;
+	background-color: #000000;
+	filter:alpha(opacity=30);
+	-moz-opacity:0.3;
+	-khtml-opacity: 0.3;
+	opacity: 0.3;
+}
+	
+.gwt-LoadingPopup-tableWrapper {
+	position: relative;
+	top: -61px;
+	width: 235px;
+	height: 50px;
+	margin: 5px;
+	background-color: #FFFFFF;
+	border: 1px #999 solid;
+}
+
+.gwt-LoadingPopup-panel table {
+	margin: 5px;
+}
+
+.gwt-LoadingPopup-text {
+	margin-left: 15px;
+	font-size: 14px;
+}
+
+.gwt-TabBarItem-selected {
+	background-image: url(../images/tabs/tab-on.gif) ! IMPORTANT;
+	color: #0669E0 ! IMPORTANT;
+}
+
+.gwt-TabBarItem {
+	background-color: #DADADA;
+	background-image: url(../images/tabs/tab.gif);
+	cursor: pointer;
+	font-family: Arial,Verdana;
+	font-size: 11px;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	height: 21px;
+	line-height: 21px;
+	text-align: center;
+	width: 75px;
+}
+
+.gwt-TabBarRest,.gwt-TabBarFirst {
+	border-bottom: 1px solid #ccc;
+	-moz-box-sizing: border-box;
+}
+
+.razonSocial .gwt-Label {
+	font-weight: bold;
+	margin: 4px 0;
+	padding-left: 4px;
+	width: 90px;
+}
+
+.numeroCliente .gwt-Label {
+	font-weight: bold;
+	margin: 4px 0;
+	width: 55px;
+}
+
+.link {
+	color: #666666;
+	display: inline;
+	font-size: 90%;
+	font-weight: bold;
+	line-height: 25px;
+	margin-left: 5px;
+	margin-right: 5px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.aButtons {
+	background-image: url(../images/bkg_frmButtons.gif);
+	display: block;
+	height: 25px;
+	line-height: 25px;
+	margin-top: 8px;
+	text-align: center;
+	width: 100%;
+}
+
+.gwt-TabPanelBottom {
+	background: #FFFFFF url(../images/bkg_frmContent.gif) repeat-x scroll 0 0;
+	padding: 5px;
+}
+
+.content {
+	background: #E9E9E9;
+}
+
+.content .gwt-Label {
+	color: red;
+}
+
+#content {
+	max-width: 920px;
+}
+
+.usuarioLogueado {
+	letter-spacing: 2px;
+}
+
+.abmPanel {
+	border: 1px solid #0669E0;
+	margin-bottom: 8px;
+	width: 100%;
+}
+
+.abmPanelChild {
+	line-height: 24px;
+	margin: 5px 0 0 2px;
+	padding: 0;
+	text-align: left;
+	width: 48%;
+}
+
+.req {
+	color: red;
+}
+
+.Gwt-EditarSSUI {
+	background-color: #dddddd;
+}
+
+.crearDomicilioButton,.crearLineaButton,.validarCompletitudButton {
+	background-repeat: no-repeat;
+	background-color: transparent;
+	height: 17px;
+	font-size: 11px;
+	font-style: italic;
+	font-weight: bold;
+	color: #333;
+	line-height: 15px;
+	float: right;
+	padding-left: 20px;
+	margin-right: 8px;
+	border: none 0px;
+	color: gray;
+	text-align: right;
+}
+
+.crearDomicilioButton,.crearLineaButton {
+	background-image: url(../images/btn-table-nuevo.gif);
+	width: 115px;
+}
+
+.validarCompletitudButton {
+	background-image: url(../images/btn-completitud.gif);
+	width: 170px;
+	margin-top: 5px;
+	position: absolute;
+	right: 10;
+}
+
+.validarCompletitudFailButton {
+	background-image: url(../images/btn-completitudFail.gif) !important;
+}
+
+.bkgWhite {
+	background-color: #FFFFFF
+}
+
+.abmPiePanel {
+	border: 0 none;
+	margin-left: 2px;
+	text-align: left;
+	width: 48%;
+}
+
+.gwt-LabelVeraz {
+	background-color: transparent;
+	font-family: Arial,Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+	text-indent: 4px;
+	width: 100px;
+}
+
+.abmPanelVeraz {
+	text-align: left;
+	text-indent: 4px;
+	border: 1px solid #0669E0;
+	background-color: #FFFFFF;
+	margin-top: 8px;
+	border: 1px solid #0669E0;
+	margin-bottom: 8px;
+	width: 100%;
+}
+
+.linkVeraz {
+	background: transparent url(../images/art-veraz.gif) no-repeat scroll 0 50%
+		;
+	border: 0 none;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 16px;
+	width: 16px;
+}
+
+.resultadoVerazAceptar {
+	background: transparent url(../images/icon-scoring-aceptado.jpg) no-repeat
+		scroll 0 0;
+	display: block;
+	height: 22px;
+	margin-left: 4px;
+	padding-left: 24px;
+	width: 74px;
+}
+
+.resultadoVerazRevisar {
+	background: transparent url(../images/icon-scoring-revisado.jpg) no-repeat
+		scroll 0 0;
+	display: block;
+	height: 22px;
+	margin-left: 4px;
+	padding-left: 24px;
+	width: 74px;
+}
+
+.resultadoVerazRechazar {
+	background: transparent url(../images/icon-scoring-rechazado.jpg) no-repeat
+		scroll 0 0;
+	display: block;
+	height: 22px;
+	margin-left: 4px;
+	padding-left: 24px;
+	width: 74px;
+}
+
+.obsTextAreaCuentaDatos {
+	height: 35px;
+	width: 95%;
+	min-width: 95%;
+	border: 1px solid #BCBCBC;
+}
+
+.gwt-RazonSocialClienteBar {
+	background-color: #FFF;
+	height: 20px;
+	line-height: 17px;
+	margin: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.gwt-RazonSocialClienteBar .right {
+	float: right;
+	height: 17px;
+	width: 250px;
+	line-height: 17px;
+}
+
+.resumenSSTableWrapper,.detalleSSTableWrapper {
+	border-bottom: 1px #999 solid;
+	border-right: 1px #999 solid;
+	border-left: 1px #ccc solid;
+	border-top: 1px #ccc solid;
+	overflow: auto;
+	padding-right: 15px;
+	height: 100px;
+}
+
+.crearCuentaTabPanel {
+	margin: 16 0 40 0px;
+}
+
+.floatRight,.exportarExcelSS {
+	float: right;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.fontNormalGris {
+	text-align: left;
+	font-weight: normal;
+	color: gray;
+}
+
+.verazRechazar {
+	background-color: #FE003E;
+	color: #FFFFFF;
+	margin-left: 27px;
+	width: 90px;
+}
+
+.verazRevisar {
+	background-color: #FFC000;
+	color: #FFFFFF;
+	margin-left: 27px;
+	width: 90px;
+}
+
+.verazAceptar {
+	background-color: #CAE8A9;
+	color: #189D21;
+	margin-left: 27px;
+	width: 90px;
+}
+
+.gwt-ItemSolicitudDialog .topBar {
+	border-bottom: 1px #CCC solid;
+	padding: 5px;
+	margin-bottom: 5px;
+	background-image: url(../images/sch_bkg.gif);
+	background-repeat: repeat-x;
+	height: 25px;
+	width: 520px;
+}
+
+.reservaTelefonoWrapper {
+	height: 100px;
+	width: 120;
+	margin-top: 20px;
+	margin-left: 100px;
+	margin-right: 100px;
+	margin-bottom: 20px;
+	overflow: auto;
+	border: 1px #CCC solid;
+}
+
+.reservaTelefonoWrapper TD {
+	text-align: center;
+}
+
+.gwt-CerrarSSDialog .cierreExitosoTable {
+	border: #ccc 1px solid;
+}
+
+SPAN.error {
+	color: red;
+}
+
+SPAN.warn {
+	color: #FFA500;
+}
+
+SPAN.info {
+	color: #000;
+}
+
+.numeroResultadosLabel {
+	font-weight: normal;
+}
+
+.oppEnCursoTitulosLabel {
+	color: #0669E0;
+	font-weight: bold;
+	margin: 4px 0;
+	width: 100%;
+}
+
+.oppEnCursoCantLabel {
+	color: gray;
+	font-weight: normal;
+	margin-left: 5px;
+}
+
+.infocomSimpleLink {
+	text-decoration: underline;
+}
+
+.infocomTituloLabel {
+	color: #0669E0;
+}
+
+.infocomDescripcionTable {
+	border-right: 1px solid #EBEBEB;
+	border-bottom: 1px solid #EBEBEB;
+	height: 24px;
+	text-align: left;
+}
+
+.oppDebugFont {
+	color: white;
+	font-weight: normal;
+}
+
+.gwt-TextBox-readonly,.gwt-TextArea-readonly {
+	background-color: #DEDEDE;
+	color: #000000;
+	cursor: default;
+}
+
+input[disabled],input[readonly],select[disabled],select[readonly],checkbox[disabled],checkbox[readonly],textarea[disabled],textarea[readonly]
+	{
+	background-color: #DEDEDE;
+	color: #000000;
+	cursor: default;
+}
+
+.dataTableInfocom td {
+	border-right: 1px solid #EBEBEB;
+	border-bottom: 1px solid #EBEBEB;
+	height: 24px;
+}
+
+.msgNoNormalizado {
+	color: #0669E0;
+}
+
+.fontNormal {
+	font-weight: normal;
+	margin-left: 5;
+}
+
+.botonLiberarTel,.botonReservarTel {
+	margin-left: 10px;
+	width: 22;
+	height: 21;
+	border: none;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: 0 0; 
+	cursor: pointer;
+}
+
+.botonLiberarTel {
+	background-image: url("../images/btn-icon-liberar.gif");
+}
+
+.botonReservarTel {
+	color: #0669E0;
+	font-weight: 600;
+	font-size: 11px;
+	background-image: url("../images/btn-ok.gif");
+}
+
+.fondoGris {
+	background-color: #DADADA;
+}
+/*.table-external {
+border:1px solid gray;
+clear:left;
+margin:8px;
+}*/
+
+.htmlTituloAreaCuentaNotas {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	height: 20px;
+	width: 98%;
+	white-space: normal;
+	overflow: auto;
+	border: 1px solid #BCBCBC;
+	background-color: #ECEBEB;
+}
+
+.htmlComentarioAreaCuentaNotas {	
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	height: 80px;
+	width: 98%;
+	white-space: normal;
+	overflow: auto;
+	border: 1px solid #BCBCBC;
+	background-color: #ECEBEB;
+}
+
+.gwt-DescuentoDialog .panel {
+	height:190px;
+	width:300px;
+}
+
+.gwt-DescuentoDialog .textBoxDesc {
+	margin-left: 20px;
+	width: 140px;
+}
+
+.gwt-DescuentoDialog .labelDesc {
+	margin-top: 10px;
+	margin-left: 5px;
+	font-weight: bold; 
+}
+
+.gwt-DescuentoDialog .tableDesc {
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+.gwt-DescuentoDialog td {
+	vertical-align: top;
+}
+
+.mensajeEvento {
+	color: white;
+	background-color: red;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0px 5px 2px;
+	
+}
+
+
+.popupTitulo {
+	margin-top: 0px !IMPORTANT;
+	margin-left: 0px !IMPORTANT;
+	margin-right: 0px !IMPORTANT;
+	vertical-align: middle;
+	background-color: #006AA4;
+	background-repeat: repeat-x;
+	text-indent: 5px;
+	line-height: 25px ! IMPORTANT;
+	color: #FFFFFF;
+	font-family: Arial,Verdana, Geneva, Kalimati, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	border:5px gray solid;
+}
+
+
+.popupTitulo .dialogTopCenterInner {
+	margin-left:4px;
+}
+
+.popupContenido {
+	background: #A4CDDF;color:black; padding: 10px;
+}
+
+/* Estilos utilizados con tag div para separar dos paneles */
+.clear5 { clear:both; height:5px}
+.clear10 { clear:both; height:10px}
+.clear20 { clear:both; height:20px}
+
+
+.tablaControles td { padding-right: 5px; padding-bottom: 1px; padding-top: 1px}
+
+.popUPContainer {
+/* 	width:600px; */
+/* 	height:550px; */
+/* 	border:1px solid  #A4CDDF; */
+	background-color:#002A55; 
+	border:2px gray solid; 
+	
+/* 	opacity: 0.9; */
+/* 	padding: 10px; */
+}
+
+
+.popupDiv
+{
+	background: #A4CDDF;
+	color:black; 
+	padding: 10px;
+	height:150px;
+	overflow-y: scroll;
+}
+
+
+.popupDivNoScroll
+{
+	background: #A4CDDF;
+	color:black; 
+	padding: 10px;	
+	overflow:none;
+}
+
+.divNoScroll{
+	overflow:none;
+}
+.divScroll{
+	overflow-y: scroll;
+}
+
+.dialogMiddleCenter td {
+	background-color:#A4CDDF;
+/* 	background-color:#006AA4; */
+}
+
+
+.dialogMiddleCenter .header td {
+/* 	background-color:#A4CDDF; */
+	background-color:#006AA4;
+}
+
+.colorCuotaSocialDeuda {
+	background-color: red;
+	color: white;
+	font-weight: bold;
+}
+
+.colorDiasUltimoPago {
+	color: red;
+	background-color:#A4CDDF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 0px 5px 2px;
+}
+
+.formulario td {
+	padding-top:2px;
+	padding-bottom:2px;
+}
+
+
+.avisoOperaciones .gwt-Label{
+	background-color: rgb(255, 133, 0);
+    font-size: 14px;
+    font-weight: normal;
+    padding: 8px 5px;
+    margin-bottom: 5px;
+    color: rgb(255, 255, 255);
+    text-align: left;
+}
+
+.lineaDatoPersonal {
+	with:100%;
+}
+
+.lineaDatoPersonal div{
+    float: left;
+    padding-top: 1px;
+}
+.contenedorComportamientoPago {
+    width: 45%;
+    float: none;
+}
+.contenedorDatosPersonales {
+    width: 45%;
+    float: none;
+}
+
+
+.gwt-DialogBox {
+	z-index: 2147483647;
+}
+

@@ -1,0 +1,253 @@
+package ar.com.cristal.creditos.client;
+
+import ar.com.cristal.creditos.client.accesibilidad.PerfilesCRUDView;
+import ar.com.cristal.creditos.client.creditos.aprobaciones.depositos.ListadoSolicitudDepositoView;
+import ar.com.cristal.creditos.client.creditos.aprobaciones.peticiones.ListadoSolicitudAprobacionView;
+import ar.com.cristal.creditos.client.creditos.emision.CalculoSolicitudCreditosPlace;
+import ar.com.cristal.creditos.client.creditos.emision.CalculoSolicitudCreditosView;
+import ar.com.cristal.creditos.client.creditos.lineasdecredito.crud.LineasDeCreditoCRUDView;
+import ar.com.cristal.creditos.client.legales.seguimiento.SeguimientoView;
+import ar.com.cristal.creditos.client.service.CreditosRPCService;
+import ar.com.cristal.creditos.client.service.CreditosRPCServiceAsync;
+import ar.com.cristal.creditos.client.service.GeneradorReporteRPCService;
+import ar.com.cristal.creditos.client.service.GeneradorReporteRPCServiceAsync;
+import ar.com.cristal.creditos.client.service.UsuarioRPCService;
+import ar.com.cristal.creditos.client.service.UsuarioRPCServiceAsync;
+import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventService;
+import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
+import ar.com.cristal.creditos.client.ui.MenuView;
+import ar.com.cristal.creditos.client.ui.event.DocumentoGeneradoEvent;
+import ar.com.cristal.creditos.client.ui.home.HomePlace;
+import ar.com.cristal.creditos.client.ui.home.HomeView;
+import ar.com.cristal.creditos.client.ui.producto.GeneradorDocumentoView;
+import ar.com.cristal.creditos.client.ui.producto.ProductoView;
+import ar.com.cristal.creditos.client.ui.usuarios.abm.AltaEdicionUsuarioPlace;
+import ar.com.cristal.creditos.client.ui.usuarios.abm.AltaEdicionUsuarioView;
+import ar.com.cristal.creditos.client.ui.usuarios.listado.ListadoUsuariosView;
+import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
+import ar.com.cristal.creditos.client.widget.PopUpInfoPlace;
+import ar.com.cristal.creditos.client.widget.PopUpInfoView;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.place.shared.PlaceController;
+
+public class ClientFactoryImpl implements ClientFactory {
+	
+	private static ClientFactoryImpl instance = null; 
+	
+	public static final ClientFactoryImpl getClientFactoryImpl(){
+		if (instance == null) instance = GWT.create(ClientFactoryImpl.class);
+		
+		return instance;
+	}
+
+    private final EventBus eventBus = new SimpleEventBus();
+    private final PlaceController placeController = new PlaceController(eventBus);
+    
+    private GeneradorDocumentoView generadorDocumentoView = null;
+    private ProductoView productoView = null;
+    private HomeView homeView = null;
+    private SeguimientoView seguimientoView  = null;
+    private MenuView menuView = null;
+    private CalculoSolicitudCreditosView calculoSolicitudCreditosView = null;
+    private LineasDeCreditoCRUDView lineasDeCreditoCRUD = null;
+    private ListadoSolicitudAprobacionView listadoSolicitudAprobacionView = null;
+    private ListadoSolicitudDepositoView listadoSolicitudDepositoView = null;
+    private PopUpInfoView popUpInfoView = null;
+    private AltaEdicionUsuarioView altaEdicionUsuarioView = null;
+    private ListadoUsuariosView listadoUsuariosView = null;
+    private PerfilesCRUDView perfilesCRUDView;
+    
+    //Util
+    private PopUpInfo popUpInfo = null;
+    
+	
+    //Place
+    private HomePlace homePlace = null;
+    private CalculoSolicitudCreditosPlace calculoSolicitudCreditosPlace = null;
+    private PopUpInfoPlace popUpInfoPlace = null;
+    private AltaEdicionUsuarioPlace altaEdicionUsuarioPlace;
+    
+    //Services
+    private final GeneradorReporteRPCServiceAsync generadorReporteService = GWT.create(GeneradorReporteRPCService.class);
+    
+    private final DefaultRemoteEventServiceAsync defaultRemoteEventServiceAsync = DefaultRemoteEventService.Util.getInstance();    
+    
+    private final DocumentoGeneradoEvent documentoGeneradoEventService = DocumentoGeneradoEvent.Util.getInstance();
+    
+    private  CreditosRPCServiceAsync creditosService = null;
+    
+    private UsuarioRPCServiceAsync usuarioService = null;
+	private  PerfilesCRUDView perfilesCrud=null;
+	
+	
+
+    public EventBus getEventBus() {
+        return eventBus;
+    }
+
+	public PlaceController getPlaceController() {
+		return placeController;
+	}
+
+	
+	/****************************************************
+	 * Places
+	 ****************************************************/
+	
+	public HomePlace getHomePlace() {
+		if (homePlace == null) homePlace = new HomePlace("");
+		return homePlace;
+	}
+
+	
+	public CalculoSolicitudCreditosPlace getCalculoSolicitudCreditosPlace(String token) {
+		if (calculoSolicitudCreditosPlace == null) calculoSolicitudCreditosPlace = new CalculoSolicitudCreditosPlace(token);
+		calculoSolicitudCreditosPlace.setToken(token);
+		return calculoSolicitudCreditosPlace;
+	}
+
+	 public PopUpInfoPlace getPopUpInfoPlace() {
+		 if (popUpInfoPlace == null) popUpInfoPlace = new PopUpInfoPlace("");		 	
+			return popUpInfoPlace;
+		}
+	 
+	 public AltaEdicionUsuarioPlace getAltaEdicionUsuarioPlace(String token) {
+		 if (altaEdicionUsuarioPlace == null) altaEdicionUsuarioPlace = new AltaEdicionUsuarioPlace(token);
+		 altaEdicionUsuarioPlace.setToken(token);
+			return altaEdicionUsuarioPlace;
+		}
+
+	
+	
+	
+	/****************************************************
+	 * Vistas
+	 ****************************************************/
+
+	public ProductoView getProductoView() {
+		if (productoView == null) productoView = new ProductoView();
+		return productoView;
+	}
+	
+	
+	public GeneradorDocumentoView getGeneradorDocumentoView() {
+		if (generadorDocumentoView == null) generadorDocumentoView = new GeneradorDocumentoView();
+		return generadorDocumentoView;
+	}
+	
+
+	public SeguimientoView getSeguimientoView() {
+		if (seguimientoView == null) seguimientoView = new SeguimientoView();
+		return seguimientoView;
+	}
+	
+	public MenuView getMenuView() {
+		if (menuView == null) menuView = new MenuView();
+		return menuView;
+	}
+	
+	public LineasDeCreditoCRUDView getLineasDeCreditoCRUDView() {
+		if (lineasDeCreditoCRUD == null) lineasDeCreditoCRUD = new LineasDeCreditoCRUDView();
+		return lineasDeCreditoCRUD;
+	}
+	
+	public CalculoSolicitudCreditosView getCalculoSolicitudCreditosView() {
+		if (calculoSolicitudCreditosView == null) calculoSolicitudCreditosView = new CalculoSolicitudCreditosView();
+		return calculoSolicitudCreditosView;
+	}
+	
+	public HomeView getHomeView() {
+		if (homeView == null) homeView = new HomeView();
+		return homeView;
+	}
+
+	public PopUpInfoView getPopUpInfoView() {
+		if (popUpInfoView == null) popUpInfoView = new PopUpInfoView();
+		return popUpInfoView;
+		
+	}
+	
+	public ListadoSolicitudAprobacionView getListadoSolicitudAprobacionView() {
+		if (listadoSolicitudAprobacionView == null) listadoSolicitudAprobacionView = new ListadoSolicitudAprobacionView();
+		return listadoSolicitudAprobacionView;
+	}
+	
+	public ListadoSolicitudDepositoView getListadoSolicitudDepositoView() {
+		if (listadoSolicitudDepositoView == null) listadoSolicitudDepositoView = new ListadoSolicitudDepositoView();
+		return listadoSolicitudDepositoView;
+	}
+	public AltaEdicionUsuarioView getAltaEdicionUsuarioView() {
+		
+		if (altaEdicionUsuarioView == null) altaEdicionUsuarioView = new AltaEdicionUsuarioView();
+		return altaEdicionUsuarioView;
+	}
+
+	
+	public ListadoUsuariosView getListadoUsuariosView() {
+		if (listadoUsuariosView == null) listadoUsuariosView = new ListadoUsuariosView();
+		return listadoUsuariosView;
+	}
+	
+//	public PerfilesCRUDView getPerfilesView() {
+//		if (perfilesCRUDView == null) perfilesCRUDView = new PerfilesCRUDView();
+//		return perfilesCRUDView;
+//	}
+	
+//	public ListadoSolicitudDepositoView getListadoSolicitudDepositoView() {
+//		if (listadoSolicitudDepositoView == null) listadoSolicitudDepositoView = new ListadoSolicitudDepositoView();
+//		return listadoSolicitudDepositoView;
+//	}
+	/****************************************************
+	 * Servicios
+	 ****************************************************/
+	
+	public GeneradorReporteRPCServiceAsync getGeneradorReporteService() {
+		return generadorReporteService;
+	}
+
+	public DocumentoGeneradoEvent getDocumentoGeneradoEventService() {
+		return documentoGeneradoEventService;
+	}
+
+	public DefaultRemoteEventServiceAsync getDefaultEventService() {
+		return defaultRemoteEventServiceAsync;
+	}
+
+	
+
+	public CreditosRPCServiceAsync getCreditosService() {
+		if(creditosService == null) creditosService = GWT.create(CreditosRPCService.class);
+		return creditosService;
+	}
+
+	public PopUpInfo getPopUp() {
+		if (popUpInfo == null) popUpInfo = new PopUpInfo(this);
+		return popUpInfo;
+	}
+
+	
+	public UsuarioRPCServiceAsync getUsuarioService() {
+		if(usuarioService == null) usuarioService = GWT.create(UsuarioRPCService.class);
+		return usuarioService;
+	}
+
+	public PerfilesCRUDView getPerfilesView() {
+		if (perfilesCrud == null) perfilesCrud = new PerfilesCRUDView();
+		return perfilesCrud;
+	}
+
+
+	
+
+
+
+
+	
+	
+    
+	
+	
+}

@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cobranza cuotas mensuales" pageWidth="870" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="870" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="23ea2582-5828-4a71-b34b-f88090360e17">
+	<property name="ireport.zoom" value="1.1269722013523664"/>
+	<property name="ireport.x" value="429"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<parameter name="fechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     Cliente.`id` AS nroCliente,
+     concat(Cliente.`apellido`, ', ',
+     Cliente.`nombre`) AS nombreCliente,
+     Credito.`montoFinal` AS importeCredito,
+     SolicitudAprobacionCredito.`cantidadCuotasSolicitadas` AS cantidadCuotas,
+     Pago.fechaPago AS fechaCobro,
+     (CASE Pago.conceptoPago when "PAGO_PARCIAL_DE_CUOTA" then Pago.monto else 0 END) AS importeCuota,
+     ROUND((CASE Pago.conceptoPago when "PAGO_PARCIAL_DE_CUOTA" then (Pago.monto/Cuota.montoCuota) * Cuota.`capital` else 0 END),2) AS capital,
+	 ROUND((CASE Pago.conceptoPago when "PAGO_PARCIAL_DE_CUOTA" then
+		(CASE Credito.`tipoCredito` WHEN "VIVIENDA" THEN (Pago.monto/Cuota.montoCuota) * (Cuota.`montoCuota` -  Cuota.`capital`) ELSE
+			((Pago.monto/Cuota.montoCuota) * (Cuota.`montoCuota` -  Cuota.`capital`) / 1.21) END)
+		 ELSE 0  END),2)    AS interes,
+     ROUND((CASE Pago.conceptoPago when "PAGO_PUNITORIO" then Pago.monto else 0 END),2) AS punitorio,
+     Credito.`tipoCredito` AS tipoCredito,
+     concat (Comercializador.`apellido`, ', ', Comercializador.`nombre`) AS comercializador,
+     Provincia.`nombre` AS provincia,
+     Localidad.`Nombre` AS localidad,
+     Empresa.`nombre` AS emprendimiento,
+     Pago.`tipoMedioPago` AS formaPago,
+    SolicitudAprobacionCredito.sucursal AS sucursal,
+     Sucursal.nombre as sucursalPago
+FROM
+       `Cliente` Cliente
+       INNER JOIN `Credito` Credito ON Cliente.`id` = Credito.`cliente_id`
+       INNER JOIN `SolicitudAprobacionCredito` SolicitudAprobacionCredito ON Credito.`solicitudAprobacionCredito_id` = SolicitudAprobacionCredito.`id`
+       INNER JOIN `Localidad` Localidad ON Cliente.`localidad_id` = Localidad.`id`
+       INNER JOIN `Cuota` Cuota ON Credito.`id` = Cuota.`credito_id`
+       LEFT JOIN `Comercializador` Comercializador ON Credito.`idComercializador` = Comercializador.`id`
+       INNER JOIN `Provincia` Provincia ON Localidad.`provincia_id` = Provincia.`id`
+       INNER JOIN `Empresa` Empresa ON Credito.`empresa_id` = Empresa.`id`
+       INNER JOIN `Pago` Pago ON Cuota.`id` = Pago.`cuota_id`
+       left JOIN Sucursal on Sucursal.id =Pago.sucursal_id
+  WHERE Pago.fechaPago >=$P{fechaDesde} AND DATE(Pago.fechaPago) <= $P{fechaHasta} AND
+  (Pago.conceptoPago = "PAGO_PARCIAL_DE_CUOTA" OR Pago.conceptoPago = "PAGO_PUNITORIO")
+
+union
+
+SELECT
+     c.id AS nroCliente,
+     concat(c.apellido, ', ', c.nombre) AS nombreCliente,
+	 cred.monto AS importeCredito,
+	 cred.cantidadCuotas  AS cantidadCuotas,
+	 PagoConvenio.fechaPago AS fechaCobro,
+     Cuota.montoCuota as importeCuota,
+	 ROUND(Cuota.montoCuota * 0.95,2) as capital,
+	 ROUND(Cuota.montoCuota * 0.05, 2) as interes,
+     0.0 as punitorios,
+     'CONVENIO' as tipoCredito,
+	 'N/A' as comercializador,
+	 Provincia.nombre as provincia,
+	Localidad.nombre as localidad,
+Empresa.nombre AS emprendimiento,
+	'EFECTIVO' AS formaPago,
+	 Sucursal.nombre as sucursal,
+	 Sucursal.nombre as sucursalPago
+FROM Cliente c
+     INNER JOIN ConvenioExtrajudicial cred ON c.id = cred.cliente_id
+     INNER JOIN Localidad Localidad ON c.localidad_id = Localidad.id
+	 INNER JOIN Provincia ON Localidad.provincia_id = Provincia.id
+     INNER JOIN CuotaConvenio Cuota ON cred.id = Cuota.convenioExtrajudicial_id
+     INNER JOIN Empresa Empresa ON Empresa.id = cred.empresa_id
+     INNER JOIN PagoConvenio PagoConvenio  ON Cuota.id =  PagoConvenio.cuotaConvenio_id
+     left JOIN Sucursal on Sucursal.id =PagoConvenio.sucursal_id
+WHERE date(PagoConvenio.fechaPago) >=  $P{fechaDesde}AND DATE(PagoConvenio.fechaPago) <= $P{fechaHasta}]]>
+	</queryString>
+	<field name="nroCliente" class="java.lang.Long"/>
+	<field name="nombreCliente" class="java.lang.String"/>
+	<field name="importeCredito" class="java.lang.Double"/>
+	<field name="cantidadCuotas" class="java.lang.Integer"/>
+	<field name="fechaCobro" class="java.sql.Timestamp"/>
+	<field name="importeCuota" class="java.lang.Double"/>
+	<field name="capital" class="java.lang.Double"/>
+	<field name="interes" class="java.lang.Double"/>
+	<field name="punitorio" class="java.lang.Double"/>
+	<field name="tipoCredito" class="java.lang.String"/>
+	<field name="comercializador" class="java.lang.String"/>
+	<field name="provincia" class="java.lang.String"/>
+	<field name="localidad" class="java.lang.String"/>
+	<field name="emprendimiento" class="java.lang.String"/>
+	<field name="formaPago" class="java.lang.String"/>
+	<field name="sucursal" class="java.lang.String"/>
+	<field name="sucursalPago" class="java.lang.String"/>
+	<variable name="totalImporteCredito" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{importeCredito}]]></variableExpression>
+	</variable>
+	<variable name="totalImporteCuota" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{importeCuota}]]></variableExpression>
+	</variable>
+	<variable name="totalCapital" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{capital}]]></variableExpression>
+	</variable>
+	<variable name="totalInteres" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{interes}]]></variableExpression>
+	</variable>
+	<variable name="totalPunitorio" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{punitorio}]]></variableExpression>
+	</variable>
+	<variable name="totalIvaInteres" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tipoCredito}.equals( "VIVIENDA" ) ? 0.0 : $F{interes} * 0.21]]></variableExpression>
+	</variable>
+	<variable name="totalIvaPunitorio" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tipoCredito}.equals( "VIVIENDA" ) ? 0.0 : $F{punitorio} * 0.21]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="53d13bc0-298a-4e5e-b126-6e3da774fc5b" mode="Opaque" x="0" y="0" width="956" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COBRANZAS CUOTAS MENSUALES - Liquidacion IIBB - IVA - Tasas municipales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f2974fdd-0a04-4009-b0c7-3cf4bb7bbcc1" mode="Opaque" x="0" y="14" width="27" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="82834ad2-2643-4681-be50-63ecd3272fc0" mode="Opaque" x="27" y="14" width="929" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fcd779d7-ab91-42ce-827a-5a95f924a8d1" mode="Opaque" x="0" y="28" width="27" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="3dcb0e0f-e054-4031-b365-a9c1927298d5" mode="Opaque" x="27" y="28" width="929" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0294250e-8222-462c-a469-bf8dcd0f5f68" mode="Opaque" x="0" y="0" width="27" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[N° Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8792f816-5b43-40d5-876d-88945eccabd2" mode="Opaque" x="27" y="0" width="110" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d7db2364-cb2b-4f2d-8f04-d32034a7b590" mode="Opaque" x="269" y="0" width="30" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Capital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="34d15f06-1b42-4565-be6a-0d0b17b1d9e9" mode="Opaque" x="299" y="0" width="30" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Interes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="488850d9-8b5a-431c-a5e9-962832692d08" mode="Opaque" x="549" y="0" width="75" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Provincia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="017db24e-baca-48e1-a732-1835f898dcc7" mode="Opaque" x="624" y="0" width="75" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Localidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a1249257-7454-4726-b04b-264590efa07c" mode="Opaque" x="699" y="0" width="75" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Emprendimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5d800bc-5998-41d3-a893-877419ea9314" mode="Opaque" x="137" y="0" width="35" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Importe crédito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0ea43f1-4609-44e0-9f17-eb7957d43289" mode="Opaque" x="384" y="0" width="25" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[I.V.A. Punit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="727a7793-f705-487a-ba22-f078c3dd7e25" mode="Opaque" x="329" y="0" width="30" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Punit.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="43f482e0-6ad1-4a04-976e-066a8948acfe" mode="Opaque" x="409" y="0" width="30" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Tipo credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="08284779-2624-454d-8468-f485eaad5332" mode="Opaque" x="439" y="0" width="110" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Comercializador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a9001c91-7cd6-43f3-86de-52cfa97886d2" mode="Opaque" x="172" y="0" width="25" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Cant. cuotas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="acab276f-5b36-4552-b959-a5411e28d7e4" mode="Opaque" x="197" y="0" width="42" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha cobro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="447032f7-b4ed-459c-8757-ff93cbe32c6d" mode="Opaque" x="239" y="0" width="30" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Importe cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="43024f06-0969-4989-88b9-77d60ad7c080" mode="Opaque" x="359" y="0" width="25" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[I.V.A. Int.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8649d07d-9b47-47a7-9741-82c13d9d2faf" mode="Opaque" x="774" y="0" width="28" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Forma pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8649d07d-9b47-47a7-9741-82c13d9d2faf" mode="Opaque" x="888" y="0" width="68" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Sucursal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8649d07d-9b47-47a7-9741-82c13d9d2faf" mode="Opaque" x="802" y="0" width="86" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Sucursal Pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="69f93703-6394-47d4-8f06-715c121da3e4" x="0" y="0" width="27" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroCliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b1f42fd2-15e7-4aa8-bece-d4e97a6ad5c7" x="27" y="0" width="110" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="0cdf34b8-b87e-41a0-8bd6-cc704c95105b" x="137" y="0" width="35" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importeCredito}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="e46ad5a7-36d4-4ba9-a89f-5223cef4073b" x="299" y="0" width="30" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{interes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="131eba3e-7984-4769-8788-0bd7541a48ae" x="359" y="0" width="25" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoCredito}.equals( "VIVIENDA" ) ? 0.0 : $F{interes} * 0.21]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="52006e56-1b61-4262-b5b3-9b0d05f8e104" x="549" y="0" width="75" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provincia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="aac2ddfa-ddea-4d8d-8f91-fdfd6828eacc" x="624" y="0" width="75" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{localidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="11fc1079-6748-4a9d-86b2-6776aca847cb" x="699" y="0" width="75" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emprendimiento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="1d370e7f-27c6-4244-a978-71ea4b29d070" x="269" y="0" width="30" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{capital}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="4e78d45d-c920-497e-a2be-a7dfbcc3d1ec" x="329" y="0" width="30" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{punitorio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="1eee6eb5-1394-4a3b-a28d-6b1c94ea08a6" x="384" y="0" width="25" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoCredito}.equals( "VIVIENDA" ) ? 0.0 : $F{punitorio} * 0.21]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0b3bbc4a-4165-471a-9ea0-3d730aefc1a7" x="409" y="0" width="30" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoCredito}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="704f1d5e-314b-4c44-bcfe-9f2015352b97" x="172" y="0" width="25" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadCuotas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="1281335c-7da7-4387-9b27-6ee59f09db86" x="197" y="0" width="42" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaCobro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="84fc40b4-4cf8-4be2-9571-3aee09be0394" x="239" y="0" width="30" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importeCuota}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1aedaa87-40b8-4750-8ab7-a6e56dcd5cda" x="439" y="0" width="110" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comercializador}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="04822d55-60ea-4701-aed4-1bd9ef72bcff" x="774" y="0" width="28" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{formaPago}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="04822d55-60ea-4701-aed4-1bd9ef72bcff" x="888" y="0" width="68" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sucursal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="04822d55-60ea-4701-aed4-1bd9ef72bcff" x="802" y="0" width="86" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sucursalPago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement uuid="38c7c93a-0a19-41ba-a09f-a4fd786beef8" mode="Opaque" x="0" y="0" width="137" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="eb940af5-3e2f-4f74-8e42-064b2f20d681" x="137" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalImporteCredito}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="5e094a8a-2680-4e06-87b2-e37e7db935f3" x="269" y="0" width="30" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCapital}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="6f49c096-95ce-4544-8a62-dd972137572c" x="299" y="0" width="30" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalInteres}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="e93e792c-f803-4622-83a5-9b94654fa7cf" x="359" y="0" width="25" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalIvaInteres}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="10a4d354-3190-44ee-bc4e-a79e6643692a" x="329" y="0" width="30" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPunitorio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="f5479a97-619f-432a-8cae-d024ca55d456" x="384" y="0" width="25" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalIvaPunitorio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="38325025-2eed-47d2-be1c-9ef1dffb6a23" x="239" y="0" width="30" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalImporteCuota}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ff142ecb-40c9-4145-969e-c5c7e4d6db8c" mode="Opaque" x="172" y="0" width="67" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="53c3844d-1e84-43de-afb9-b9353e115599" mode="Opaque" x="409" y="0" width="547" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

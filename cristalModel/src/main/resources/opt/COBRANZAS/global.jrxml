@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Global" pageWidth="1352" pageHeight="842" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1352" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<style name="style1"/>
+	<parameter name="fechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     Cliente.`id` AS Cliente_id,
+     CONCAT(Cliente.`apellido`,", ", Cliente.`nombre`) AS Cliente_apellidoynombre,
+     Cliente.`condicionMorosidad` AS Cliente_condicionMorosidad,
+     Cliente.`estado` AS Cliente_estado,
+     Cliente.`fechaNacimiento` AS Cliente_fechaNacimiento,
+     Cliente.`sexo` AS Cliente_sexo,
+     Credito.`id` AS Credito_id,
+     Credito.`estado` AS Credito_estado,
+     Credito.`fechaCreacion` AS Credito_fechaCreacion,
+     Credito.`montoFinal` AS Credito_montoFinal,
+     Credito.`tipoCredito` AS Credito_tipoCredito,
+     Credito.`pagoVoluntario` AS Credito_pagoVoluntario,
+     Cuota.`estado` AS Cuota_estado,
+     Cuota.`fechaPago` AS Cuota_fechaPago,
+     Cuota.`fechaVencimiento` AS Cuota_fechaVencimiento,
+     Cuota.`montoCuota` AS Cuota_montoCuota,
+     Cuota.`montoPunitorio` AS Cuota_montoPunitorio,
+     Cuota.`nroCuota` AS Cuota_nroCuota,
+     SolicitudAprobacionCredito.`sucursal` AS SolicitudAprobacionCredito_sucursal,
+     SolicitudAprobacionCredito.`tipoEmpleo` AS SolicitudAprobacionCredito_tipoEmpleo,
+     SolicitudAprobacionCredito.`tipoSolicitud` AS SolicitudAprobacionCredito_tipoSolicitud,
+     CONCAT(Comercializador.`apellido`, ", ", Comercializador.`nombre`) AS Comercializador_apellidoynombre,
+     Localidad.`nombre` AS Localidad_nombre,
+     Reparticion.`nombre` AS Reparticion_nombre,
+     Empresa.`nombre` AS Empresa_nombre
+FROM
+     `Cliente` Cliente INNER JOIN `Credito` Credito ON Cliente.`id` = Credito.`cliente_id`
+     INNER JOIN `Cuota` Cuota ON Credito.`id` = Cuota.`credito_id`
+     INNER JOIN `SolicitudAprobacionCredito` SolicitudAprobacionCredito ON Credito.`solicitudAprobacionCredito_id` = SolicitudAprobacionCredito.`id`
+     LEFT JOIN `Comercializador` Comercializador ON Credito.`idComercializador` = Comercializador.`id`
+     INNER JOIN `Empresa` Empresa ON Credito.`empresa_id` = Empresa.`id`
+     INNER JOIN `Localidad` Localidad ON Cliente.`localidad_id` = Localidad.`id`
+     INNER JOIN `Reparticion` Reparticion ON Cliente.`reparticion_id` = Reparticion.`id`
+WHERE
+     Credito.`fechaCreacion` > $P{fechaDesde} AND
+     DATE(Credito.`fechaCreacion`) <= $P{fechaHasta}
+ORDER BY
+     Credito.fechaCreacion, Credito.id, Cliente.id, Cuota.nroCuota]]>
+	</queryString>
+	<field name="Cliente_id" class="java.lang.Long"/>
+	<field name="Cliente_apellidoynombre" class="java.lang.String"/>
+	<field name="Cliente_fechaNacimiento" class="java.sql.Timestamp"/>
+	<field name="Cliente_sexo" class="java.lang.String"/>
+	<field name="Cliente_estado" class="java.lang.String"/>
+	<field name="Cliente_condicionMorosidad" class="java.lang.String"/>
+	<field name="SolicitudAprobacionCredito_tipoEmpleo" class="java.lang.String"/>
+	<field name="Localidad_nombre" class="java.lang.String"/>
+	<field name="Reparticion_nombre" class="java.lang.String"/>
+	<field name="Credito_id" class="java.lang.Long"/>
+	<field name="Credito_estado" class="java.lang.String"/>
+	<field name="Credito_fechaCreacion" class="java.sql.Timestamp"/>
+	<field name="Credito_montoFinal" class="java.lang.Double"/>
+	<field name="Credito_tipoCredito" class="java.lang.String"/>
+	<field name="Credito_pagoVoluntario" class="java.lang.Boolean"/>
+	<field name="SolicitudAprobacionCredito_tipoSolicitud" class="java.lang.String"/>
+	<field name="SolicitudAprobacionCredito_sucursal" class="java.lang.String"/>
+	<field name="Cuota_nroCuota" class="java.lang.Integer"/>
+	<field name="Cuota_estado" class="java.lang.String"/>
+	<field name="Cuota_fechaPago" class="java.sql.Timestamp"/>
+	<field name="Cuota_fechaVencimiento" class="java.sql.Timestamp"/>
+	<field name="Cuota_montoCuota" class="java.lang.Double"/>
+	<field name="Cuota_montoPunitorio" class="java.lang.Double"/>
+	<field name="Comercializador_apellidoynombre" class="java.lang.String"/>
+	<field name="Empresa_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="1352" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTES - CRÉDITOS - CUOTAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="14" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="52" y="14" width="1300" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="28" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="52" y="28" width="1300" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Nro cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="52" y="0" width="104" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="156" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Fecha nacimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="208" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="260" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Estado (cliente)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="312" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Morosidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="364" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Tipo empleo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="416" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Localidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="468" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Reparticion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="520" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Nro credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="572" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Estado (credito)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="624" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Fecha credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="676" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="728" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Tipo credito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="780" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Pago voluntario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="832" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Otorgamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="884" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Sucursal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="936" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Nro cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="988" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Estado (cuota)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1040" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Fecha pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1092" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Fecha vencimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1144" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Monto cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1196" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Monto punitorio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1248" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Comercializador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1300" y="0" width="52" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement/>
+				<text><![CDATA[Emprendimiento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente_id}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="52" y="0" width="104" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente_apellidoynombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="156" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente_fechaNacimiento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="208" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente_sexo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="260" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente_estado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="312" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente_condicionMorosidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="364" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SolicitudAprobacionCredito_tipoEmpleo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="416" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Localidad_nombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="468" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Reparticion_nombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="520" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Credito_id}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="572" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Credito_estado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="624" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Credito_fechaCreacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="676" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Credito_montoFinal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="728" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Credito_tipoCredito}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="780" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Credito_pagoVoluntario}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="832" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SolicitudAprobacionCredito_tipoSolicitud}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="884" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SolicitudAprobacionCredito_sucursal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="936" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuota_nroCuota}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="988" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuota_estado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1040" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuota_fechaPago}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1092" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuota_fechaVencimiento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1144" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuota_montoCuota}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1196" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cuota_montoPunitorio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1248" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Comercializador_apellidoynombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1300" y="0" width="52" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Empresa_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

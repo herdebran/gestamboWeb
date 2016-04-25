@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Prejudiciales" pageWidth="1650" pageHeight="842" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1650" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="e5fb9a23-8093-470e-942b-b631fe3064ce">
+	<property name="ireport.zoom" value="1.1000000000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<style name="style1"/>
+	<parameter name="fechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nroCliente" class="java.lang.String"/>
+	<field name="nombreCliente" class="java.lang.String"/>
+	<field name="fechaCredito" class="java.util.Date"/>
+	<field name="montoCredito" class="java.lang.Double"/>
+	<field name="cuotas" class="java.lang.Integer"/>
+	<field name="montoCuota" class="java.lang.Double"/>
+	<field name="cantCuotasPagas" class="java.lang.Integer"/>
+	<field name="montoInteresesImpagos" class="java.lang.Double"/>
+	<field name="montoCuotasSocialesImpagas" class="java.lang.Double"/>
+	<field name="fechaUltimoPagoCuota" class="java.util.Date"/>
+	<field name="comportamiento" class="java.lang.String"/>
+	<field name="cantCreditosAnteriores" class="java.lang.Integer"/>
+	<field name="comercializador" class="java.lang.String"/>
+	<field name="reparticion" class="java.lang.String"/>
+	<field name="empresa" class="java.lang.String"/>
+	<field name="gastoCarta" class="java.lang.Double"/>
+	<field name="telefonos" class="java.lang.String"/>
+	<field name="fechaUltimoEnvioCarta" class="java.util.Date"/>
+	<variable name="totalMontoCredito" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoCredito}]]></variableExpression>
+	</variable>
+	<variable name="totalAPagar" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cuotas}*$F{montoCuota}]]></variableExpression>
+	</variable>
+	<variable name="totalPagoCuotas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoCuota}*$F{cantCuotasPagas}]]></variableExpression>
+	</variable>
+	<variable name="totalRestanteAPagar" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{montoCuota}*($F{cuotas}-$F{cantCuotasPagas})+$F{montoInteresesImpagos}+$F{montoCuotasSocialesImpagas}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="84a1f18a-6454-4db4-b383-0a11d2b03e3b" mode="Opaque" x="0" y="0" width="1611" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PREJUDICIALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d78cceb-f272-4dc0-8301-88af8c87d685" mode="Opaque" x="0" y="14" width="35" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="3ae9d49d-aed8-4372-9e0a-e21ee4307801" mode="Opaque" x="35" y="14" width="1576" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ef7d97af-254c-466e-b3e7-59e4252f8e9b" mode="Opaque" x="0" y="28" width="35" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1ff77791-ac02-4279-a095-c9052e2f69dd" mode="Opaque" x="35" y="28" width="1576" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ddc14cf2-effa-440c-b12a-c7c968af3099" mode="Opaque" x="0" y="0" width="35" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[N° Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="add5691d-5ba1-4608-ab57-b069a5cca831" mode="Opaque" x="35" y="0" width="160" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2e5085f6-2975-4129-9c88-adbe4653ae19" mode="Opaque" x="332" y="0" width="55" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Fecha crédito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6ab99ff8-e174-434a-bd24-73042954ab41" mode="Opaque" x="387" y="0" width="50" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Monto crédito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="713ae915-5a02-4efc-8124-9dced35cae07" mode="Opaque" x="437" y="0" width="35" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cuotas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6f64d646-fc73-4ff1-8065-040befff6dbf" mode="Opaque" x="472" y="0" width="40" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Monto cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="08e6d548-16c7-4f62-9276-54295297fe6e" mode="Opaque" x="512" y="0" width="50" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Total a pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b78b2e67-0c84-402f-a302-eada6e4bf398" mode="Opaque" x="562" y="0" width="30" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cant. pagas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ad6ac79-583d-43a1-874b-2be2036dc689" mode="Opaque" x="592" y="0" width="30" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cant. rest.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0dfc6b0b-727a-439f-ae02-b4cc2c0ce801" mode="Opaque" x="622" y="0" width="50" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Pago cuotas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b285f0ce-6e60-4d14-b7c3-7fc40fe74868" mode="Opaque" x="672" y="0" width="50" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Restante cuotas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="959e2899-3658-417a-b97b-ff57fe8b04b2" mode="Opaque" x="722" y="0" width="45" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Intereses impagos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eb1d24d5-3713-41e4-97a3-470aa8c36123" mode="Opaque" x="767" y="0" width="45" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[C. soc. impagas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="92d16988-59f5-48bc-9ca9-196743d36bec" mode="Opaque" x="847" y="0" width="50" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Restante  a pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d37f9b0-97be-4ae2-8c7d-21e4e51a799b" mode="Opaque" x="897" y="0" width="55" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Fecha ult. pago cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="60a57b59-d012-4ba9-a409-48264f189be9" mode="Opaque" x="952" y="0" width="80" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Comportamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51ed4ce0-0411-4965-90c0-0e861f05ff06" mode="Opaque" x="1032" y="0" width="39" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Créditos ant.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c6803f9e-0857-4839-ae30-956ed34a5bf0" mode="Opaque" x="1071" y="0" width="125" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Comercializador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="11cf3d82-930a-4eac-8a0e-6e441dd8e5ee" mode="Opaque" x="1196" y="0" width="160" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Repartición]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ee511c80-141f-4615-9ee4-2ebecf0ee8cb" mode="Opaque" x="1511" y="0" width="50" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Proceso jubilatorio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8bdb6440-1661-4f9b-b97e-0e0a9e19707d" mode="Opaque" x="1561" y="0" width="50" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Monto ejecución]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="66a44f89-ea33-4101-b1c7-9c3b0efd502f" mode="Opaque" x="1356" y="0" width="100" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Empresa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="92d16988-59f5-48bc-9ca9-196743d36bec" mode="Opaque" x="812" y="0" width="35" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Carta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12788671-8c16-4cd6-b0db-9253cbe32d7a" mode="Opaque" x="195" y="0" width="137" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Teléfonos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d37f9b0-97be-4ae2-8c7d-21e4e51a799b" mode="Opaque" x="1456" y="0" width="55" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Ult envío de carta]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e29f1a09-eca6-4942-8323-7bd36151b134" x="0" y="0" width="35" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroCliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa7be541-0ae6-4951-ba0e-9c5724ddf2d6" x="35" y="0" width="160" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cdf7ce98-123b-446e-ab27-9eb50226ddd8" x="387" y="0" width="50" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCredito}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42848a59-542f-4967-a53b-b9f253c1726e" x="437" y="0" width="35" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="715907f8-3f9d-451b-acda-97b0ab6c72c8" x="472" y="0" width="40" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCuota}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="440c6648-e549-4bc2-b567-99077dcff2fe" x="512" y="0" width="50" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotas}*$F{montoCuota}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1fb2ee17-e100-40d0-9c9c-546d176fadd5" x="562" y="0" width="30" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantCuotasPagas}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0" isBlankWhenNull="true">
+				<reportElement uuid="9e0407e6-0966-4a24-8ddb-ff259fa7973e" x="592" y="0" width="30" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuotas}-$F{cantCuotasPagas}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="440ba169-8b9c-4dde-b019-234cb2c3db6a" x="622" y="0" width="50" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCuota}*$F{cantCuotasPagas}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="9c941d38-1fdc-4fbf-9038-6c241921ecfe" x="672" y="0" width="50" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCuota}*($F{cuotas}-$F{cantCuotasPagas})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cd3c5416-4932-487b-a89b-a3d451d80ad9" x="722" y="0" width="45" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoInteresesImpagos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="71a8a7a2-4c5c-4920-8c68-08c073f61d0a" x="767" y="0" width="45" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCuotasSocialesImpagas}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="7b8a1c85-e463-4862-a662-0b5723bec0fd" x="847" y="0" width="50" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCuota}*($F{cuotas}-$F{cantCuotasPagas})+$F{montoInteresesImpagos}+$F{montoCuotasSocialesImpagas} + $F{gastoCarta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="a4e82a67-e6b9-4581-b7ce-5b50357f7f48" x="897" y="0" width="55" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaUltimoPagoCuota}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9a1c83bb-687a-4bf7-9c56-75b358fb2149" x="952" y="0" width="80" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comportamiento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="172ce20c-453c-4b5b-a6f3-5ca58d828a21" x="1032" y="0" width="39" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantCreditosAnteriores}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f444575e-ee9d-477c-a15f-4417a65498fd" x="1071" y="0" width="125" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comercializador}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="43a2ab9d-ea82-46f7-8ca0-73a5d015bab7" x="1196" y="0" width="160" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reparticion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6e9a2cfc-b3fb-4904-93c4-3a75f8baa95c" x="1356" y="0" width="100" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="c159646b-1c1e-4ef7-afb5-2bcb03f38efe" mode="Transparent" x="332" y="0" width="55" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaCredito}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="7b8a1c85-e463-4862-a662-0b5723bec0fd" x="812" y="0" width="35" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gastoCarta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa7be541-0ae6-4951-ba0e-9c5724ddf2d6" x="195" y="0" width="137" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefonos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="a4e82a67-e6b9-4581-b7ce-5b50357f7f48" x="1456" y="0" width="55" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaUltimoEnvioCarta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="16">
+			<staticText>
+				<reportElement uuid="38e9b259-4140-4394-a317-1fb5a1c2dbcf" mode="Opaque" x="0" y="0" width="35" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="06cca422-e9cd-4409-b8f1-e6c2dd537d2f" x="387" y="0" width="50" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalMontoCredito}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="630ec35e-3d3e-43de-b06e-c523e9972763" x="512" y="0" width="50" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalAPagar}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a1edf6ca-fb90-481c-abce-27b693b970ed" x="622" y="0" width="50" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalPagoCuotas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="97282be5-27f2-4425-896a-a20a9966a787" x="847" y="0" width="50" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalRestanteAPagar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

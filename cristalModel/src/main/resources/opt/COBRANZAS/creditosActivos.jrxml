@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Clientes Activos por Repartición" pageWidth="1002" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1002" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="dc19964f-5d0d-417d-9f22-8d7de72a1420">
+	<property name="ireport.zoom" value="1.1289478601075553"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<parameter name="fechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA["2013-03-03"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select sucursal, sum(cantidad) cantidad from
+(select * from
+(select sucursal, count(*)  cantidad from
+(select sol.sucursal, count(*) cantidad from Credito cred
+inner join SolicitudAprobacionCredito sol on sol.id = cred.solicitudAprobacionCredito_id
+where cred.estado = 'ACTIVO'
+and cred.pagoVoluntario = true
+group by cred.cliente_id, sol.sucursal) clientesSucursal
+group by sucursal
+) Creditos
+union
+select * from
+(select sucursal, count(*) cantidad from
+(Select cs.cliente_id, max(fechaPago), s.nombre sucursal from CuotaSocial cs
+inner join Cliente c on c.id = cs.cliente_id
+inner join Credito cred on cred.cliente_id = cs.cliente_id
+inner join Sucursal s on s.id = cs.sucursal_id
+where cred.estado != 'ACTIVO'
+and c.estado = 'ACTIVO'
+and s.nombre != 'La Plata'
+and s.nombre != 'Bancos'
+and s.nombre != 'Directorio'
+group by cs.cliente_id) ss
+group by sucursal
+) CuotaSocial
+) totalUnion
+group by sucursal]]>
+	</queryString>
+	<field name="sucursal" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3f7e3d62-4fc9-4f12-bd11-35b3d0587286" mode="Opaque" x="0" y="0" width="268" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Créditos Activos por Sucursal]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="50fab7a9-9c09-4899-a0cd-27cc565ed6e1" mode="Opaque" x="163" y="0" width="105" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12788671-8c16-4cd6-b0db-9253cbe32d7a" mode="Opaque" x="0" y="0" width="163" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Sucursal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cab70c8e-4c6c-4e5d-9dac-b0bee65fb38e" x="163" y="0" width="105" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="c30211df-d885-4dc1-8f6d-ebfc46b951f8" x="0" y="0" width="163" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sucursal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

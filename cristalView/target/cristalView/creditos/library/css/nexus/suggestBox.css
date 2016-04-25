@@ -1,0 +1,9 @@
+.gwt-SuggestBoxPopup {
+    background-color: #C4C4C4 ;
+    border: 1px solid gray;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.gwt-SuggestBoxPopup .item-selected {
+    background-color:#CCCCFF;
+}

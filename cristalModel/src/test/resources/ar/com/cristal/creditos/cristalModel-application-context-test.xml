@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="  
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  
+         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd  
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd  
+         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd  
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd" >
+
+ 	<context:annotation-config  /> 
+	
+	 
+	
+	<!--Scan de las clases-->
+	<context:component-scan  base-package="ar.com.cristal.creditos" />
+
+	<!--DataSources-->
+	<import resource="cristalModel-datasources-test.xml" />
+	
+	<!--Configuracion de Spring Hibernate-->
+	<import resource="cristalModel-spring-config-test.xml" />
+	
+		
+<!-- 	Configuracion de propiedades BD -->
+<!-- 	<import resource="cristalModel-properties-config.xml" /> -->
+
+	
+	<!--Configuracion de servicios-->
+	<import resource="cristalModel-services-config.xml" />
+	
+	<!--Configuracion de Tareas Quartz -->
+	<import resource="cristalModel-Jobs.xml" />
+	
+</beans>
+

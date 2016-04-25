@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Giros" pageWidth="802" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="7b9b32a4-483a-47bd-a359-ea740ee2e6f2">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaDesde" class="java.util.Date"/>
+	<parameter name="fechaHasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     concat(Cliente.`apellido`,', ',Cliente.`nombre`) AS nombreCliente,
+     Cliente.`id` AS nroCliente,
+     Giro.`IIBB` AS Giro_IIBB,
+     Giro.`aporte` AS Giro_aporte,
+     Giro.`capital` AS Giro_capital,
+     date(Giro.`fechaCobro`) AS fechaCobro,
+     Giro.`gastos` AS Giro_gastos,
+     Giro.`honorario` AS Giro_honorario,
+     Giro.`importeCobrado` AS Giro_importeCobrado,
+     Giro.`importeLibrado` AS Giro_importeLibrado,
+     Giro.`intereses` AS Giro_intereses,
+     Giro.`iva` AS Giro_iva,
+     Giro.`observaciones` AS Giro_observaciones
+FROM
+     `Cliente` Cliente INNER JOIN `CausaLegal` CausaLegal ON Cliente.`id` = CausaLegal.`cliente_id`
+     INNER JOIN `Giro` Giro ON CausaLegal.`id` = Giro.`causaLegal_id`
+WHERE
+Giro.`fechaCobro` > $P{fechaDesde}
+ AND DATE(Giro.`fechaCobro`) <= $P{fechaHasta}
+ORDER BY
+     Giro.`fechaCobro` ASC]]>
+	</queryString>
+	<field name="nombreCliente" class="java.lang.String"/>
+	<field name="nroCliente" class="java.lang.Long"/>
+	<field name="Giro_IIBB" class="java.lang.Double"/>
+	<field name="Giro_aporte" class="java.lang.Double"/>
+	<field name="Giro_capital" class="java.lang.Double"/>
+	<field name="fechaCobro" class="java.lang.String"/>
+	<field name="Giro_gastos" class="java.lang.Double"/>
+	<field name="Giro_honorario" class="java.lang.Double"/>
+	<field name="Giro_importeCobrado" class="java.lang.Double"/>
+	<field name="Giro_importeLibrado" class="java.lang.Double"/>
+	<field name="Giro_intereses" class="java.lang.Double"/>
+	<field name="Giro_iva" class="java.lang.Double"/>
+	<field name="Giro_observaciones" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c5b52259-c74b-40e4-a4ea-83ead71ffd8e" mode="Opaque" x="0" y="0" width="802" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GIROS COBRADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="11b711c6-1853-466b-a81a-c5e5abe2f5da" mode="Opaque" x="0" y="14" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="b714089c-3b80-44be-ab10-8652c0528ed3" mode="Opaque" x="61" y="14" width="741" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9a75c6a3-6a4a-468c-b49b-4a1c9a64d9f2" mode="Opaque" x="0" y="28" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="4a56dd50-5c44-455d-a786-5fc2718e5bb2" mode="Opaque" x="61" y="28" width="741" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="86194897-1b85-46a0-9952-98e41ca838c7" mode="Opaque" x="61" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="673848af-f628-44f3-8704-57c3deb0656c" mode="Opaque" x="0" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Nro. cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="999879de-7122-49b8-ba12-bbb160a91882" mode="Opaque" x="122" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[IIBB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eed724e7-6f89-4997-b5b1-eb2261634fe6" mode="Opaque" x="183" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Aporte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dba306c9-9d8b-47e8-bf02-23fda60af729" mode="Opaque" x="244" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Capital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a7a35b2a-f9ac-4567-9c36-18913f10da32" mode="Opaque" x="305" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Fecha cobro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="982a204d-7eb6-43c8-8cac-53443ed408f7" mode="Opaque" x="366" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Gastos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="348be70e-5d1d-4d00-900d-5b8aa080e785" mode="Opaque" x="427" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Honorario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9ef4cbe3-f3a7-40a8-be82-be79c98a0ec7" mode="Opaque" x="488" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Importe cobrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="976241ed-494e-46c4-bc61-635a48b9725e" mode="Opaque" x="549" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Importe librado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="edbcd188-c10f-4cc1-be20-22d711449faf" mode="Opaque" x="610" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Intereses]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4445c9ef-f502-4a04-b398-1ec95315fb15" mode="Opaque" x="671" y="0" width="61" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f5e28b8f-4f5b-4d56-a1a4-5b2e50e51241" mode="Opaque" x="732" y="0" width="70" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement uuid="dfa03994-ddc7-4152-8cb5-243e46cf003c" x="0" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroCliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="33ceae59-0164-4ee2-9839-26b6e23ca20c" x="122" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_IIBB}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a3cc3ecc-e391-4a3b-a7c9-84fc83100926" x="61" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d67a37e1-4cf3-4f03-b7cb-b6a2221de319" x="183" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_aporte}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b3ec75b3-0f67-4cbd-a878-c9e1abfacc86" x="244" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_capital}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e709d403-e698-4d40-8290-ccdad51ca89e" x="305" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaCobro}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b227df88-5c1d-4c01-b9ec-c48b11474dd1" x="366" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_gastos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bcdf5f78-1690-42e9-a0be-f9c96df7f4c6" x="427" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_honorario}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4a4ff57f-e9b4-445e-8f85-70a589df5219" x="488" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_importeCobrado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d2d09766-442c-453f-a8c5-163553823d68" x="549" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_importeLibrado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f077400e-a5bb-44ea-8101-9db1ef0b5f50" x="610" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_intereses}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="92f5d24b-8a3b-46ff-b2c7-be6acae1924b" x="671" y="0" width="61" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_iva}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="99fc7b3c-3fb6-4e26-875a-88e9e0950b54" x="732" y="0" width="70" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Giro_observaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

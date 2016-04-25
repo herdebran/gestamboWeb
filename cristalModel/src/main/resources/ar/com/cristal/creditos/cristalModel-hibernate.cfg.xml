@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!--Archivo configuracion de Hibernate-->
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.autocommit">false</property>
+  <property name="hibernate.jdbc.use_get_generated_keys">true</property>
+  <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.show_sql">false</property>
+  <property name="hbm2ddl.auto">update</property>
+  
+  <!--
+ 		 <property name="c3p0.acquire_increment">1</property> 
+<property name="c3p0.idle_test_period">1000</property> --> <!-- seconds --> 
+<!--
+<property name="c3p0.max_size">100</property> 
+<property name="c3p0.max_statements">0</property> 
+<property name="c3p0.min_size">10</property> 
+<property name="c3p0.timeout">1000</property> --> <!-- seconds -->  
+  
+  
+ 
+
+  <!-- Clases persistidas -->
+  <mapping class="ar.com.cristal.creditos.entity.tambo.Vaca"/>
+  <mapping class="ar.com.cristal.creditos.entity.creditos.Cliente"/>
+  <mapping class="ar.com.cristal.creditos.entity.login.Usuario"/> 
+  <mapping class="ar.com.cristal.creditos.entity.login.Perfil"/>
+  <mapping class="ar.com.cristal.creditos.entity.login.Establecimiento"/>
+  <mapping class="ar.com.cristal.creditos.entity.sucursales.Sucursal"/> 
+  <mapping class="ar.com.cristal.creditos.entity.login.ComponenteDePantalla"/>
+  <mapping class="ar.com.cristal.creditos.entity.cliente.DatoAnexo"/>
+  <mapping class="ar.com.cristal.creditos.localidad.Localidad"/>
+  <mapping class="ar.com.cristal.creditos.localidad.Provincia"/>
+  <mapping class="ar.com.cristal.creditos.entity.commons.Tablas"/>
+  <mapping class="ar.com.cristal.creditos.entity.commons.Empresa"/>
+  <mapping class="ar.com.cristal.creditos.documentos.util.DatosTemplate"/>
+  <mapping class="ar.com.cristal.creditos.entity.reportes.TipoReporte"/>  
+  <mapping class="ar.com.cristal.creditos.entity.commons.RegistroTarea"/>
+  <mapping class="ar.com.cristal.creditos.entity.commons.ConfiguracionSistema"/>
+  
+ </session-factory>
+</hibernate-configuration>

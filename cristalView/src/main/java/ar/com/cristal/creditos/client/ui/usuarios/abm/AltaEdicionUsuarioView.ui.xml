@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:snoop="urn:import:ar.com.snoop.gwt.commons.client.widget"	
+	xmlns:dp="urn:import:ar.com.snoop.gwt.commons.client.widget.datepicker" xmlns:d="urn:import:com.google.gwt.dom.client">
+
+
+ <ui:style>
+    td { padding: 2px; }
+  </ui:style>
+
+
+	<g:HTMLPanel> 
+	
+	
+	<div class="gwt-TitledPanel">
+		<div class="title" style="float:left"><g:Label ui:field="titulo"></g:Label> </div>
+		<div class="clear05"></div>
+<!-- 		div necesario para mostrar el estado junto con el título -->
+			
+		<div class="title">Datos del usuario</div>
+		<div class="clear10"></div>
+		
+		<table>
+			<thead></thead>
+			<tbody>
+				<tr>
+					<td width="120px">Apellido</td>
+					<td><snoop:RegExpTextBoxImpl ui:field="apellido" maxLength="25" width="160px"></snoop:RegExpTextBoxImpl></td>
+				</tr>
+				<tr>
+					<td>Nombre</td>
+					<td><snoop:RegExpTextBoxImpl ui:field="nombre" maxLength="25" width="160px"></snoop:RegExpTextBoxImpl></td>
+				</tr>
+				<tr>
+					<td>Nombre de Usuario</td>
+					<td><snoop:RegExpTextBoxImpl ui:field="nombreUsuario" maxLength="25" width="160px"></snoop:RegExpTextBoxImpl></td>
+				</tr>
+				<tr>
+					<td>Contrase&ntilde;a</td>
+					<td><g:PasswordTextBox ui:field="password"  width="100px" maxLength="8"></g:PasswordTextBox></td>
+					<td style="font-size: 8px;color: lightBlue"><g:Label ui:field="lblModificacion" text=""></g:Label> </td>
+				</tr>
+				<tr>
+					<td>Confirmaci&oacute;n de Contrase&ntilde;a</td>
+					<td><g:PasswordTextBox ui:field="confirmacionPassword" maxLength="8" width="100px" ></g:PasswordTextBox></td>
+				</tr>
+				
+				<tr>
+					<td>Supervisor</td>
+					<td><g:CheckBox ui:field="supervisor"></g:CheckBox> </td>
+				</tr>
+				
+				<tr>
+					<td>Sucursales</td>
+					<td><snoop:ListBox ui:field="sucursales" multipleSelect="false" width="200px"></snoop:ListBox></td>
+				</tr>
+				
+				<tr>
+					<td>Perfil</td>
+					<td><snoop:ListBox ui:field="perfiles" multipleSelect="false" width="200px"></snoop:ListBox></td>
+				</tr>
+				
+				<tr>
+<!-- 					<td>Administrador</td> -->
+					<td><g:CheckBox ui:field="administrador" visible="false"></g:CheckBox> </td>
+				</tr>
+				
+				
+			</tbody>
+			<tfoot>
+				
+			</tfoot>
+		
+		</table>
+	
+	
+		<div class="clear5"></div>
+		
+		
+	
+		
+	 
+		<div class="clear20"></div>
+		
+		
+<!-- 		Botones -->
+		<div style="float:right">
+		<g:Button ui:field="guardar" text="Guardar" />
+		<g:Button ui:field="borrar" text="Borrar" />
+		<g:Button ui:field="cancelar" text="Volver" />
+		</div>
+	
+		<div class="clear20"></div>
+	</div>
+	
+
+		
+	</g:HTMLPanel>
+</ui:UiBinder>

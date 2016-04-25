@@ -1,0 +1,78 @@
+
+
+.gwt-TabLayoutPanel {
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
+}
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
+	background-color: #EFEFEF;
+  border-color: #E05206;
+  border-style: solid;
+  border-width: 3px 2px 2px;
+  overflow: hidden;
+  padding: 6px;
+}
+.gwt-TabLayoutPanelTab  {
+	
+	  margin-left: 6px;
+  padding: 3px 6px 3px 6px;
+  cursor: pointer;
+  cursor: hand;
+  
+  
+	background-color: #E05206;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+
+
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+  cursor: default;
+	background-color: #ee5203;
+	
+}
+
+
+
+.gwt-TabBarFirst {
+ width: 5px; /* first tab distance from the left */
+}
+.gwt-TabBarRest {
+}
+.gwt-TabBarItem {
+ margin-left: 6px;
+ padding: 3px 6px 3px 6px;
+ cursor: pointer;
+ cursor: hand;
+ 	background-color: #E05206;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+.gwt-TabBarItem-selected {
+  cursor: default;
+	background-color: #FFB84D;
+}
+.gwt-TabBarItem-disabled {
+ cursor: default;
+ color: #999999;
+}
+
+.gwt-TabPanelBottom {
+ border-color: #FFB84D;
+ border-style: solid;
+ border-width: 3px 2px 2px;
+ overflow: hidden;
+ padding: 6px;
+ background-color: #EFEFEF;
+}
+
+
+
+
+.TableHeader A:link,
+.TableHeader A:active,
+.TableHeader A:visited { color: #fff; text-decoration:none; }
+
+.TableHeader A:hover { text-decoration:underline; }

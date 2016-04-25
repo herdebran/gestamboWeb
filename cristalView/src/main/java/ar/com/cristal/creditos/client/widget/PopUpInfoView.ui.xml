@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	
+	
+	<g:HTMLPanel width="400px" height="300px">
+		<div style="width:400px;border:1px solid  #A4CDDF;background-color:gray; border:1px gray solid; opacity: 1; margin-top: 5px">
+			<div class="gwt-TitledPanel">
+				<div id="headerInformacion">
+					<div class="title"><g:Label ui:field="titulo">Informaci&oacute;n</g:Label></div>
+				</div>
+				
+				<div ui:field="informacionDiv" style="background: #A4CDDF;color:black; padding: 10px;">
+					<g:Label ui:field="informacion"></g:Label>
+					<g:FlexTable ui:field="tablaInformacion"></g:FlexTable>
+<!-- 					<center><img src="/creditos/library/images/wait30trans.gif" width="15px" height="15px"></img> </center>-->
+					
+				</div>
+				
+				<div class="clear5" style="background: #A4CDDF;color:black;" ></div>
+				
+				<center id="footerInformacion" style="background: #006AA4;color:black; padding: 5px" >
+					<g:Button ui:field="aceptar" text="Aceptar"/>
+				</center>
+			</div>
+		</div>
+	</g:HTMLPanel> 
+</ui:UiBinder>

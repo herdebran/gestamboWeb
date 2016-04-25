@@ -1,0 +1,39 @@
+.bgGrey {
+	background-color: #EFEFEF;
+}
+
+.transparent60 {
+	filter: alpha(opacity = 60);
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+}
+
+.transparent40 {
+	filter: alpha(opacity = 40);
+	-moz-opacity: 0.4;
+	opacity: 0.4;
+}
+
+.TableRow1 {
+	background-color: white;
+}
+
+.TableRow2 {
+	background-color: #DCDCDC;
+}
+
+
+.TableHeader {
+	background-color: #E05206;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+
+.TableHeader A:link,
+.TableHeader A:active,
+.TableHeader A:visited { color: #fff; text-decoration:none; }
+
+.TableHeader A:hover { text-decoration:underline; }
+
+

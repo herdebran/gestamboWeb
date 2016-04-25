@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Efectividad" pageWidth="802" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="256015cc-25db-416e-bf01-dc29f8c7757b">
+	<property name="ireport.zoom" value="0.9982500000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<parameter name="fechaDesde" class="java.util.Date"/>
+	<parameter name="fechaHasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="cantidadClientesMorosidad" class="java.lang.Long"/>
+	<field name="cantidadLlamadasMorosidadEfectiva" class="java.lang.Long"/>
+	<field name="porcentajeMorosidad" class="java.lang.Double"/>
+	<field name="cantidadClientesColocacion" class="java.lang.Long"/>
+	<field name="cantidadLlamadasColocacionEfectiva" class="java.lang.Long"/>
+	<field name="porcentajeColocacion" class="java.lang.Double"/>
+	<field name="cantidadClientesPrejudicial" class="java.lang.Long"/>
+	<field name="cantidadLlamadasPrejudicialEfectiva" class="java.lang.Long"/>
+	<field name="porcentajePrejudicial" class="java.lang.Double"/>
+	<field name="sucursal" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ab50df69-4e4c-45d1-9b50-1b88b344ddec" mode="Opaque" x="0" y="0" width="826" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Call Center - Reporte de EFECTIVIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dcda1623-51ad-4917-b183-6dd84b3a09a0" mode="Opaque" x="0" y="14" width="47" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="1511a314-b791-4214-9e44-5d53dcb5f9b4" mode="Opaque" x="47" y="14" width="779" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e558165e-d0cd-4f94-bd42-105235e07ade" mode="Opaque" x="0" y="28" width="47" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="30ae2c5b-24d5-4098-86f1-50e06c0fd77d" mode="Opaque" x="47" y="28" width="135" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0bcc2edc-9a06-4539-bbb4-5a35269840ae" mode="Opaque" x="182" y="28" width="126" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Llamadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0bcc2edc-9a06-4539-bbb4-5a35269840ae" mode="Opaque" x="348" y="28" width="138" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Llamadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0bcc2edc-9a06-4539-bbb4-5a35269840ae" mode="Opaque" x="534" y="28" width="142" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Llamadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0bcc2edc-9a06-4539-bbb4-5a35269840ae" mode="Opaque" x="676" y="28" width="150" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0bcc2edc-9a06-4539-bbb4-5a35269840ae" mode="Opaque" x="486" y="28" width="48" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0bcc2edc-9a06-4539-bbb4-5a35269840ae" mode="Opaque" x="308" y="28" width="40" height="14" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="decbeb1c-729a-4e27-ac40-a183252ed880" mode="Opaque" x="308" y="0" width="40" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f7566fa3-d50f-41a8-b22d-677ac0d3fee9" mode="Opaque" x="676" y="0" width="48" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d1c7d976-dc2c-4662-8008-e2a1814b616d" mode="Opaque" x="348" y="0" width="66" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Colocación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c398e78d-e031-4b00-a0d9-4d58d6d92530" mode="Opaque" x="486" y="0" width="48" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8dce17d8-34d7-42d7-8d1d-fd9a53f01362" mode="Opaque" x="414" y="0" width="72" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Efectivas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2c2e99d1-4a4c-4750-9853-4aa6ec203e55" mode="Opaque" x="534" y="0" width="68" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Prejudicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb15624b-c2cc-4da5-beeb-aa88927e6d2e" mode="Opaque" x="602" y="0" width="74" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Efectivas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1e254b35-2a16-49bd-a9e2-0d9f3f96f57b" mode="Opaque" x="47" y="0" width="135" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Operador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="be06cf85-2623-4d55-ac00-b221affb6cc4" mode="Opaque" x="182" y="0" width="63" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Morosos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="38a4374c-b896-446b-be38-f4c73673a545" mode="Opaque" x="245" y="0" width="63" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Efectivas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d1c7d976-dc2c-4662-8008-e2a1814b616d" mode="Opaque" x="724" y="0" width="102" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Sucursal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="be06cf85-2623-4d55-ac00-b221affb6cc4" mode="Opaque" x="0" y="0" width="47" height="26" forecolor="#FFFFFF" backcolor="#3333FF"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3f9e6e43-6175-44c7-8b51-ba8e52cc0b2f" x="47" y="0" width="135" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="289defb1-1a7e-49a0-9192-7f62e5203c0c" x="182" y="0" width="63" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadClientesMorosidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="8f1ae6cf-3289-4adf-a7ea-8d50ecc35285" x="348" y="0" width="66" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadClientesColocacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %" isBlankWhenNull="true">
+				<reportElement uuid="3ea0e9da-eda3-480a-97a0-8a36fb09d586" x="676" y="0" width="48" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{porcentajePrejudicial}/100]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %" isBlankWhenNull="true">
+				<reportElement uuid="3149c05f-0c89-48ff-b128-f4f1d63a855e" x="308" y="0" width="40" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{porcentajeMorosidad}/100]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="8f32e03e-5739-41f1-9e9c-fe354853ed7d" x="414" y="0" width="72" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadLlamadasColocacionEfectiva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00 %" isBlankWhenNull="true">
+				<reportElement uuid="0302878a-728f-4373-9fb8-49bce05a7a95" x="486" y="0" width="48" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{porcentajeColocacion}/100]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="8581fd01-288b-4efa-a992-0039312671d4" x="534" y="0" width="68" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadClientesPrejudicial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="c41cca19-608f-405f-9a02-250bfd3ee755" x="602" y="0" width="74" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidadLlamadasPrejudicialEfectiva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement uuid="53f58641-9aea-45f2-ad82-8faac5bd51b0" mode="Transparent" x="245" y="0" width="63" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{porcentajeMorosidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3f9e6e43-6175-44c7-8b51-ba8e52cc0b2f" x="724" y="0" width="102" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sucursal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="3149c05f-0c89-48ff-b128-f4f1d63a855e" x="0" y="0" width="47" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

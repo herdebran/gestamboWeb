@@ -1,0 +1,117 @@
+/*
+	---------------------------------------
+	POPUP definitions (for NEXUS only)
+	---------------------------------------
+	Here you'll find styles and definitions that apply for
+	explicit NEXUS's designs.
+
+	Martin Hansen.
+*/
+	/* ------------------------------------------------------------------------------ */
+	/* -- GENERAL defs -- */ /* .popPageWidth {} */
+	/* -- finish General's defs -- */
+	/* ------------------------------------------------------------------------------ */
+	/* -- HEADER defs -- */
+div.popHeader {
+	height: 30px;
+	background-image: url('../../images/popup/pop_03.gif');
+	background-color: #E05206;
+	background-position: top left;
+	background-repeat: repeat-x;
+}
+
+div.popHeader H1.popTitle { /* written for H1 Tag */
+	font-weight: bold;
+	font-size: 120%;
+	font-variant: small-caps;
+	color: #fff;
+	margin: 0;
+	margin-top: 5px;
+	margin-left: 5px;
+	float: left;
+	position: relative;
+}
+
+/* -- finish header's defs -- */
+	/* ------------------------------------------------------------------------------ */
+	/* -- WRAPPER CONTENT defs -- */
+div.popWrapper {
+	margin: 0px;
+	margin-top: 1px;
+	padding: 0px;
+	padding-bottom: 15px;
+	background-image: url('../../images/popup/pop_16.gif');
+	background-color: #fff;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+}
+
+/* ------------------------------------------------------------------------------ */
+	/* -- CONTENT defs -- */
+div.popContent {
+	margin: 0px;
+	padding: 0px;
+	padding: 8px;
+	background-image: url('../../images/popup/pop_06.gif');
+	background-color: #fff;
+	background-position: top left;
+	background-repeat: repeat-x;
+}
+
+/* ------------------------------------------------------------------------------ */
+	/* -- FOOTER defs -- */
+div.popFooter {
+	height: 25px;
+	background-image: url('../../images/popup/pop_18.gif');
+	background-color: #E05206;
+	background-position: top left;
+	background-repeat: repeat-x;
+}
+
+/* leaving it blank for inline styling with padding, text-align */
+div.popWinButtons {
+	margin: 0px;
+	padding: 5px;
+	text-align: center;
+}
+
+/* links that affect the WINDOW, not the content */
+div.popFooter div.popWinButtons A {
+	font-size: 100%;
+	text-transform: lowercase;
+}
+
+div.popFooter div.popWinButtons A:link,div.popFooter div.popWinButtons A:visited,div.popFooter div.popWinButtons A:active
+	{
+	color: #fff;
+	background: inherit;
+	text-decoration: none;
+}
+
+div.popFooter div.popWinButtons A:hover,div.popFooter div.popWinButtons A:focus
+	{
+	text-decoration: underline;
+}
+div.popFooter A, div.popWinButtons A
+	{
+	margin-right: 5px;
+}
+
+/* -- finish footer's defs -- */
+	/* ------------------------------------------------------------------------------ */
+	/* - */ /* - */ /* - */
+.whiteBackground {
+	background-color: #fff;
+}
+
+DIV.gwt-NexusDialog {
+	background-color: #fff;
+	border: 1px solid #333333;
+}
+
+.lightBoxBlack{
+	background-color: #000;
+	filter: alpha(opacity = 40);
+	-moz-opacity: 0.4;
+	opacity: 0.4;
+}

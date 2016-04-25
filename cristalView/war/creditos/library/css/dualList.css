@@ -1,0 +1,59 @@
+.demo-DualListExample .dragdrop-dragging   , .demo-DualListExample .dragdrop-proxy
+	{
+	filter: alpha(opacity =     100);
+	opacity: 1.0;
+	-moz-opacity: 1.0;
+}
+
+div.dragdrop-dropTarget {
+	background-color: white;
+	border: 1px solid black;
+}
+
+div.dragdrop-dropTarget-engage {
+	background: #BCDEFF none repeat scroll 0%;
+}
+
+.demo-DragHandleExample .demo-DragHandleExample-panel {
+	background-color: white;
+	border: 1px solid green;
+	width: 400px;
+}
+
+.demo-DragHandleExample .demo-DragHandleExample-textarea {
+	height: 4em;
+	width: 95%;
+}
+
+.demo-DragHandleExample .demo-DragHandleExample-header {
+	background-color: #DDEEDD;
+}
+
+.demo-DualListExample-center {
+	margin: 0.4em;
+}
+
+.demo-DualListExample-center td {
+	padding: 0.2em 0.4em;
+}
+
+.demo-DualListExample-center button {
+	width: 4em;
+}
+
+.demo-DualListExample-item-has-content {
+	cursor: pointer;
+}
+
+.demo-DualListExample-item-selected {
+	background-color: lightblue;
+}
+
+.demo-DualListExample-item {
+	font-weight: bold;
+}
+
+.demo-DualListExample .dragdrop-dragging,.demo-DualListExample .dragdrop-proxy
+	{
+	opacity: 1;
+}

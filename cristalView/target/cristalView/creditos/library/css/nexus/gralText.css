@@ -1,0 +1,14 @@
+HTML, BODY { font: 0.83em Verdana, Arial, Helvetica, sans-serif; }
+INPUT, SELECT, TEXTAREA { font: 100% Verdana, Arial, Helvetica, sans-serif; }
+
+/************************************** tables def */
+TABLE, CAPTION, TH, TD { font-size: 100%; }
+
+/************************************** Hx def */
+H1,H2,H3,H4,H5,H6 { font-family: Verdana, Arial, Helvetica, sans-serif; padding:0;margin:0; }
+H1 {}
+H2 {}
+H3 {}
+H4 {}
+H5 { font-size:100%; color: #A53553 }
+H6 {}

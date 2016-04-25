@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+<g:HTMLPanel>	
+<!--INICIA EL MENU-->
+
+
+<div id='cssmenu'>
+<ul>
+   <li class='has-sub'><a href='#'><span>Tambo</span></a>
+      <ul>
+         <li class='active last'>
+             <g:Anchor debugId="menu-busquedaClientes" ui:field="anchorBusquedaClientes"><span>B&uacute;squeda de Animales</span></g:Anchor>
+         </li>
+      </ul>
+   </li>
+   <li class='has-sub'><a href='#'><span>Parte Diario</span></a>
+      <ul>
+         <li class='last'>
+             <g:Anchor debugId="menu-PerfilesCrud" ui:field="realizacionLlamadasMoraTardia" title=""><span>Carga de parte diario</span></g:Anchor>
+         </li>
+      </ul>
+   </li>
+   <li class='has-sub'><a href='#'><span>Administración</span></a>
+      <ul>
+        <li><g:Anchor debugId="menu-usuarios" ui:field="anchorUsuarios"><span>Usuarios</span></g:Anchor> </li>
+		<li><g:Anchor debugId="menu-PerfilesCrud" ui:field="perfilesABM"><span>Perfiles</span></g:Anchor></li> 
+		<li><g:Anchor debugId="menu-PerfilesCrud" ui:field="cambioPassword"><span>Cambio Password</span></g:Anchor></li>
+		<li><g:Anchor debugId="menu-EmpresaCrud" ui:field="anchorEmpresas"><span>Empresas</span></g:Anchor> </li>
+		<li><g:Anchor debugId="menu-ProcesosAdmin" ui:field="anchorProcesos"><span>Procesos</span></g:Anchor> </li>
+		<li class='last'><g:Anchor debugId="menu-SucursalesCrud" ui:field="anchorSucursales"><span>Sucursales</span></g:Anchor> </li>
+      </ul>
+   </li>
+ 
+   <li class='last'><a href='../j_spring_security_logout'><span>Salir</span></a></li>
+</ul>
+</div>
+
+
+<div style="clear:both"></div> 
+ 
+<!-- <div style="border-top:1px solid #ffffee;"></div> -->
+
+<div class="usuarioLogueado" style="width:900px;text-align:right" ><g:Anchor debugId="menu-usuariologueado" ui:field="anchorUsuarioLogueado"></g:Anchor><g:Anchor  ui:field="anchorSucursal"></g:Anchor>
+</div>
+<div style="clear:both"></div> 
+<div style="padding: 5px 0 0 0">
+<g:Anchor ui:field="mensajes" wordWrap="true" width="80%"></g:Anchor>
+ </div>
+<br></br>
+
+</g:HTMLPanel>
+
+</ui:UiBinder> 

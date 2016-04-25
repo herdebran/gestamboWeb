@@ -1,0 +1,59 @@
+/* ************************************************ */
+BODY {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	padding-top:0px;
+	padding-left:0px;
+	padding-bottom:0px;
+	padding-right:0px;
+}
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************ */
+/* LAYOUT DEFS */
+#wrapper_content {
+	height:100%;
+	padding: 8px;
+	
+	background-color: #DADADA;
+}
+
+#nxs1 { width:100%; }
+#content { width:100%; margin-top:10px; }
+#nxs2 { width:100%; float:left; clear:both; }
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************ */
+/* CSS HACK for compatibility between browsers */
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+/* End hide from IE-mac */
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************ */
+/* ORDER LAYERS */
+#wrapper_content,
+#nxs1, #nxs2,
+#content {
+	z-index: 0;
+}
+/* ------------------------- */
+/* - */
+/* - */
+/* - */

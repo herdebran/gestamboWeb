@@ -1,0 +1,62 @@
+
+.standardButton{
+    border-style: outset;
+    text-decoration: none;	
+}
+
+.cssButton{
+    border-style: outset;
+    text-decoration: none;	
+}
+
+.onFocusButton{
+	background-color: #6699FF;	
+}
+
+.onLostFocusButton{
+	background-color: transparent;	
+}
+
+.stardardButtonSize{
+	width: 59px;
+	height: 21px;
+}
+
+.aceptarButton{
+	background-image: url{/library/images/btn2-aceptar.gif};
+}
+
+.cancelarButton{
+	background-image: url{/library/images/btn2-aceptar.gif};
+}
+
+.buscarButton{
+	background-image: url{../library/images/btn2-buscar.gif};
+}
+
+.dottedBorderOn{
+	border-style:dotted;
+	border-color:#9D9D9D;
+	border-width:1px;
+}
+
+.pressedButton{
+	background-color:#9D9D9D;
+}
+
+.buttonDisabled{
+	color:#9D9D9D;
+	filter: alpha(opacity = 60);
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+}
+
+.onMouseDown{
+	border-style:outset;
+	border-color:#7B7978;
+}
+
+.onMouseUp{
+	border-style:inset;
+	border-color:#7B7978;
+}

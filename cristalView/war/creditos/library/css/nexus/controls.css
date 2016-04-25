@@ -1,0 +1,516 @@
+/*
+	---------------------------------------
+	CONTROLs definitions (for NEXUS only)
+	---------------------------------------
+	Here you'll find styles and definitions that apply for
+	explicit NEXUS's designs.
+
+	Martin Hansen.
+*/
+/* - */
+/* - */
+/* - */
+/* ************************************************ */
+/* MAIN NAV :: default styles */
+/*
+Menu for NEXUS (Informacion, Contratos, Gestiones)
+Menu for PortalUnico (Busqeuda de Clientes, Configuracion, Reportes)
+*/
+
+DIV.mainnav { height: 30px; border-bottom: 1px solid #DBDBDB; }
+
+DIV.mainnav UL {
+	font-family: Arial, Helvetica;
+	letter-spacing: 0.03em;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 115%;
+	
+	background-color: #94102F;
+	background-image: url('../images/mainmenu_05.gif');
+	background-position: left top;
+	background-repeat: repeat-x;
+
+	width: 100%;
+	height: 30px;
+	float: left;
+}
+
+DIV.mainnav LI { display: inline; }
+
+DIV.mainnav UL LI A:link,
+DIV.mainnav UL LI A:visited {
+	color: #eee;
+	background-color: #94102F;
+	background-image: url('../images/mainmenu_05.gif');
+	background-position: left top;
+	background-repeat: repeat-x;
+	
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 8px;
+	padding-bottom: 7px;
+	
+	border-left: 1px solid #94102F;
+	float: left;
+	text-decoration: none;
+}
+
+DIV.mainnav UL LI A:hover,
+DIV.mainnav UL LI A:active {
+	color: #fff;
+	background-color: inherit;
+	background-image: url('../images/mainmenu_03.gif');
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+DIV.mainnav UL LI A.active:link,
+DIV.mainnav UL LI A.active:visited,
+DIV.mainnav UL LI A.active:active,
+DIV.mainnav UL LI A.active:hover,
+DIV.mainnav UL LI A.active:focus {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 8px;
+	padding-bottom: 7px;
+
+	color: #fff;
+	background-color: inherit;
+	background-image: url('../images/mainmenu_07.gif');
+	background-position: left top;
+	background-repeat: repeat-x;
+
+	border-left: 1px solid #94102F;
+	float: left;
+	text-decoration: none;
+}
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************************************************ */
+/* SUBMENU
+/* --------------------------------------- */
+DIV.subnav { clear: both; width: 100%; border-bottom: #EBEBEB; }
+DIV.subnav UL {
+	height: 22px;
+	background-image:url("../images/submenu_bkg0.gif");
+	background-position: left top;
+	background-repeat:repeat-x;
+}
+
+DIV.subnav UL LI { display: inline; }
+
+DIV.subnav UL LI A {
+	font-size: 100%;
+	float: left;
+	color: #000;
+	padding: 4px 8px;
+	text-decoration:none;
+}
+
+DIV.subnav UL LI A:link,
+DIV.subnav UL LI A:active,
+DIV.subnav UL LI A:visited { text-decoration:none; }
+
+DIV.subnav UL LI A:hover {
+	background-image: url("../images/submenu_bkg1.gif");
+	background-position: left top;
+	background-repeat:repeat-x;
+}
+
+DIV.subnav UL LI A.active:link,
+DIV.subnav UL LI A.active:active,
+DIV.subnav UL LI A.active:visited {
+	color: #fff;
+	background-image: url("../images/submenu_bkg2.gif");
+	background-position: left top;
+	background-repeat:repeat-x;
+}
+
+/* - */
+/* - */
+/* - */
+/* ************************************************ */
+/* SEARCH :: default position */
+DIV#search {
+	width: 100%;
+	height: 25px;
+	border: 1px solid #fff;
+	padding: 8px 8px 3px 8px;
+	background-color: #EFEFEF;
+	background-image: url('../images/sch_bkg.gif');
+	background-repeat: repeat-x;
+	background-position: left bottom;
+}
+
+/*
+If your layout must have the Action Menu Section and a Search Section,
+you must wrap the Search Section with a DIV. It's ID attribute will be the
+next one.
+This solve width problems between Search and Action Sections.
+IE 6.0 / Firefox 1.5.0.4
+*/
+DIV#wrapper_search {
+	width: 79%;
+	float: left;
+	border: 1px solid #a2a2a2;
+}
+/* - */
+/* - */
+/* - */
+/* ************************************************ */
+/* ACTIONS Menu */
+DIV.mnuActions {
+	float:right;
+	width:120px;
+	height: 28px;
+	
+	background-color: #A53953;
+	border: 1px solid #B9B8B3;
+	cursor: pointer;
+	z-index:3;
+}
+
+DIV.mnuActions A.title {
+	border: 1px solid #fff;
+	float: left;
+	position: relative;
+	height: 26px;
+	width: 100%;
+	
+	background-color: #A53953;
+	background-image: url('../images/mnuact_bkg1.gif');
+	background-position: top left;
+	background-repeat:repeat-x;
+
+	cursor: pointer;
+	text-decoration: none;
+}
+
+DIV.mnuActions H4 {
+	font-size: 100%;
+	color: #fff;
+	
+	float: left;
+	padding-left: 27px;
+	padding-top: 7px;
+	
+	background-color: transparent;
+	background-image: url("../images/mnuActions_arrow.gif");
+	background-position: 8px 6px;
+	background-repeat: no-repeat;
+}
+/* - */
+/* - */
+/* - */
+/* ************************************************ */
+/* TABs */
+DIV.tabs {
+	float: left;
+	font-size: 100%;
+	font-family: Verdana, sans-serif;
+	text-decoration: none;
+	background-position: center top;
+}
+
+DIV.tabs LI {
+	width: auto;
+	height: 21px;
+
+	float: left;
+	color: inherit;
+	
+	background: transparent url("../images/tabs/tab_1b.gif") no-repeat right top;
+	margin-right: 1px;
+}
+
+/* common tabs --------- */
+DIV.tabs A {
+	display: block;
+	padding: 5px 13px 2px 13px;
+	font-weight: bold;
+
+	text-decoration: none;
+	color: #666;
+
+	background-color: transparent;
+	background-image: url("../images/tabs/tab_1a.gif");
+	background-position: left top;
+	background-repeat: no-repeat;
+	height: auto;
+}
+
+DIV.tabs A:link,
+DIV.tabs A:visited,
+DIV.tabs A:active,
+DIV.tabs A:focus { text-decoration: none; }
+DIV.tabs A:hover { color:#a4a4a4; text-decoration:none; background: inherit; }
+
+/* active tab --------- */
+DIV.tabs .active { background-image:url("../images/tabs/tab_0b.gif"); }
+DIV.tabs .active A,
+DIV.tabs .active A:hover {
+	background-image: url("../images/tabs/tab_0a.gif");
+	background-repeat: no-repeat;
+	background-color: transparent;
+	color: #A53953;
+	text-decoration: none;
+}
+
+/* content for each tab */
+DIV.tab_content { background-color: #fff; width: 100%; margin: 0px; padding: 0px; color: inherit; }
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************ */
+/* LABELS OPTIONS and CHECKBOXES */
+/* ------------------------------------------------ */
+SPAN.OneChoice LABEL,
+SPAN.OneChoice LABEL.active {
+	font-size: 90%;
+	color: #838383;
+	cursor: pointer;
+
+	border-width: 1px;
+	border-style: solid;
+	border-top-color: #CBCBCB;
+	border-left-color: #CBCBCB;
+	border-right-color: #898989;
+	border-bottom-color: #898989;
+
+	padding: 2px 12px 3px 12px;
+
+	background-image: url("../images/bkg_input_0oneSelection.jpg");
+	background-position: left bottom;
+	background-repeat: repeat-x;
+}
+
+SPAN.OneChoice LABEL.active {
+	color: #fff;
+	
+	background-image: url("../images/bkg_input_OneChoice_active.gif");
+	background-position: left bottom;
+	background-repeat: repeat-x;
+}
+
+SPAN.OneChoice INPUT { display:none; }
+
+SPAN.sngChoice,
+SPAN.sngChoice1,
+SPAN.sngChoice2 {
+	width: 80px;
+	height: 18px;
+
+	display: block;
+	float: left;
+	margin: 0 3px 3px 0;
+	padding:0;
+	color: #666;
+}
+
+SPAN.sngChoice,
+SPAN.sngChoice1 {
+	border-top: 1px solid #C7C7C7;
+	border-right: 1px solid #9d9d9d;
+	border-bottom: 1px solid #9d9d9d;
+	border-left: 1px solid #C7C7C7;
+}
+
+SPAN.sngChoice2 { color: #fff; border-top: 1px solid #A53953; border-right: 1px solid #A56C7A; border-bottom: 1px solid #A56C7A; border-left: 1px solid #A53953; }
+
+SPAN.sngChoice {
+	background-image: url("../../../images/bkg_input_0oneSelection.jpg");
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+SPAN.sngChoice1 {
+	background-image: url("../../../images/bkg_input_1oneSelection.jpg");
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+SPAN.sngChoice2 {
+	background-color: #A53953;
+	background-image: url("../../../images/bkg_input_2oneSelection.jpg");
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+SPAN.sngChoice LABEL {
+	font-weight: bold;
+
+	height: 13px;
+	padding-top: 2px;
+	vertical-align:middle;
+	text-align:center;
+
+	display: block;
+
+	white-space: nowrap;
+}
+
+SPAN.sngChoice INPUT {}
+
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ************************************************************** */
+/* Collapsible BOX 2 */
+/* --------------------- */
+DIV.collbox2 { border:1px solid #BCBCBC; margin-bottom:10px; background-color: #fff; }
+
+/* all the title */
+DIV.collbox2 DIV.box2header {
+	height: 20px;
+	background-image: url("../images/collbox2_bkgtitle_BCBCBC.gif");
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+/* the red zone of the title */
+DIV.collbox2 DIV.box2header DIV.titleZone {
+	cursor: pointer;
+	float:left;
+	background-image: url("../images/collbox2_bkgtitle_A53953.gif");
+	background-position: left top;
+	background-repeat: repeat-x;
+}
+
+/* the arrow of the box's title */
+DIV.collbox2 DIV.titleZone A.arrow { float:left; height:20px; width:19px; background-image:url("../images/collbox2_titlearw0.gif"); }
+DIV.collbox2 DIV.titleZone A.arrow:link,
+DIV.collbox2 DIV.titleZone A.arrow:visited { background-color: transparent; text-decoration: none; }
+DIV.collbox2 DIV.titleZone A.arrow:active,
+DIV.collbox2 DIV.titleZone A.arrow:hover,
+DIV.collbox2 DIV.titleZone A.arrow:focus { background-color: #FFFFFF; }
+
+DIV.collbox2 DIV.titleZone H3 { float:left; font-size:100%; color:#fff; font-weight:bold;padding-top:3px; margin-left:5px; }
+DIV.collbox2 DIV.titleZone H3 SMALL {font-weight: normal;}
+DIV.collbox2 DIV.titleZone SPAN.endArt { float:left; height:17px; margin-left:10px; color: #fff; padding-top:3px; }
+/* -------------------------------- */
+DIV.collbox2 DIV.subsection {
+	height: 19px;
+	
+	color: inherit;
+	background-color: #fff;
+	background-image: url("../images/collbox2_bkgcontent.gif");
+	background-repeat: repeat-x;
+
+	margin-bottom: 10px;
+}
+DIV.collbox2 DIV.titleZone SPAN.endArt {
+	width: 10px;
+	height: 20px;
+	background-color: transparent;
+	background-image: url("../images/collbox2_titlewave.gif");
+	background-repeat: no-repeat;
+	padding:0;
+	margin-left: 10px;
+}
+
+/* links for contract and expand events in an activity */
+DIV.collbox2 DIV.subsection A.event_expand:link,
+DIV.collbox2 DIV.subsection A.event_expand:visited,
+DIV.collbox2 DIV.subsection A.event_expand:active,
+DIV.collbox2 DIV.subsection A.event_collapse:link,
+DIV.collbox2 DIV.subsection A.event_collapse:visited,
+DIV.collbox2 DIV.subsection A.event_collapse:active {
+	/*height: 19px;*/	
+	font-size: 80%;
+	text-decoration: none;
+	color: #000;
+	background-color: transparent;
+
+	padding-top: 4px;
+	padding-right: 4px;
+	padding-bottom: 3px;
+	padding-left: 18px;
+	
+	margin-right: 6px;
+	
+	border-bottom-color: #efefef;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+}
+
+/* backgrounds */
+DIV.collbox2 DIV.subsection A.event_expand { background-position: 5px 7px;background-image: url("../images/art_expand.gif");background-repeat:no-repeat; }
+DIV.collbox2 DIV.subsection A.event_collapse { background-position: 5px 7px;background-image: url("../images/art_collapse.gif");background-repeat:no-repeat; }
+
+/* overs */
+DIV.collbox2 DIV.subsection A.event_expand:hover,
+DIV.collbox2 DIV.subsection A.event_expand:focus,
+DIV.collbox2 DIV.subsection A.event_collapse:hover,
+DIV.collbox2 DIV.subsection A.event_collapse:focus {
+	border-bottom-color: #ccc;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+}
+
+DIV.collbox2 DIV.content {
+	padding: 5px;
+	color: inherit;
+	background-color: #fff;
+}
+/* -------------------------- */
+/* - */
+/* - */
+/* - */
+/* ------------------------------- */
+/* box collapsible 3 */
+/* ------------------------------- */
+DIV.collbox3 {
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	border-top: 1px solid #DBDBDB;
+	border-left: 1px solid #DBDBDB;
+
+	height:20px;
+	margin-bottom:5px;
+}
+
+DIV.collbox3 DIV.header {
+	height: 20px;
+	background-color: #fff;
+	background-image: url("../images/collbox3_bkgtitle.gif");
+	background-repeat: repeat-x;
+	background-position: left bottom;
+}
+
+DIV.collbox3 DIV.header A.arrow:link,
+DIV.collbox3 DIV.header A.arrow:visited,
+DIV.collbox3 DIV.header A.arrow:active { float:left; height:20px; width:19px; background-image:url("../images/collbox3_bkgarrowtitle.gif"); background-position: left top; background-repeat:repeat-x; border-right: 1px solid #A0A0A0; }
+DIV.collbox3 DIV.header A.arrow:hover,
+DIV.collbox3 DIV.header A.arrow:focus { background-image:url("../images/collbox3_bkgarrowtitle2.gif"); background-position: left top; background-repeat:repeat-x; }
+
+DIV.collbox3 DIV.header A.arrow IMG { margin-top: 6px; margin-left: 6px; }
+
+DIV.collbox3 DIV.content {
+	padding:4px;
+	color: inherit;
+	
+	background-image: url("../images/collbox3_bkgcontent.gif");
+	background-position: left bottom;
+	background-repeat: repeat-x;
+}
+DIV.collbox3 DIV.content DIV.body {}
+DIV.collbox3 DIV.content DIV.foot { margin-top: 5px; }
+
+.Gwt-LoggerButton {
+	position: absolute;
+	right: 3px;
+	width: 30px;
+	bottom: 3px;
+	height: 20px;
+	color: #FFF;
+	background-color: #888;	
+}
+
+.handPointer{
+	cursor: pointer;
+	}

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Morosos con llamados realizados" pageWidth="950" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="950" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="34e111f1-3540-4fa0-bcb4-a34b5910c0ec">
+	<property name="ireport.zoom" value="1.2100000000000029"/>
+	<property name="ireport.x" value="6"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaDesde" class="java.util.Date"/>
+	<parameter name="fechaHasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select l.cliente_id nroCliente, date(fechaLlamadaRealizada) fechaLlamadaRealizada, tl.nombre as motivo,
+concat(l.resultado,': ',l.detalle) respuesta, u.nombreUsuario operador,
+(select date(min(fechaVencimiento)) from Cuota cuo inner join Credito cre on cre.id = cuo.credito_id where cre.cliente_id = l.cliente_id and cre.estado = 'ACTIVO' and cuo.estado='VENCIDA') fechaVencimiento,
+(select date(max(p.fechaPago)) from Cuota cuo inner join Credito cre on cre.id = cuo.credito_id
+inner join Pago p on p.cuota_id = cuo.id where cre.cliente_id = l.cliente_id and cre.estado = 'ACTIVO') fechaPago,
+llamadoExitoso
+from Llamado l
+inner join Tablas tl on l.tipoLlamada_id = tl.id
+inner join Usuario u on u.id = operador_id
+where tl.id in (7,8,9)
+and fechaLlamadaRealizada between date($P{fechaDesde}) and date($P{fechaHasta})
+and resuelto = 1
+order by tl.nombre, operador, fechaLlamadaRealizada]]>
+	</queryString>
+	<field name="nroCliente" class="java.lang.Long"/>
+	<field name="fechaLlamadaRealizada" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="motivo" class="java.lang.String"/>
+	<field name="respuesta" class="java.lang.String"/>
+	<field name="operador" class="java.lang.String"/>
+	<field name="fechaVencimiento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaPago" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="llamadoExitoso" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="exitoLlamadoPagoCount" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{llamadoExitoso}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="84cb3f79-55b8-432e-80de-03bf104329b3" mode="Opaque" x="0" y="-2" width="950" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[Morosos (1,2 y Prejudicial) con llamados realizados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="304d5729-052b-411b-9824-2a23a6f97a2e" mode="Opaque" x="0" y="0" width="72" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="864304e7-120c-429e-bf0d-aed10e8e56f5" mode="Opaque" x="72" y="0" width="878" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f91ba240-a8c8-4579-8e8a-c19ca303f21c" mode="Opaque" x="72" y="17" width="878" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8fd7db2a-8be9-4a5d-857c-d8ecfa44d28b" mode="Opaque" x="0" y="17" width="72" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="803706c7-c997-473d-8b7b-248a79f97c6c" mode="Opaque" x="72" y="0" width="62" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha Llamada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2a596c94-239c-40aa-aca6-146d14122e38" mode="Opaque" x="134" y="0" width="70" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da65cc2d-3a98-4881-a57e-984be3eb1b1b" mode="Opaque" x="204" y="0" width="335" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Respuesta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a76da64e-2aae-4def-aac4-aa590d47985b" mode="Opaque" x="0" y="0" width="72" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da65cc2d-3a98-4881-a57e-984be3eb1b1b" mode="Opaque" x="623" y="0" width="81" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Cuota vencida más vieja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da65cc2d-3a98-4881-a57e-984be3eb1b1b" mode="Opaque" x="813" y="0" width="137" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Operador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da65cc2d-3a98-4881-a57e-984be3eb1b1b" mode="Opaque" x="704" y="0" width="109" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Última Fecha Pago Registrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da65cc2d-3a98-4881-a57e-984be3eb1b1b" mode="Opaque" x="539" y="0" width="84" height="30" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Éxito Llamado Pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="95b057f8-cc6f-4be9-ba2a-ac19f2da3e88" x="0" y="0" width="72" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nroCliente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6e2b3825-3681-4b32-abb6-3ba835d8c860" x="72" y="0" width="62" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaLlamadaRealizada}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="13abcaf3-7f96-4e0e-b37e-c46621b83c16" x="134" y="0" width="70" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6e2b3825-3681-4b32-abb6-3ba835d8c860" x="623" y="0" width="81" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaVencimiento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6e2b3825-3681-4b32-abb6-3ba835d8c860" x="813" y="0" width="137" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operador}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6e2b3825-3681-4b32-abb6-3ba835d8c860" x="704" y="0" width="109" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaPago}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="43101bc3-b804-48bc-bd99-162eb0893092" x="204" y="0" width="335" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{respuesta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6e2b3825-3681-4b32-abb6-3ba835d8c860" x="539" y="0" width="84" height="14"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{llamadoExitoso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="52">
+			<textField pattern="###0">
+				<reportElement uuid="864304e7-120c-429e-bf0d-aed10e8e56f5" mode="Opaque" x="539" y="17" width="411" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{exitoLlamadoPagoCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="864304e7-120c-429e-bf0d-aed10e8e56f5" mode="Opaque" x="539" y="0" width="411" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="304d5729-052b-411b-9824-2a23a6f97a2e" mode="Opaque" x="0" y="0" width="539" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Cantidad de llamados con respuesta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="304d5729-052b-411b-9824-2a23a6f97a2e" mode="Opaque" x="0" y="34" width="539" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Efectividad (Pagos/Llamados)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="304d5729-052b-411b-9824-2a23a6f97a2e" mode="Opaque" x="0" y="17" width="539" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Cantidad de llamados que resultaron en pago]]></text>
+			</staticText>
+			<textField pattern="#,##0.00 %">
+				<reportElement uuid="864304e7-120c-429e-bf0d-aed10e8e56f5" mode="Opaque" x="539" y="34" width="411" height="17" forecolor="#FFFFFF" backcolor="#0066FF"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT} == 0 ? 0 :
+$V{exitoLlamadoPagoCount}.doubleValue() / $V{REPORT_COUNT}.doubleValue()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

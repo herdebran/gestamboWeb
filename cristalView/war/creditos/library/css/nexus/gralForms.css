@@ -1,0 +1,19 @@
+/* Formularios*/
+/******************************* redefining general tags */
+FORM { margin:0; padding:0;}
+
+LABEL, LABEL.nobold { text-align:left; font-weight: bold; }
+LABEL.nobold { font-weight:normal; }
+
+FIELDSET { border: 0; margin: 0; padding: 0; }
+
+LEGEND {
+	padding-right: 5px;
+
+	font-weight: bold;
+	font-size: 100%;
+	color: #A83C56;
+	text-transform: capitalize;
+}
+
+INPUT, SELECT, TEXTAREA, LABEL { font-size: 100%; }

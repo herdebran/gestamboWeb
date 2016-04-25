@@ -1,0 +1,66 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:snoop="urn:import:ar.com.snoop.gwt.commons.client.widget"	
+	>
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+			<div  ui:field="containerPopUp">
+			<div class="gwt-TitledPanel">
+			<div class="title">B&uacute;squeda de Localidad</div>
+			<div class="clear20"></div>
+			<table>
+					<thead></thead>
+						<tbody>
+							<tr>
+								<td>Localidad</td>
+								<td><g:TextBox ui:field="localidadBusqueda" maxLength="100" width="160px"></g:TextBox></td>
+							</tr>
+						</tbody>
+			</table>
+			<div class="clear20"></div>
+			<div style="float:right">
+  				<g:Button ui:field="botonBuscar" styleName="gwt-Button" text="Buscar"></g:Button>
+ 				<g:Button ui:field="botonLimpiar" styleName="gwt-Button" text="Limpiar"></g:Button>
+ 			</div>
+	
+			<div class="clear20"></div>
+			
+			<div style="overflow-y: scroll; height: 270px">
+				<g:FlexTable debugId="detalle" ui:field="detalle" styleName="dataTable" width="98%" ></g:FlexTable>
+			</div>		
+			
+			<div class="clear20"></div>
+				<div class="title">Edici&oacute;n</div>
+			<table>
+					<thead></thead>
+						<tbody>
+							<tr>
+								<td>Provinca</td>
+								<td>Localidad</td>
+								<td>CP</td>
+							</tr>
+							<tr>
+								<td><snoop:ListBox ui:field="provincia"  width="160px"></snoop:ListBox></td>
+								<td><g:TextBox ui:field="localidad" maxLength="100" width="160px"></g:TextBox></td>
+								<td><snoop:RegExpTextBoxImpl ui:field="codigoPostal" maxLength="10" width="160px"></snoop:RegExpTextBoxImpl></td>
+							</tr>
+						</tbody>
+			</table>
+			
+			<div class="clear20"></div>
+			<div align="right">
+  				<g:Button ui:field="botonGuardar" styleName="gwt-Button" text="Guardar"></g:Button>
+ 				<g:Button ui:field="botonCrear" styleName="gwt-Button" text="Crear"></g:Button>
+ 				<g:Button ui:field="botonSeleccionar" styleName="gwt-Button" text="Seleccionar" visible="false"></g:Button>
+ 				<g:Button ui:field="botonCerrar" styleName="gwt-Button" text="Cerrar" visible="false"></g:Button>
+ 			</div>
+
+	</div>
+	</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

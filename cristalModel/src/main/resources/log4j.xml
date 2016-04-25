@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+        
+  <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+	    <param name="ConversionPattern" value="%-7p %d{dd/MM/yy-HH:mm:ss,SSS}- %.8t  %-35.35c{1} .%-25.35M  linea %-5.5L | %m%n" />
+    </layout>
+  </appender>
+  
+   <appender name="R" class="org.apache.log4j.RollingFileAppender"> 
+    <param name="file" value="/opt/cristalModel.log"/>
+    <param name="MaxFileSize" value="2048KB"/>   
+    <param name="MaxBackupIndex" value="160"/>
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%d{dd/MM/yy-HH:mm:ss,SSS} %p %t %-35.35c{1} .%-25.35M linea %-5.5L - %m%n"/> 
+    </layout> 
+  </appender> 
+  
+   <appender name="J" class="org.apache.log4j.RollingFileAppender"> 
+    <param name="file" value="/opt/jasper.log"/>
+    <param name="MaxFileSize" value="2048KB"/>   
+    <param name="MaxBackupIndex" value="15"/>
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%d{dd/MM/yy-HH:mm:ss,SSS} %p %t %-35.35c{1} .%-25.35M linea %-5.5L - %m%n"/> 
+    </layout> 
+  </appender> 
+  
+   <appender name="AnalisisMoraPagoAppender" class="org.apache.log4j.RollingFileAppender"> 
+    <param name="file" value="/opt/AnalisisMoraPago.log"/>
+    <param name="MaxFileSize" value="2048KB"/>   
+    <param name="MaxBackupIndex" value="40"/>
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%d{dd/MM/yy-HH:mm:ss,SSS} %p %t %-35.35c{1} .%-25.35M linea %-5.5L - %m%n"/> 
+    </layout> 
+  </appender> 
+  
+
+  <category name="ar.com.cristal">
+  	<priority value="debug"/>
+  </category>
+
+  <category name="org">
+  	<priority value="info"/>
+  </category>
+
+  <category name="com">
+  	<priority value="info"/>
+  </category>
+  
+  <category name="net.sf.jasperreports">
+  	<priority value="debug"></priority> 
+  	<appender-ref ref="J" /> 
+  </category>
+  
+  <category name="ar.com.cristal.creditos.servicios.impl.AnalisisMoraPagoServiceImpl">
+  	<priority value="debug"></priority> 
+  	<appender-ref ref="AnalisisMoraPagoAppender" /> 
+  </category>
+  
+  <root>
+    <priority value ="info" />
+<!--     <appender-ref ref="ConsoleAppender"/> -->
+    <appender-ref ref="R" /> 
+  </root>
+
+</log4j:configuration> 

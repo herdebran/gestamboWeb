@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:d="urn:import:com.google.gwt.dom.client"
+	xmlns:snoop="urn:import:ar.com.snoop.gwt.commons.client.widget">
+<g:HTMLPanel>
+
+<div class="gwt-TitledPanel" style="width:250px;" > 
+	<div class="title">Bienvenido</div>
+	<g:Label ui:field="usuarioLogueado" width="150px"></g:Label>	
+	
+</div>
+
+
+</g:HTMLPanel>	
+</ui:UiBinder>

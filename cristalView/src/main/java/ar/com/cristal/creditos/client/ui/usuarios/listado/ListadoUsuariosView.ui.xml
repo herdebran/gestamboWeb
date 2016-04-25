@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:snoop="urn:import:ar.com.snoop.gwt.commons.client.widget">
+
+	<g:HTMLPanel> 
+	
+	
+	<div class="gwt-TitledPanel">
+		<div class="title">Listado de usuarios</div>
+	
+	<div style="overflow-y: scroll; height: 300px">
+		<g:FlexTable debugId="listadoUsuarios" ui:field="listadoUsuarios" styleName="dataTable" width="100%" >
+			</g:FlexTable>
+			
+	 </div>
+	 <br></br>
+	 
+	 <div style="float:right; marging:15px">
+	 	<g:Button ui:field="nuevo" text="Nuevo" />
+		<g:Button ui:field="button" text="Ir a Inicio" />
+	
+	 </div>
+	</div>
+	
+
+		
+	</g:HTMLPanel>
+</ui:UiBinder>

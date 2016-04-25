@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:snoop="urn:import:ar.com.snoop.gwt.commons.client.widget">
+
+	
+	<g:HTMLPanel> 
+	      <div class="gwt-TitledPanel">
+	    	  <div class="title" ui:field="clienteDiv">Cliente</div>
+	      </div>
+	      
+		<g:HTMLPanel>
+	     
+		  
+	      
+	    	    	 
+		<ul id="menu">
+			<li><g:Anchor ui:field="anchorDatosOperaciones" debugId="anchorDatosOperaciones">Operaciones</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorDatosPersonales" debugId="anchorDatosPersonales">Datos del Cliente</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorDatosAnexos" debugId="anchorDatosAnexos">Datos Anexos</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorReferidos" debugId="anchorReferidos">Referidos</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorGarantes" debugId="anchorGarantes">Garantes</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorSeguimiento" debugId="anchorSeguimiento">Seguimiento</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorLegales" debugId="anchorSeguimiento">Legales</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorLlamadasEnCurso" debugId="anchorLlamadaEnCurso">Llamada en Curso</g:Anchor></li>
+		</ul>
+		</g:HTMLPanel> 
+	
+	<div class="gwt-TitledPanel">
+		<div class="title">Historial Créditos Cliente | Operaciones</div>
+	
+	<div style="float:left; width:100%;font-family:Arial;font-size:11px">
+		<div id="contenedorDatosPersonales" style="float:left;width:60%">
+		    <div class="lineaDatoPersonal">
+		        <div style="width: 24%; float:left">Convenio Extrajudicial:</div>
+		        <div style="width: 24%; float:left"><g:Label ui:field="convenioExtrajudical" ></g:Label></div>
+		        <div style="width: 24%; float:left">Condici&oacute;n Morosidad:</div>
+		        <div style="width: 24%; float:left"><g:TextBox ui:field="condicionMorosidad"  readOnly="true" width="90%"></g:TextBox></div>
+		    </div>
+		    <div style="clear:both"></div>
+		    <div class="lineaDatoPersonal">
+		        <div style="width: 24%; float:left">Cuil:</div>
+		        <div style="width: 24%; float:left"><g:TextBox ui:field="cuitCliente"	maxLength="30" width="90%"></g:TextBox></div>
+		        <div style="width: 24%; float:left">Cuotas Sociales Adeudadas</div>
+		        <div style="width: 24%; float:left"><g:TextBox ui:field="cuotasSocialesDeuda"	maxLength="10"  width="90%"></g:TextBox></div>
+		    </div>
+		</div>
+		<div id="contenedorComportamientoPago"  style="float:left;width:40%">
+		    <div class="lineaDatoPersonal">
+		        <div style="width: 49%; float:left">Comportamiento Pago D&eacute;bito</div>
+		        <div style="width: 49%; float:left"><snoop:ListBox ui:field="comportamientoPago" multipleSelect="false" width="90%"></snoop:ListBox></div>		        
+		    </div>
+		    <div class="clear10"></div>
+		    <div class="lineaDatoPersonal">
+		    	<!--  <div style="width: 49%; float:left">D&iacute;as desde &uacute;ltimo pago</div>   -->
+		        <div style="width: 49%; float:left"><g:Label ui:field="diasUltimoPago"></g:Label></div>
+		    </div>
+		</div>
+	</div>			
+		
+	<div class="clear20"></div>
+	<g:HTMLPanel ui:field="avisoOperacionesPanel">
+	    <g:Label ui:field="mensaje"></g:Label>
+	</g:HTMLPanel>
+	
+	<div class="title">Operaciones</div>
+	<div ui:field="divTablaCreditos" style="height: 150px" class="divScroll">
+		<g:FlexTable debugId="listadoHistorialCliente" ui:field="listadoHistorialCliente" styleName="dataTable" width="100%" ></g:FlexTable>
+	</div>		
+	 <div class="clear5"></div>
+	 <g:HTMLPanel ui:field="panelCuotas" visible="false">
+	 	
+	 		<div class="title" style="float:left"><g:Label ui:field="creditoSeleccionado"></g:Label></div>
+	 	
+	 	<div style="clear:both"></div>
+	 	
+		 <div style="overflow-y: scroll; height: 200px">
+			<g:FlexTable debugId="listadoCuotas" ui:field="listadoCuotas" styleName="dataTable" width="100%" ></g:FlexTable>
+		</div>	
+	</g:HTMLPanel>
+	
+	 <br></br><br></br>
+	 
+	 <div>
+	 	<g:Button ui:field="buttonSolicitud" text="Nuevo Crédito / Renovación" />
+		<g:Button ui:field="buttonRefinanciacion" text="Refinanciar" />
+		<g:Button ui:field="buttonFinanciacion" text="Financiar Deuda" />
+		<g:Button ui:field="buttonParalelo" text="Crédito Paralelo" />
+		<g:Button ui:field="buttonAdelantoSueldo" text="AdelantoSueldo" />
+		<g:Button ui:field="buttonCambiarPagoVoluntario" text="Cambiar Pago Voluntario" title="Cambia el indicador de pago voluntario" />
+		<g:Button ui:field="buttonModificarCredito" text="Modificar Crédito" visible="true"/>
+	 </div>
+	 <div class="clear10"></div>
+	 <div>
+	 	<g:Button ui:field="button" text="Búsqueda Cliente" />
+		<g:Button ui:field="buttonPagar" text="Pago Cuotas" />
+		<g:Button ui:field="agendarLlamada" text="Agendar Llamada" />
+		<g:Button ui:field="btnRegistrarSeguimiento" text="Registrar Seguimiento" />
+		<g:Button ui:field="buttonBonificacionReintegro" text="Bonificación" />
+		<g:Button ui:field="buttonAnular" text="Anular Crédito" title="Anula solo Créditos que no estén ACTIVOS dentro de la semana de creación" />
+		<g:Button ui:field="buttonAnularConvenio" text="Anular Convenio" title="Anula un convenio ACTIVO por incumplimiento de pago." />
+		<g:Button ui:field="buttonPagarCuotaSocial" text="Cuotas Sociales" title="Registra el pago de cuotas sociales." />
+	 </div>
+	 		
+	
+	</div>
+	
+
+		
+	</g:HTMLPanel>
+</ui:UiBinder>

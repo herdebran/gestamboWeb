@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="UAD_Cooperativa" pageWidth="590" pageHeight="900" whenNoDataType="AllSectionsNoDetail" columnWidth="590" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e5fb9a23-8093-470e-942b-b631fe3064ce">
+	<property name="ireport.zoom" value="1.100000000000009"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="292"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<style name="style1"/>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="localidad" class="java.lang.String"/>
+	<detail>
+		<band height="827" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7219abc7-61aa-4080-bbf4-4ee314757240" x="142" y="111" width="206" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f2765cb-2b9b-4fc8-a09e-7b89f85b414f" x="107" y="111" width="35" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sr/a:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f2765cb-2b9b-4fc8-a09e-7b89f85b414f" x="107" y="123" width="35" height="14"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Calle:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7219abc7-61aa-4080-bbf4-4ee314757240" x="142" y="123" width="206" height="14"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f2765cb-2b9b-4fc8-a09e-7b89f85b414f" x="397" y="321" width="50" height="20"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[La Plata, ]]></text>
+			</staticText>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement uuid="9149172f-f8f0-4b35-8c0f-e980b7bcea15" x="447" y="321" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ca3f6aca-81e3-46c9-8b41-2a4b7eee25c2" x="107" y="612" width="400" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[ha regularizado su situación, sepa disculpar las molestia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="46c42f6b-0db3-4dfc-887e-d32cc23aa5b7" x="370" y="654" width="77" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Atentamente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="46c42f6b-0db3-4dfc-887e-d32cc23aa5b7" x="370" y="732" width="77" height="34"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Julieta Cerruti
+Gerente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="deaf0988-cd69-4dd1-8c1f-e690c1426749" x="181" y="782" width="321" height="32"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[EMPRENDIMIENTO LA LUISINA S.R.L.
+Tel: 0800 -222-4848 / (0221) 423-7666.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7219abc7-61aa-4080-bbf4-4ee314757240" x="107" y="137" width="206" height="14"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{localidad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ecff688d-2829-4c3b-bc58-9742e73a6747" x="293" y="367" width="214" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Ante la falta de respuesta a nuestros llamados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="243c774e-3382-49b9-b7e3-91f8b79501b7" x="107" y="381" width="400" height="41"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[telefónicos efectuados con motivo de incumplimientos anteriores y ante un nuevo incumplimiento, nos dirigimos por este medio para notificarle que a la fecha se realizaron dos (2) intentos consecutivos de cobro de la cuota, resultando todos ellos fallidos.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ecff688d-2829-4c3b-bc58-9742e73a6747" x="293" y="432" width="214" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Si se presenta a regularizar la situación antes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="97c48370-10ff-4cc4-ab92-108eab903d68" x="107" y="446" width="400" height="28"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[mencionada dentro de las 24 hs no le cobraremos los gastos originados por la gestión de cobro.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aae4c1b2-d35d-40f6-8263-84789165701b" x="293" y="474" width="214" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[En caso contrario cumplimos en informarle que]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c20735d9-3e75-4055-8296-e00fe28f94e9" x="107" y="488" width="400" height="68"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[derivaremos el cobro de las mismas a nuestro departamento de legales para que inicie las acciones judiciales correspondientes, quedando a su cargo el pago de las cuotas atrasadas, los intereses correspondientes mas todos las costas originadas en los procesos judiciales antes mencionados. Dichos importes serán cobrados a través del embargo de su sueldo o bienes personales con los cuales pueda responder a su deuda.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aae4c1b2-d35d-40f6-8263-84789165701b" x="279" y="556" width="228" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Adicionalmente informaremos de tal situación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="89f16c65-8f7c-4b92-abfe-df3ad141a5c6" x="107" y="570" width="400" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[al sistema de riesgo comercial (VERAZ).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aae4c1b2-d35d-40f6-8263-84789165701b" x="293" y="584" width="214" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[   Queda usted debidamente notificado.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aae4c1b2-d35d-40f6-8263-84789165701b" x="293" y="598" width="214" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Si a la fecha de recibir esta notificación, Ud. ya]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="465d1443-4808-4037-93c0-7c1d0c264cf2" x="108" y="341" width="200" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMPRENDIMIENTO LA LUISINA S.R.L.]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="7bd8ee3e-2323-4ee2-aff1-d875dc327106" x="360" y="674" width="100" height="60"/>
+				<imageExpression><![CDATA["d:\\Mis documentos\\cristal\\imagenes\\julietaCerrutti.png"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

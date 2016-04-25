@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mappings xmlns="http://dozer.sourceforge.net" xsi:schemaLocation="http://dozer.sourceforge.net
+http://dozer.sourceforge.net/schema/beanmapping.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<mapping >
+		<class-a> ar.com.cristal.creditos.client.accesibilidad.PerfilesDto
+		</class-a>
+		<class-b>ar.com.cristal.creditos.entity.login.Perfil
+		</class-b>
+
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+ 
+		<field>
+			<a>nombre</a>
+			<b>nombre</b>
+		</field>
+		
+		<field>
+			<a>descripcion</a>
+			<b>Descripcion</b>
+		</field>
+	</mapping>
+
+
+
+	<mapping >
+		<class-a> ar.com.cristal.creditos.client.dto.DatoAnexoDTO
+		</class-a>
+		<class-b>ar.com.cristal.creditos.entity.cliente.DatoAnexo
+		</class-b>
+
+		<field>
+			<a>id</a>
+			<b>id</b>
+		</field>
+ 
+ 		<field>
+			<a>idCliente</a>
+			<b>idCliente</b>
+		</field>
+		
+		<field>
+			<a>descripcion</a>
+			<b>descripcion</b>
+		</field>
+		
+		<field>
+			<a>rotulo</a>
+			<b>rotulo</b>
+		</field>
+		
+		<field>
+			<a>filename</a>
+			<b>filename</b>
+		</field>
+		
+		<field custom-converter="ar.com.cristal.creditos.server.converters.TipoDocAnexoCustomConverter">
+			<a>tipoDoc</a>
+			<b>tipoDocumento</b>
+		</field>
+		
+	</mapping>
+</mappings>
