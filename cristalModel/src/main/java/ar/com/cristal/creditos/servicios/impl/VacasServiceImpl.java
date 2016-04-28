@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.cristal.creditos.common.CristalProperties;
 import ar.com.cristal.creditos.dao.GenericDao;
+import ar.com.cristal.creditos.entity.creditos.Cliente;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.VacasService;
@@ -37,6 +38,12 @@ public class VacasServiceImpl implements VacasService {
 		
 	}
 
+	@Override
+	public Vaca obtenerVacaById(Long id){
+		Vaca result = genericDao.get(Vaca.class, id);				
+		return result;
+		
+	}
 
 
 }

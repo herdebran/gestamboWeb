@@ -13,7 +13,10 @@ import ar.com.cristal.creditos.client.service.ClientesRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.ComunesRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.CreditosRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.UsuarioRPCServiceAsync;
+import ar.com.cristal.creditos.client.service.VacasRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
+import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
+import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
 import ar.com.cristal.creditos.client.ui.MenuView;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoView;
@@ -57,6 +60,8 @@ public interface ClientFactory {
     //Places
     HomePlace getHomePlace();
     Place getPopUpInfoPlace();
+    AltaAnimalesPlace getAltaAnimalesPlace (String token);
+    
     AltaEdicionUsuarioPlace getAltaEdicionUsuarioPlace(String id);
     Place getCalculoSolicitudRefinanciacionCreditosPlace(String token);
     OperacionesHistorialCreditosClientePlace getOperacionesHistorialCreditosClientePlace(String string);
@@ -66,6 +71,8 @@ public interface ClientFactory {
     ///Vistas
     MenuView getMenuView();
     HomeView getHomeView();
+    AltaAnimalesView getAltaAnimalesView();
+    
     OperacionesHistorialCreditosClienteView getOperacionesHistorialCreditosClienteView();
     PerfilesCRUDView getPerfilesView();
     PopUpInfoView getPopUpInfoView();
@@ -90,19 +97,12 @@ public interface ClientFactory {
      */
 
     DocumentoGeneradoEvent getDocumentoGeneradoEventService();
-    
-    
     DefaultRemoteEventServiceAsync getDefaultEventService();
-    
     CreditosRPCServiceAsync getCreditosService();
-	
     UsuarioRPCServiceAsync getUsuarioService();
-    
-    
     ClientesRPCServiceAsync getClientesService();
-	
+    VacasRPCServiceAsync getVacasService();
 	ComunesRPCServiceAsync getComunesService();
-	
 	String getURLBase();
 
 	

@@ -14,6 +14,8 @@ import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReporteActivity
 import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReportePlace;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadActivity;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadPlace;
+import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesActivity;
+import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoActivity;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.home.HomeActivity;
@@ -51,6 +53,9 @@ public class AppActivityMapper implements ActivityMapper {
         else if (place instanceof PopUpInfoPlace)
         	currentActivity = new PopUpInfoActivity((PopUpInfoPlace)place, clientFactory);
         
+        else if (place instanceof AltaAnimalesPlace)
+        	currentActivity = new AltaAnimalesActivity((AltaAnimalesPlace)place, clientFactory);
+
         else if (place instanceof ListadoUsuariosPlace)
         	currentActivity = new ListadoUsuariosActivity((ListadoUsuariosPlace)place, clientFactory);
         

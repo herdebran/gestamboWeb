@@ -70,6 +70,8 @@ public class Vaca {
 	@Column(length=500)
 	private String observaciones;
 	@Column
+	private Date fechaAlta;
+	@Column
 	private Date fechaBaja;
 	@Column
 	private Boolean eliminado;
@@ -325,6 +327,16 @@ public class Vaca {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
 
 

@@ -67,6 +67,8 @@ public interface ServiceFacade {
 
 	ClienteService getClienteService();
 
+	VacasService getVacasService();
+
 	CreditosService getCreditosService();
 
 

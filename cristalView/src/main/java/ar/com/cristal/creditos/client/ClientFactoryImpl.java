@@ -16,8 +16,12 @@ import ar.com.cristal.creditos.client.service.CreditosRPCService;
 import ar.com.cristal.creditos.client.service.CreditosRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.UsuarioRPCService;
 import ar.com.cristal.creditos.client.service.UsuarioRPCServiceAsync;
+import ar.com.cristal.creditos.client.service.VacasRPCService;
+import ar.com.cristal.creditos.client.service.VacasRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventService;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
+import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
+import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
 import ar.com.cristal.creditos.client.ui.MenuView;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoView;
@@ -54,6 +58,8 @@ public class ClientFactoryImpl implements ClientFactory {
     
     private HomeView homeView = null;
     private MenuView menuView = null;
+    private AltaAnimalesView altaAnimalesView = null;
+    
     private OperacionesHistorialCreditosClienteView operacionesHistorialCreditosClienteView = null;
     private BusquedaClientesView busquedaClientesView = null;
     private PopUpInfoView popUpInfoView = null;
@@ -76,21 +82,19 @@ public class ClientFactoryImpl implements ClientFactory {
     //Place
     private HomePlace homePlace = null;
     private PopUpInfoPlace popUpInfoPlace = null;
+    private AltaAnimalesPlace altaAnimalesPlace = null;
+    
     private AltaEdicionUsuarioPlace altaEdicionUsuarioPlace;
     private OperacionesHistorialCreditosClientePlace operacionesHistorialCreditosClientePlace = null;
     private SeleccionEstablecimientoPlace seleccionEstablecimientoPlace = null;
     
     //Services
     private final DefaultRemoteEventServiceAsync defaultRemoteEventServiceAsync = DefaultRemoteEventService.Util.getInstance();    
-    
     private final DocumentoGeneradoEvent documentoGeneradoEventService = DocumentoGeneradoEvent.Util.getInstance();
-    
     private  CreditosRPCServiceAsync creditosService = null;
-    
     private UsuarioRPCServiceAsync usuarioService = null;
-    
     private ClientesRPCServiceAsync clientesService = null;
-	
+    private VacasRPCServiceAsync vacasService = null;
 	private ComunesRPCServiceAsync comunesService = null;
 	
 	
@@ -121,6 +125,12 @@ public class ClientFactoryImpl implements ClientFactory {
 			return popUpInfoPlace;
 		}
 	 
+	 public AltaAnimalesPlace getAltaAnimalesPlace(String token) {
+		 if (altaAnimalesPlace == null) altaAnimalesPlace = new AltaAnimalesPlace(token);
+		 altaAnimalesPlace.setToken(token);
+			return altaAnimalesPlace;
+		}
+
 	 public AltaEdicionUsuarioPlace getAltaEdicionUsuarioPlace(String token) {
 		 if (altaEdicionUsuarioPlace == null) altaEdicionUsuarioPlace = new AltaEdicionUsuarioPlace(token);
 		 altaEdicionUsuarioPlace.setToken(token);
@@ -161,6 +171,12 @@ public class ClientFactoryImpl implements ClientFactory {
 		return homeView;
 	}
 
+	public AltaAnimalesView getAltaAnimalesView() {
+		if (altaAnimalesView == null) altaAnimalesView = new AltaAnimalesView();
+		return altaAnimalesView;
+	}
+	
+	
 	public PopUpInfoView getPopUpInfoView() {
 		if (popUpInfoView == null) popUpInfoView = new PopUpInfoView();
 		return popUpInfoView;
@@ -226,6 +242,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	public CreditosRPCServiceAsync getCreditosService() {
 		if(creditosService == null) creditosService = GWT.create(CreditosRPCService.class);
 		return creditosService;
+	}
+	
+	public VacasRPCServiceAsync getVacasService() {
+		if(vacasService == null) vacasService = GWT.create(VacasRPCService.class);
+		return vacasService;
 	}
 	
 	public ClientesRPCServiceAsync getClientesService() {

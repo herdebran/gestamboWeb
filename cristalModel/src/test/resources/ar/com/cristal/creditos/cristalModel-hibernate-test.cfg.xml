@@ -21,6 +21,8 @@
 
 		<!-- Clases persistidas -->
   <mapping class="ar.com.cristal.creditos.entity.tambo.Vaca"/>
+  <mapping class="ar.com.cristal.creditos.entity.tambo.Rodeo"/>
+  <mapping class="ar.com.cristal.creditos.entity.tambo.Raza"/>
   <mapping class="ar.com.cristal.creditos.entity.creditos.Cliente"/>
   <mapping class="ar.com.cristal.creditos.entity.login.Usuario"/> 
   <mapping class="ar.com.cristal.creditos.entity.login.Perfil"/>

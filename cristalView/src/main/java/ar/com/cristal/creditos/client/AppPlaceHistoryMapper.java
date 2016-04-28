@@ -6,6 +6,7 @@ import ar.com.cristal.creditos.client.clientes.busqueda.BusquedaClientesPlace;
 import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHistorialCreditosClientePlace;
 import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReportePlace;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadPlace;
+import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.ui.MenuPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
@@ -19,7 +20,7 @@ import ar.com.cristal.creditos.client.widget.PopUpInfoPlace;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.gwt.place.shared.WithTokenizers;
 
-@WithTokenizers({MenuPlace.Tokenizer.class, HomePlace.Tokenizer.class, 
+@WithTokenizers({MenuPlace.Tokenizer.class, HomePlace.Tokenizer.class,AltaAnimalesPlace.Tokenizer.class, 
 	PopUpInfoPlace.Tokenizer.class, AltaEdicionUsuarioPlace.Tokenizer.class,
 	ListadoUsuariosPlace.Tokenizer.class, OperacionesHistorialCreditosClientePlace.Tokenizer.class, 
 	ListadoUsuariosPlace.Tokenizer.class, OperacionesHistorialCreditosClientePlace.Tokenizer.class,

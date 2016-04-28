@@ -30,6 +30,7 @@ import ar.com.cristal.creditos.servicios.CreditosService;
 import ar.com.cristal.creditos.servicios.ImpresionService;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.TemplateManagerService;
+import ar.com.cristal.creditos.servicios.VacasService;
 import ar.com.cristal.creditos.util.DateUtil;
 
 @Service("serviceFacade")
@@ -40,6 +41,9 @@ public class ServiceFacadeImpl implements ServiceFacade {
 	@Resource
 	private  ClienteService clienteService;
 	
+	@Resource
+	private  VacasService vacasService;
+
 	@Resource
 	private CreditosService creditosService;
 
@@ -162,6 +166,10 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
 	public ClienteService getClienteService() {
 		return clienteService;
+	}
+
+	public VacasService getVacasService() {
+		return vacasService;
 	}
 
 	public CreditosService getCreditosService() {
