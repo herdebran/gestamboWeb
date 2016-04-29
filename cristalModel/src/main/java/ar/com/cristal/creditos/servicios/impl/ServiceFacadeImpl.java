@@ -21,6 +21,7 @@ import ar.com.cristal.creditos.documentos.util.Template;
 import ar.com.cristal.creditos.entity.commons.Empresa;
 import ar.com.cristal.creditos.entity.commons.Tablas;
 import ar.com.cristal.creditos.entity.creditos.Cliente;
+import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.creditos.entity.login.Perfil;
 import ar.com.cristal.creditos.entity.login.Usuario;
 import ar.com.cristal.creditos.entity.sucursales.Sucursal;
@@ -379,6 +380,12 @@ public class ServiceFacadeImpl implements ServiceFacade {
 		// TODO Auto-generated method stub
 		return null;
 
+	}
+	
+	@Override
+	public Establecimiento obtenerEstablecimientoLogueado() throws Exception {
+		Long estActual=usuarioService.obtenerUsuarioLogueado().getEstablecimientoActual();
+		return usuarioService.obtenerEstablecimiento(estActual);
 	}
 	
 }

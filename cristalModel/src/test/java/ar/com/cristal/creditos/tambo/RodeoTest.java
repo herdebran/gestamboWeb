@@ -1,4 +1,4 @@
-package ar.com.cristal.creditos.cliente;
+package ar.com.cristal.creditos.tambo;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +20,7 @@ import ar.com.cristal.creditos.common.EstadoSanitarioEnum;
 import ar.com.cristal.creditos.dao.GenericDao;
 import ar.com.cristal.creditos.entity.creditos.Cliente;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
+import ar.com.cristal.creditos.entity.tambo.Rodeo;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
 import ar.com.cristal.creditos.localidad.Localidad;
 import ar.com.cristal.creditos.localidad.Reparticion;
@@ -29,10 +30,11 @@ import ar.com.cristal.creditos.servicios.VacasService;
 import ar.com.cristal.creditos.servicios.impl.ClienteService;
 import ar.com.cristal.creditos.util.DateUtil;
 import ar.com.cristal.creditos.util.LogearUsuario;
+import ar.com.cristal.tambo.enums.TipoRodeoEnum;
 
 @ContextConfiguration(locations={"/ar/com/cristal/creditos/cristalModel-application-context-test.xml"})
-public class VacaTest extends AbstractTransactionalJUnit4SpringContextTests {
-	private Logger log = Logger.getLogger(VacaTest.class);
+public class RodeoTest extends AbstractTransactionalJUnit4SpringContextTests {
+	private Logger log = Logger.getLogger(RodeoTest.class);
 
 	@Autowired
 	GenericDao genericDao;
@@ -55,49 +57,34 @@ public class VacaTest extends AbstractTransactionalJUnit4SpringContextTests {
 	
 	
 	@Test
-	@Rollback(false)
-	public void vacaNueva() {
+	@Rollback(true)
+	public void rodeoNuevo() {
 		try {
+			Rodeo r = new Rodeo();
+			r.setNombre("TAMBO GENERAL");
+			r.setTipoRodeo(TipoRodeoEnum.TAMBO_GENERAL);
 			
-			Vaca v=new Vaca();
-			v.setCategoria("CL1");
-			v.setCategoriaMadre("PB");
-			v.setEliminado(false);
-			v.setEstadoProductivo(EstadoProductivoEnum.ORDEÑE);
-			v.setEstadoReproductivo(EstadoReproductivoEnum.PREÑADA);
-			v.setEstadoSanitario(EstadoSanitarioEnum.SANA);
-			Calendar fecha = Calendar.getInstance();			
-			fecha.add(Calendar.YEAR, -10);
-			v.setFechaNacimiento(fecha.getTime());
-			v.setLactancia(3);
-			v.setLitrosPromedio(0.0);
-			v.setRc("333322211");
-			v.setRp("230");
-			
-			vacasService.guardarVaca(v);
-			Assert.assertNotNull(v.getId());
+			vacasService.persistirRodeo(r);
+			Assert.assertNotNull(r.getId());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(e.getMessage());
 		}
 		
 	}
 	
-
 	@Test
-	@Rollback(false)
-	public void existeVacaRPTest() {
+	public void EliminarRodeoTest() {
 		try {
-			Vaca v= vacasService.obtenerVacaPorRP("230");
+			vacasService.eliminarRodeoById(2L);
+			Assert.assertTrue(true);
 			
-			Assert.assertTrue(v != null);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+	
+
 	
 	
 }

@@ -10,6 +10,7 @@ import ar.com.cristal.creditos.documentos.util.Template;
 import ar.com.cristal.creditos.entity.commons.Empresa;
 import ar.com.cristal.creditos.entity.commons.Tablas;
 import ar.com.cristal.creditos.entity.creditos.Cliente;
+import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.creditos.entity.login.Perfil;
 import ar.com.cristal.creditos.entity.login.Usuario;
 import ar.com.cristal.creditos.entity.sucursales.Sucursal;
@@ -118,6 +119,8 @@ public interface ServiceFacade {
 
 
 	String obtenerMaximoCorrelativo() throws Exception;
+
+	Establecimiento obtenerEstablecimientoLogueado() throws Exception;
 	
 	
 
