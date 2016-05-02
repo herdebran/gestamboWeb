@@ -3,6 +3,7 @@ package ar.com.cristal.creditos.client.tambo.dto;
 import java.util.Date;
 
 import ar.com.cristal.creditos.client.dto.DTO;
+import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
 
 
@@ -36,7 +37,7 @@ public class VacaDTO  extends DTO {
 	private Date fechaBaja;
 	private Boolean eliminado;
 	private byte[] imagen;
-	private Establecimiento establecimiento;
+	private EstablecimientoDTO establecimiento;
 	private Long usuarioAlta;
 	private Long usuarioBajaId;
 	public Long getId() {
@@ -208,10 +209,10 @@ public class VacaDTO  extends DTO {
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
-	public Establecimiento getEstablecimiento() {
+	public EstablecimientoDTO getEstablecimiento() {
 		return establecimiento;
 	}
-	public void setEstablecimiento(Establecimiento establecimiento) {
+	public void setEstablecimiento(EstablecimientoDTO establecimiento) {
 		this.establecimiento = establecimiento;
 	}
 	public Long getUsuarioAlta() {

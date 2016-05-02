@@ -34,12 +34,16 @@ public class VacasServiceImpl implements VacasService {
 
 	@Override
 	@Transactional
-	public void guardarVaca(Vaca vaca) throws Exception {
+	public Vaca guardarVaca(Vaca vaca) throws Exception {
 		try {
-			vaca.setFechaAlta(serviceFacade.getFechaActual());
-			vaca.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
-			vaca.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
-			genericDao.save(vaca);
+			if (vaca.getId() == null){
+				//ALTA: Agrega usuario y Fecha
+				vaca.setFechaAlta(serviceFacade.getFechaActual());
+				vaca.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
+				vaca.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
+			}
+			genericDao.saveOrUpdate(vaca);
+			return vaca;
 		} catch (Exception e) {
 			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " guardarVaca(): " + e.getMessage(), e);
 			throw e;

@@ -55,6 +55,17 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 	}
 	
 	@Override
+	public VacaDTO guardarVacaRPC (VacaDTO vacaDTO)throws Exception {
+		try {
+			Vaca vaca = mapper.map(vacaDTO, Vaca.class);
+			return mapper.map(vacasService.guardarVaca(vaca),VacaDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	
+	@Override
 	public VacaDTO obtenerVacaDTOPorRP(final String rp) throws Exception{
 		try {
 			return mapper.map(vacasService.obtenerVacaPorRP(rp),VacaDTO.class);
@@ -90,4 +101,6 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 	public void eliminarRodeoRPC (RodeoDTO rodeo)throws Exception {
 		vacasService.eliminarRodeo((mapper.map(rodeo, Rodeo.class)));
 	}
+	
+
 }

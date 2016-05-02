@@ -16,14 +16,9 @@
 package ar.com.cristal.creditos.client.tambo.animales.alta;
 
 import java.util.Date;
-import java.util.List;
 
-import ar.com.cristal.creditos.client.dto.ClienteDTO;
-import ar.com.cristal.creditos.client.dto.EmpresaDTO;
-import ar.com.cristal.creditos.client.ui.util.InicializarCombos;
-import ar.com.cristal.creditos.client.ui.util.OperacionesDocumentos;
+import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.util.RegularExpressionConstants;
-import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 import ar.com.snoop.gwt.commons.client.widget.ListBox;
 import ar.com.snoop.gwt.commons.client.widget.RegExpTextBoxImpl;
 import ar.com.snoop.gwt.commons.client.widget.datepicker.FullDatePicker;
@@ -33,18 +28,15 @@ import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -66,9 +58,7 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 
 		void onCerrar();
 
-		ClienteDTO getClienteActual();
-
-		void buscarReparticion();
+		VacaDTO getVacaActual();
 
 		void cargarCategoriasXRaza(String selectedItemId);
 			
@@ -262,8 +252,8 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 	}
 	
 	
-	public ClienteDTO getClienteActual(){
-		return listener.getClienteActual();
+	public VacaDTO getVacaActual(){
+		return listener.getVacaActual();
 	}
 	
 	public void habilitarBotonGuardar(Boolean habilitar) {

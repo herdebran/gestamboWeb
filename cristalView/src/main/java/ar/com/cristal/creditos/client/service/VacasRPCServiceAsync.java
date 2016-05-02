@@ -18,5 +18,7 @@ public interface VacasRPCServiceAsync {
 
 	void existeVacaRPC(String rp, AsyncCallback<Boolean> callback);
 
+	void guardarVacaRPC(VacaDTO vacaDTO, AsyncCallback<VacaDTO> callback);
+
 
 }

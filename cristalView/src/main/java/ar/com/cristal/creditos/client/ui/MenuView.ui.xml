@@ -11,16 +11,13 @@
 <ul>
    <li class='has-sub'><a href='#'><span>Tambo</span></a>
       <ul>
-         <li class='active last'>
-             <g:Anchor debugId="menu-busquedaClientes" ui:field="anchorBusquedaClientes"><span>B&uacute;squeda de Animales</span></g:Anchor>
-         </li>
+		<li><g:Anchor debugId="menu-AltaAnimales" ui:field="mnuAltaAnimales"><span>ABM Animales</span></g:Anchor> </li>
+        <li class='active last'><g:Anchor debugId="menu-busquedaClientes" ui:field="anchorBusquedaClientes"><span>B&uacute;squeda de Animales</span></g:Anchor></li>
       </ul>
    </li>
    <li class='has-sub'><a href='#'><span>Parte Diario</span></a>
       <ul>
-         <li class='last'>
-             <g:Anchor debugId="menu-PerfilesCrud" ui:field="realizacionLlamadasMoraTardia" title=""><span>Carga de parte diario</span></g:Anchor>
-         </li>
+         <li class='last'><g:Anchor debugId="menu-PerfilesCrud" ui:field="realizacionLlamadasMoraTardia" title=""><span>Carga de parte diario</span></g:Anchor></li>
       </ul>
    </li>
    <li class='has-sub'><a href='#'><span>Administración</span></a>

@@ -22,4 +22,6 @@ public interface VacasRPCService extends RemoteService {
 
 	boolean existeVacaRPC(String rp) throws Exception;
 
+	VacaDTO guardarVacaRPC(VacaDTO vacaDTO) throws Exception;
+
 }
