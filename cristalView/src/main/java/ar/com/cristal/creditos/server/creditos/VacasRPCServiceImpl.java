@@ -1,12 +1,18 @@
 package ar.com.cristal.creditos.server.creditos;
 
+import java.util.List;
+
 import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import ar.com.cristal.creditos.client.localidad.ProvinciaDTO;
 import ar.com.cristal.creditos.client.service.VacasRPCService;
+import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
+import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
+import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.entity.creditos.Cliente;
@@ -73,6 +79,7 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 			throw e;
 		}
 	}
+
 	@Override
 	public boolean existeVacaRPC (final String rp)throws Exception{
 		
@@ -102,5 +109,36 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 		vacasService.eliminarRodeo((mapper.map(rodeo, Rodeo.class)));
 	}
 	
+	@Override
+	public List<RazaDTO> obtenerRazasRPC() {
+		
+		List<RazaDTO> razas = mapper.convertList(vacasService.obtenerRazas(),RazaDTO.class);
+		return razas;
+	}
+	
+	@Override
+	public List<RodeoDTO> obtenerRodeosRPC() throws Exception{
+		try {
+			return mapper.convertList(vacasService.obtenerRodeos(),RodeoDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<CategoriaDTO> obtenerCategoriasRPC(long idRaza) throws Exception{
+		try {
+			return mapper.convertList(vacasService.obtenerCategorias(idRaza),CategoriaDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public List<ResultadoTactoDTO> obtenerResultadosTactoRPC() {
+		
+		List<ResultadoTactoDTO> resDTO = mapper.convertList(vacasService.obtenerResultadosTacto(),ResultadoTactoDTO.class);
+		return resDTO;
+	}
 
 }

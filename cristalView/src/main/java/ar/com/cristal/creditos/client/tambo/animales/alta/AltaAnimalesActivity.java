@@ -23,14 +23,18 @@ import ar.com.cristal.creditos.client.ClientFactory;
 import ar.com.cristal.creditos.client.clientes.alta.ClienteView;
 import ar.com.cristal.creditos.client.clientes.busqueda.BusquedaClientesPlace;
 import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoProductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoReproductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoSanitarioEnumDTO;
+import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
+import ar.com.cristal.creditos.client.ui.util.InicializarCombos;
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
 import ar.com.cristal.creditos.client.widget.CustomSiNoDialogBox;
+import ar.com.snoop.gwt.commons.client.widget.ListBox;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -52,7 +56,6 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 	private String token;
 	private VacaDTO vacaActual = null;
 	private Place place = null;
-	private HandlerRegistration handlerRegistrationAdd;
 	private String estadoVaca = "";
 	private final String ID_COMPONENTE_ACTIVITY = "ALTA_EDICION_CLIENTE";
 
@@ -95,6 +98,13 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 				vacaActual = new VacaDTO();
 				vacaActual.setFechaAlta(new Date());
 				
+				//Inicializo combos
+				inicializarComboRaza(null);
+				InicializarCombos.inicializarComboEstadoProductivo(view.cmbEstadoProd, null);
+				InicializarCombos.inicializarComboEstadoReproductivo(view.cmbEstadoReprod, null);
+				InicializarCombos.inicializarComboEstadoSanitario(view.cmbEstadoSanitario, null);
+				InicializarCombos.inicializarComboRodeos(null, view.cmbRodeo);
+				InicializarCombos.inicializarComboProblemasTacto(view.cmbResultadoUltTacto,null);
 				//inicializarTipoDocumento(null);
 				//inicializarComboProvincia(null);
 				//inicializarComboLocalidad(null,true);
@@ -324,23 +334,23 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 		vacaActual.setEstadoReproductivo(EstadoReproductivoEnumDTO.valueOf(view.cmbEstadoReprod.getSelectedItemText()));
 		vacaActual.setEstadoSanitario(EstadoSanitarioEnumDTO.valueOf(view.cmbEstadoSanitario.getSelectedItemText()));
 		vacaActual.setFechaNacimiento(view.fechaNacimientoDatePicker.getSelectedDate());
-		vacaActual.setGrasa(Double.valueOf(view.grasa.getText()));
-		vacaActual.setLactancia(Integer.valueOf(view.lactancia.getText()));
-		vacaActual.setLitrosPromedio(Double.valueOf(view.ltsPromedio.getText()));
+		vacaActual.setGrasa(view.grasa.getText().length() == 0 ? 0D : Double.valueOf(view.grasa.getText()));
+		vacaActual.setLactancia(view.lactancia.getText().length() == 0 ? 0 : Integer.valueOf(view.lactancia.getText()));
+		vacaActual.setLitrosPromedio(view.ltsPromedio.getText().length() == 0 ? 0D: Double.valueOf(view.ltsPromedio.getText()));
 		vacaActual.setObservaciones(view.observaciones.getText());
-		vacaActual.setPadre_id(Long.valueOf(view.cmbPadre.getSelectedItemId()));
+		vacaActual.setPadre_id(view.cmbPadre.getSelectedItemId()==null? 0L : Long.valueOf(view.cmbPadre.getSelectedItemId()));
 		vacaActual.setParaVender(view.paraVender.getValue());
-		vacaActual.setProduccionVitalicia(Double.valueOf(view.prodVitalicia.getText()));
-		vacaActual.setProteina(Double.valueOf(view.proteina.getText()));
+		vacaActual.setProduccionVitalicia(view.prodVitalicia.getText().length() == 0 ? 0D : Double.valueOf(view.prodVitalicia.getText()));
+		vacaActual.setProteina(view.proteina.getText().length() == 0 ? 0D : Double.valueOf(view.proteina.getText()));
 		vacaActual.setRaza_id(Long.valueOf(view.cmbRaza.getSelectedItemId()));
 		vacaActual.setRc(view.rc.getText());
 		vacaActual.setRcMadre(view.rcMadre.getText());
-		vacaActual.setResultadoTacto_id(Long.valueOf(view.cmbResultadoUltTacto.getSelectedItemId()));
+		vacaActual.setResultadoTacto_id(view.cmbResultadoUltTacto.getSelectedItemId()==null ? 0L :Long.valueOf(view.cmbResultadoUltTacto.getSelectedItemId()));
 		vacaActual.setRodeo_id(Long.valueOf(view.cmbRodeo.getSelectedItemId()));
 		vacaActual.setRp(view.rp.getText());
 		vacaActual.setRpMadre(view.rpMadre.getText());
-		vacaActual.setSolidosTotales(Double.valueOf(view.solTot.getText()));
-		vacaActual.setSomaticas(Double.valueOf(view.celSom.getText()));
+		vacaActual.setSolidosTotales(view.solTot.getText().length() == 0 ? 0D : Double.valueOf(view.solTot.getText()));
+		vacaActual.setSomaticas(view.celSom.getText().length() == 0 ? 0D : Double.valueOf(view.celSom.getText()));
 
 		// FALTA AGREGAR LA IMAGEN
 		//vacaActual.setImagen(imagen)
@@ -464,20 +474,75 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 
 	@Override
 	public void inicializarActivity() {
+		popup.mostrarMensaje("Espere","Inicializando pantalla...");
 		System.out.println("Tiempo de validación de permisos y usuario [ms]: " + (new Date().getTime() - tiempo));
 		tiempo = new Date().getTime();
 		inicializarControles();
-		//view.anchorDatosPersonales.getElement().getStyle().setBackgroundColor("#006AA4");		
+		//view.anchorDatosPersonales.getElement().getStyle().setBackgroundColor("#006AA4");
+		popup.ocultar();
 	}
 	
 
 
 	@Override
-	public void cargarCategoriasXRaza(String selectedItemId) {
-		// TODO Auto-generated method stub
+	public void cargarCategoriasXRaza(String razaId) {
+		if (razaId != null) {
+			popup.mostrarMensaje("Espere...","Cargando categorias...");
+			clientFactory.getVacasService().obtenerCategoriasRPC(Long.valueOf(razaId), new AsyncCallback<List<CategoriaDTO>>(){
+
+				@Override
+				public void onFailure(Throwable caught) {
+					popup.mostrarMensaje("Atencion","Ha ocurrido un error al cargar las categorias");
+					
+				}
+
+				@Override
+				public void onSuccess(List<CategoriaDTO> result) {
+					inicializarComboCategorias(view.cmbCategoria,result);
+					popup.ocultar();					
+				}
+
+			});
+		}
 		
 	}
 
+	private void inicializarComboRaza(final String raza) {
+		try {
+			final long tiempoCarga = new Date().getTime();
+			clientFactory.getVacasService().obtenerRazasRPC(new AsyncCallback<List<RazaDTO>>() {
+			
+				public void onFailure(Throwable caught) {
+					popup.mostrarMensaje("Error", "No se pudo inicializar el combo Razas");
+					
+				}
+
+				public void onSuccess(List<RazaDTO> razas) {
+					view.cmbRaza.clear();
+					view.cmbRaza.addItem("","");
+					for (RazaDTO razaDTO : razas) {
+						view.cmbRaza.addItem(razaDTO);
+					}
+					if (raza!= null) view.cmbRaza.selectByText(raza);
+					
+					System.out.println("inicializarComboXRaza Tiempo de carga: " + (new Date().getTime() - tiempoCarga));
+				}
+
+			});
+		} catch (Exception e) {
+			popup.mostrarMensaje("Error", "No se pudo inicializar el combo de razas.");
+		}
+	}
+
+
+	private void inicializarComboCategorias(ListBox cmbCategoria,
+			List<CategoriaDTO> result) {
+		cmbCategoria.clear();
+		
+		for (CategoriaDTO c:result){
+			cmbCategoria.addItem(c);
+		}
+	}
 
 
 

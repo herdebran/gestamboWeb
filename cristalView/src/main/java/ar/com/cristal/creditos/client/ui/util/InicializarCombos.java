@@ -16,7 +16,13 @@ import ar.com.cristal.creditos.client.dto.MedioContactoDTO;
 import ar.com.cristal.creditos.client.dto.SucursalDTO;
 import ar.com.cristal.creditos.client.dto.TipoReporteDTO;
 import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
+import ar.com.cristal.creditos.client.tambo.dto.EstadoProductivoEnumDTO;
+import ar.com.cristal.creditos.client.tambo.dto.EstadoReproductivoEnumDTO;
+import ar.com.cristal.creditos.client.tambo.dto.EstadoSanitarioEnumDTO;
+import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
 import ar.com.cristal.creditos.client.ui.usuarios.dto.UsuarioDTO;
+import ar.com.cristal.creditos.common.EstadoProductivoEnum;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 import ar.com.snoop.gwt.commons.client.widget.ListBox;
 
@@ -936,7 +942,8 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 		
 	}
 
-
+	/* De acá para abajo son todos para uso de Gestambo Propiamente*/
+	
 	public static void inicializarComboEstablecimientosUsuarioLogueado(final String itemText, final ListBox listBox) {
 		listBox.clear();
 		
@@ -965,5 +972,87 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 			}
 		});
 		
+	}
+	
+	static public void inicializarComboEstadoProductivo(final ListBox listBox, String seleccionar) {
+		listBox.clear();
+		for (EstadoProductivoEnumDTO estado:EstadoProductivoEnumDTO.values()){
+			listBox.addItem(estado.getItemText(),estado.getItemValue());
+		}
+
+		if (seleccionar != null)
+			listBox.selectByText(seleccionar);
+		
+	}
+
+	static public void inicializarComboEstadoReproductivo(final ListBox listBox, String seleccionar) {
+		listBox.clear();
+		for (EstadoReproductivoEnumDTO estado:EstadoReproductivoEnumDTO.values()){
+			listBox.addItem(estado.getItemText(),estado.getItemValue());
+		}
+
+		if (seleccionar != null)
+			listBox.selectByText(seleccionar);
+		
+	}
+	
+	static public void inicializarComboEstadoSanitario(final ListBox listBox, String seleccionar) {
+		listBox.clear();
+		for (EstadoSanitarioEnumDTO estado:EstadoSanitarioEnumDTO.values()){
+			listBox.addItem(estado.getItemText(),estado.getItemValue());
+		}
+
+		if (seleccionar != null)
+			listBox.selectByText(seleccionar);
+		
+	}
+	static public void inicializarComboRodeos(final String nombre,final ListBox listBox){
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		cf.getVacasService().obtenerRodeosRPC(new AsyncCallback<List<RodeoDTO>>() {
+			
+			public void onFailure(Throwable caught) {
+				cf.getPopUp().mostrarMensaje("Error", caught.getMessage());
+			}
+
+			public void onSuccess(List<RodeoDTO> result) {
+				
+				for (RodeoDTO obj : result) {
+					listBox.addItem(obj);
+				}
+				
+				if (nombre != null && !nombre.isEmpty())
+					listBox.selectByText("nombre");
+				
+				Log.debug("inicializarComboRodeos Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+			}
+
+		});
+	}
+	
+	static public void inicializarComboProblemasTacto(final ListBox listBox,final String nombre){
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		listBox.addItem("","");
+		cf.getVacasService().obtenerResultadosTactoRPC(new AsyncCallback<List<ResultadoTactoDTO>>() {
+
+			
+			public void onFailure(Throwable caught) {
+				cf.getPopUp().mostrarMensaje("Error", caught.getMessage());
+			}
+
+			public void onSuccess(List<ResultadoTactoDTO> result) {
+				
+				for (ResultadoTactoDTO obj : result) {
+					listBox.addItem(obj);
+				}
+				
+				if (nombre != null && !nombre.isEmpty())
+					listBox.selectByText("nombre");
+				
+				Log.debug("inicializarComboProblemas Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+			}
+
+		});
 	}
 }

@@ -14,10 +14,11 @@ import ar.com.cristal.creditos.client.dto.DTO;
 import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.tambo.enums.TipoRodeoEnum;
+import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 
 
 @SuppressWarnings("serial")
-public class RodeoDTO  extends DTO {
+public class RodeoDTO  extends DTO implements ListBoxItem{
 	private Long id;
 	private String nombre;
 	private TipoRodeoEnumDTO tipoRodeo;
@@ -59,6 +60,14 @@ public class RodeoDTO  extends DTO {
 	}
 	public void setEstablecimiento(EstablecimientoDTO establecimiento) {
 		this.establecimiento = establecimiento;
+	}
+	@Override
+	public String getItemText() {
+		return this.nombre;
+	}
+	@Override
+	public String getItemValue() {
+		return this.id.toString();
 	}
 	
 	

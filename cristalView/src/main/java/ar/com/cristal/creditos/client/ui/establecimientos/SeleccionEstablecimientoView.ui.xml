@@ -8,7 +8,7 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
-			<div  ui:field="containerPopUp">
+			<div ui:field="containerPopUp">
 			<div class="gwt-TitledPanel">
 			<div class="title">Selecci&oacute;n de Establecimiento</div>
 			<div class="clear20"></div>
@@ -23,11 +23,11 @@
 			</table>
 			
 			<div class="clear20"></div>
-			<div align="right">
+			<div style="float:right">
  				<g:Button ui:field="btnSeleccionar" styleName="gwt-Button" text="Seleccionar" visible="true"></g:Button>
  				<g:Button ui:field="btnCerrar" styleName="gwt-Button" text="Cerrar" visible="true"></g:Button>
  			</div>
-
+			<div class="clear20"></div>
 	</div>
 	</div>
 	</g:HTMLPanel>

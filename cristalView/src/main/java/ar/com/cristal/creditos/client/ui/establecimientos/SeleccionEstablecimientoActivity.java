@@ -76,7 +76,7 @@ public class SeleccionEstablecimientoActivity extends CustomAbstractActivity imp
 	private void cerrar(ListBoxItem item){
 		hidePopUp();
 		view.showPopUp(false);
-		clientFactory.getEventBus().fireEvent(new SelectedItemEvent(item));
+		//clientFactory.getEventBus().fireEvent(new SelectedItemEvent(item));
 	}
 
 }

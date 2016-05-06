@@ -5,10 +5,11 @@ import java.util.Date;
 import ar.com.cristal.creditos.client.dto.DTO;
 import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
+import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 
 
 @SuppressWarnings("serial")
-public class VacaDTO  extends DTO {
+public class VacaDTO  extends DTO implements ListBoxItem{
 	private Long id;
 	private String rp;
 	private String rc;
@@ -226,6 +227,14 @@ public class VacaDTO  extends DTO {
 	}
 	public void setUsuarioBajaId(Long usuarioBajaId) {
 		this.usuarioBajaId = usuarioBajaId;
+	}
+	@Override
+	public String getItemText() {
+		return this.rp;
+	}
+	@Override
+	public String getItemValue() {
+		return this.id.toString();
 	}
 	
 	

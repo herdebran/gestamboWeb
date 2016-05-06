@@ -61,7 +61,6 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 		VacaDTO getVacaActual();
 
 		void cargarCategoriasXRaza(String selectedItemId);
-			
 	}
 	
 		
@@ -148,7 +147,6 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 			
 	}
 	
-	
 	public AltaAnimalesView() {
 		initWidget(binder.createAndBindUi(this));
 		inicializarValidadores();
@@ -157,6 +155,7 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 			
 			public void onBlur(BlurEvent arg0) {
 				if (cmbRaza.getSelectedItem() != null)
+					
 					listener.cargarCategoriasXRaza(cmbRaza.getSelectedItemId());
 				
 			}

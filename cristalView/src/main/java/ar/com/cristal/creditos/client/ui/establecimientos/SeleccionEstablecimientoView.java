@@ -17,10 +17,10 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class SeleccionEstablecimientoView extends Composite {
 
-	private static ABMSucursalViewUiBinder uiBinder = GWT
-			.create(ABMSucursalViewUiBinder.class);
+	private static SeleccionEstablecimientoViewUiBinder uiBinder = GWT
+			.create(SeleccionEstablecimientoViewUiBinder.class);
 
-	interface ABMSucursalViewUiBinder extends UiBinder<Widget, SeleccionEstablecimientoView> {
+	interface SeleccionEstablecimientoViewUiBinder extends UiBinder<Widget, SeleccionEstablecimientoView> {
 	}
 	
 	interface Presenter {
