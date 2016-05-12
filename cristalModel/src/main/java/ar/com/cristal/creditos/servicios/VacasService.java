@@ -6,6 +6,7 @@ import ar.com.cristal.creditos.entity.tambo.Categoria;
 import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
+import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
 
 
@@ -32,6 +33,12 @@ public interface VacasService {
 	List<Categoria> obtenerCategorias(long idRaza) throws Exception;
 
 	List<ResultadoTacto> obtenerResultadosTacto();
+
+	Toro persistirToro(Toro toro) throws Exception;
+
+	List<Toro> obtenerToros() throws Exception;
+
+	List<Toro> buscarToroPorNombre(String nombre) throws Exception;
 	
 
 }

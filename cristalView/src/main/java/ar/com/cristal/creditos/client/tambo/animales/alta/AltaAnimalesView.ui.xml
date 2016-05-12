@@ -38,7 +38,7 @@
 				 	<td>Fecha Nacimiento</td>
 					<td><dp:FullDatePicker ui:field="fechaNacimientoDatePicker"></dp:FullDatePicker></td>
 					<td>Padre</td>
-					<td><snoop:ListBox ui:field="cmbPadre" width="80px" multipleSelect="false"></snoop:ListBox></td>
+					<td><snoop:ListBox ui:field="cmbPadre" width="80px" multipleSelect="false"></snoop:ListBox>&nbsp;<g:Button ui:field="btnBuscarPadre" visible="true" text="..."></g:Button>&nbsp;</td>
 					<td>RP Madre</td>
 					<td width="100px" ><snoop:RegExpTextBoxImpl ui:field="rpMadre" maxLength="10" width="100px"></snoop:RegExpTextBoxImpl></td>					
 					<td>RC Madre</td>

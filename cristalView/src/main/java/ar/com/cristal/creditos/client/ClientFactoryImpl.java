@@ -22,6 +22,7 @@ import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventService;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
+import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosView;
 import ar.com.cristal.creditos.client.ui.MenuView;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoView;
@@ -72,7 +73,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private CambioPasswordUsuarioView cambioPasswordUsuarioView = null;
     private ABMSucursalView abmSucursalView = null;
     private SeleccionEstablecimientoView seleccionEstablecimientoView = null;
-
+    private BusquedaTorosView busquedaTorosView = null;
     private ProcesosAdminView procesosAdminView=null;
     
     //Util
@@ -223,6 +224,11 @@ public class ClientFactoryImpl implements ClientFactory {
 		return seleccionEstablecimientoView;
 	}
 	
+	@Override
+	public BusquedaTorosView getBusquedaTorosView() {
+		if (busquedaTorosView ==null) busquedaTorosView = new BusquedaTorosView();
+		return busquedaTorosView;
+	}
 
 	/****************************************************
 	 * Servicios

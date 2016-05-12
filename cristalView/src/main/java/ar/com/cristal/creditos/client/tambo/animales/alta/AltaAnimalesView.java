@@ -61,6 +61,8 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 		VacaDTO getVacaActual();
 
 		void cargarCategoriasXRaza(String selectedItemId);
+
+		void buscarPadre();
 	}
 	
 		
@@ -135,8 +137,10 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 	
 	@UiField
 	Button aplicar;
-	@UiHandler("cerrar")
+	@UiField
+	Button btnBuscarPadre;
 
+	@UiHandler("cerrar")
 	void onButtonClick(ClickEvent event) {
 		listener.onCerrar();
 	}
@@ -145,6 +149,11 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 	void onSolicitarAprobacionClick(ClickEvent event) {
 		listener.onAplicar(null);
 			
+	}
+	
+	@UiHandler("btnBuscarPadre")
+	public void onClickBuscarPadre(ClickEvent event){
+		listener.buscarPadre();
 	}
 	
 	public AltaAnimalesView() {

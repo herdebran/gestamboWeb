@@ -17,6 +17,7 @@ import ar.com.cristal.creditos.client.service.VacasRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
+import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosView;
 import ar.com.cristal.creditos.client.ui.MenuView;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoView;
@@ -87,6 +88,7 @@ public interface ClientFactory {
     ABMSucursalView getABMSucursalView();
 	ProcesosAdminView getProcesosAdminView();
 	SeleccionEstablecimientoView getSeleccionEstablecimientoView();
+	BusquedaTorosView getBusquedaTorosView();
 	
     ///Servicios
     

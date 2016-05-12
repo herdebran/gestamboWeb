@@ -21,6 +21,7 @@ import ar.com.cristal.creditos.client.tambo.dto.EstadoReproductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoSanitarioEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.ui.usuarios.dto.UsuarioDTO;
 import ar.com.cristal.creditos.common.EstadoProductivoEnum;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
@@ -1051,6 +1052,31 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 					listBox.selectByText("nombre");
 				
 				Log.debug("inicializarComboProblemas Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+			}
+
+		});
+	}
+
+	static public void inicializarComboToros(final String nombre,final ListBox listBox){
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		listBox.addItem("", "");
+		cf.getVacasService().obtenerTorosRPC(new AsyncCallback<List<ToroDTO>>() {
+			
+			public void onFailure(Throwable caught) {
+				cf.getPopUp().mostrarMensaje("Error", caught.getMessage());
+			}
+
+			public void onSuccess(List<ToroDTO> result) {
+				
+				for (ToroDTO obj : result) {
+					listBox.addItem(obj);
+				}
+				
+				if (nombre != null && !nombre.isEmpty())
+					listBox.selectByText(nombre);
+				
+				Log.debug("inicializarComboToros Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
 			}
 
 		});

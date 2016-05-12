@@ -6,6 +6,7 @@ import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -36,5 +37,11 @@ public interface VacasRPCService extends RemoteService {
 	List<CategoriaDTO> obtenerCategoriasRPC(long idRaza) throws Exception;
 
 	List<ResultadoTactoDTO> obtenerResultadosTactoRPC();
+
+	ToroDTO persistirToroRPC(ToroDTO toroDTO) throws Exception;
+
+	List<ToroDTO> obtenerTorosRPC() throws Exception;
+
+	List<ToroDTO> buscarToroPorNombre(String nombre) throws Exception;
 
 }

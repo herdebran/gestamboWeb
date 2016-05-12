@@ -8,16 +8,20 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
 import ar.com.cristal.creditos.client.localidad.ProvinciaDTO;
 import ar.com.cristal.creditos.client.service.VacasRPCService;
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.entity.creditos.Cliente;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
+import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
+import ar.com.cristal.creditos.localidad.Localidad;
 import ar.com.cristal.creditos.server.util.MapperExtended;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.VacasService;
@@ -139,6 +143,32 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 		
 		List<ResultadoTactoDTO> resDTO = mapper.convertList(vacasService.obtenerResultadosTacto(),ResultadoTactoDTO.class);
 		return resDTO;
+	}
+
+	@Override
+	public ToroDTO persistirToroRPC (ToroDTO toroDTO)throws Exception {
+		try {
+			Toro toro = mapper.map(toroDTO, Toro.class);
+			return mapper.map(vacasService.persistirToro(toro),ToroDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public List<ToroDTO> obtenerTorosRPC() throws Exception{
+		try {
+			return mapper.convertList(vacasService.obtenerToros(),ToroDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public List<ToroDTO> buscarToroPorNombre(String nombre)	throws Exception {
+		List<Toro> toros = vacasService.buscarToroPorNombre(nombre);
+		List<ToroDTO> torosDTO = mapper.convertList(toros, ToroDTO.class);
+		return torosDTO;
 	}
 
 }

@@ -23,12 +23,19 @@ import ar.com.cristal.creditos.client.ClientFactory;
 import ar.com.cristal.creditos.client.clientes.alta.ClienteView;
 import ar.com.cristal.creditos.client.clientes.busqueda.BusquedaClientesPlace;
 import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
+import ar.com.cristal.creditos.client.event.SelectedItemEvent;
+import ar.com.cristal.creditos.client.handler.SelectedItemEventHandler;
+import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
+import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadActivity;
+import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadPlace;
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoProductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoReproductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoSanitarioEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
+import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosActivity;
+import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosPlace;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
 import ar.com.cristal.creditos.client.ui.util.InicializarCombos;
@@ -57,6 +64,7 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 	private VacaDTO vacaActual = null;
 	private Place place = null;
 	private String estadoVaca = "";
+	private HandlerRegistration handlerRegistrationAdd;
 	private final String ID_COMPONENTE_ACTIVITY = "ALTA_EDICION_CLIENTE";
 
 	private long tiempo = new Date().getTime();
@@ -105,6 +113,7 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 				InicializarCombos.inicializarComboEstadoSanitario(view.cmbEstadoSanitario, null);
 				InicializarCombos.inicializarComboRodeos(null, view.cmbRodeo);
 				InicializarCombos.inicializarComboProblemasTacto(view.cmbResultadoUltTacto,null);
+				InicializarCombos.inicializarComboToros(null, view.cmbPadre);
 				//inicializarTipoDocumento(null);
 				//inicializarComboProvincia(null);
 				//inicializarComboLocalidad(null,true);
@@ -542,6 +551,25 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 		for (CategoriaDTO c:result){
 			cmbCategoria.addItem(c);
 		}
+	}
+
+
+	/**
+	 * Abre popUp para seleccionar un Toro como padre.
+	 */
+	@Override
+	public void buscarPadre() {
+		 handlerRegistrationAdd = clientFactory.getEventBus().addHandler(SelectedItemEvent.TYPE, new SelectedItemEventHandler() {
+				@Override
+				public void onSelectItem(SelectedItemEvent event) {
+					handlerRegistrationAdd.removeHandler();
+					if (event.getListBoxItem() != null)
+						InicializarCombos.inicializarComboToros(event.getListBoxItem().getItemText(), view.cmbPadre);
+				}
+			 });
+			BusquedaTorosActivity toroActivity = new BusquedaTorosActivity(new BusquedaTorosPlace(""), clientFactory);
+			toroActivity.startInPopUp();			
+		
 	}
 
 

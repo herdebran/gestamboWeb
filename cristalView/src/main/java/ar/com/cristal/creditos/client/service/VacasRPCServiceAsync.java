@@ -6,6 +6,7 @@ import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -34,6 +35,13 @@ public interface VacasRPCServiceAsync {
 
 	void obtenerResultadosTactoRPC(
 			AsyncCallback<List<ResultadoTactoDTO>> callback);
+
+	void persistirToroRPC(ToroDTO toroDTO, AsyncCallback<ToroDTO> callback);
+
+	void obtenerTorosRPC(AsyncCallback<List<ToroDTO>> callback);
+
+	void buscarToroPorNombre(String nombre,
+			AsyncCallback<List<ToroDTO>> callback);
 
 
 }

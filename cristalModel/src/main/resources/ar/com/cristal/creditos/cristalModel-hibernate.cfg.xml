@@ -28,6 +28,7 @@
   <mapping class="ar.com.cristal.creditos.entity.tambo.Raza"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.Categoria"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.ResultadoTacto"/>
+  <mapping class="ar.com.cristal.creditos.entity.tambo.Toro"/>
   <mapping class="ar.com.cristal.creditos.entity.creditos.Cliente"/>
   <mapping class="ar.com.cristal.creditos.entity.login.Usuario"/> 
   <mapping class="ar.com.cristal.creditos.entity.login.Perfil"/>

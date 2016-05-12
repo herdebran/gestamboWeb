@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,9 @@ import ar.com.cristal.creditos.entity.tambo.Categoria;
 import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
+import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
+import ar.com.cristal.creditos.localidad.Localidad;
 import ar.com.cristal.creditos.localidad.Provincia;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.VacasService;
@@ -169,7 +173,7 @@ public class VacasServiceImpl implements VacasService {
 			  
 			return rodeos;
 		} catch (Exception e) {
-			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerVacaPorRP(): " + e.getMessage(), e);
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerRodeos(): " + e.getMessage(), e);
 			throw e;
 		}
 	}
@@ -201,5 +205,67 @@ public class VacasServiceImpl implements VacasService {
      	return resul;
 				
  	}
+	
+	@Override
+	@Transactional
+	public Toro persistirToro(Toro toro) throws Exception {
+		try {
+			if (toro.getId() == null){
+				//ALTA: Agrega usuario y Fecha
+				toro.setFechaAlta(serviceFacade.getFechaActual());
+				toro.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
+				toro.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
+			}
+			genericDao.saveOrUpdate(toro);
+			if (toro.getId() != null)
+				log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " Se creó toro id: " + toro.getId());
+			
+			return toro;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " persistirToro(): " + e.getMessage(), e);
+			throw e;
+		}
+		
+	}
+
+
+	/**
+	 * Devuelve TOROS del Establecmiento Logueado
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Toro> obtenerToros() throws Exception{
+		try {
+			Establecimiento establecimiento=serviceFacade.obtenerEstablecimientoLogueado();
+			
+			List<Toro> toros = genericDao.getSessionFactory().getCurrentSession().createCriteria(Toro.class)
+				.add(Restrictions.eq("eliminado", Boolean.FALSE))
+				.add(Restrictions.eq("establecimiento", establecimiento))
+				.addOrder(Order.asc("nombre")).list();
+			  
+			return toros;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerToros(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
+
+	@Override
+	public List<Toro> buscarToroPorNombre(String nombre) throws Exception {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Toro.class);
+			criteria.add(Restrictions.like("nombre",nombre,MatchMode.ANYWHERE).ignoreCase());
+			criteria.add(Restrictions.eq("establecimiento", serviceFacade.obtenerEstablecimientoLogueado()));
+			List<Toro>  toros =genericDao.findByCriteria(criteria);
+			return toros;
+		} catch (Exception e){
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " buscarToroPorNombre(): " + e.getMessage(), e);
+			throw e;
+			
+		}
+	}
+
 
 }
