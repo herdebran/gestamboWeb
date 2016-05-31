@@ -433,8 +433,6 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 
 			}
 
-			//TODO: Validar que no exista el RP ya
-						
 						
 		} catch (Exception e) {
 			mensajeError.add("Error: " + e.getMessage());

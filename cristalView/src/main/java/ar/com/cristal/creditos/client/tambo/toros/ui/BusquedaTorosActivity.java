@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.cristal.creditos.client.ClientFactory;
-import ar.com.cristal.creditos.client.LocalidadFactoryImpl;
 import ar.com.cristal.creditos.client.event.SelectedItemEvent;
-import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
-import ar.com.cristal.creditos.client.localidad.ProvinciaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
+import ar.com.cristal.creditos.client.ui.util.InicializarCombos;
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
-import ar.com.cristal.creditos.client.ui.util.RegularExpressionConstants;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -42,7 +39,6 @@ public class BusquedaTorosActivity extends CustomAbstractActivity implements Bus
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
 		super.start(container, eventBus, "ABM_LOCALIDAD");
 		view = clientFactory.getBusquedaTorosView();
-		view.codigoPostal.setExpresionRegular(RegularExpressionConstants.numeros);
 		container.setWidget(view.asWidget());
 
 	}
@@ -51,7 +47,7 @@ public class BusquedaTorosActivity extends CustomAbstractActivity implements Bus
 	public void inicializarActivity() {
 		view.setPresenter(this);
 		view.initTable();
-		inicializarComboProvincia();
+		InicializarCombos.inicializarComboRaza("", view.raza);
 	}
 
 	@Override
@@ -61,26 +57,8 @@ public class BusquedaTorosActivity extends CustomAbstractActivity implements Bus
 	
 	public void startInPopUp() {
 		view = clientFactory.getBusquedaTorosView();
-		view.codigoPostal.setExpresionRegular(RegularExpressionConstants.numeros);
 		startInPopUp(view);
 		view.showPopUp(true);
-	}
-	
-	private void inicializarComboProvincia(){
-		try {
-			LocalidadFactoryImpl.getClientFactoryImpl().getLocalidadService().obtenerProvincias(new AsyncCallback<List<ProvinciaDTO>>() {
-				public void onFailure(Throwable caught) {
-					popUpInfo.mostrarMensaje("Error", "No se pudo inicializar el combo provincia");
-				}
-
-				public void onSuccess(List<ProvinciaDTO> provincias) {
-					view.setProvincias(provincias);
-				}
-
-			});
-		} catch (Exception e) {
-			popUpInfo.mostrarMensaje("Error", "No se pudo inicializar el combo provincia");
-		}
 	}
 	
 
@@ -109,8 +87,10 @@ public class BusquedaTorosActivity extends CustomAbstractActivity implements Bus
 		}
 		else{
 			//Aca llenar los campos del DTO con los elementos de la pantalla
-			//toroDTO.setNombre(view.getLocalidad());
-			//localidadDTO.setProvincia((ProvinciaDTO)view.getProvincia());
+			toroDTO.setNombre(view.nombre.getText());
+			toroDTO.setHba(view.hba.getValue());
+			toroDTO.setRaza_id(Long.valueOf(view.raza.getSelectedItemId()));
+			toroDTO.setAnimalVivo(view.animalVivo.getValue());
 		}
 		return toroDTO;
 
@@ -154,66 +134,70 @@ public class BusquedaTorosActivity extends CustomAbstractActivity implements Bus
 		rowEdit = rowEdit;
 		
 		//Aca llenar los elementos de la vista con Datos
-		//view.setCodigoPostal(""+localidadDTO.getCodigo());
-		//view.setLocalidad(localidadDTO.getNombre());
-		//view.setProvincia(localidadDTO.getProvincia());
+		view.nombre.setText(toroDTO.getNombre());
+		view.hba.setText(toroDTO.getHba());
+		view.raza.selectByValue(toroDTO.getRaza_id().toString());
+		view.animalVivo.setValue(toroDTO.getAnimalVivo());
 	}
 
 	@Override
 	public void guardar() {
-//		ToroDTO toroDTO = buildDTO(false);
-//		if (validarGuardar(toroDTO)){
-//			if (toroEditDTO!= null)
-//				toroDTO.setId(toroEditDTO.getId());
-//			
-//			popUpInfo.mostrarMensaje("Guardando Toro... espere un momento por favor.");
-//			
-//			clientFactory.getComunesService().guardarCrearLocalidad(localidadDTO,new AsyncCallback<LocalidadDTO>() {
-//
-//				@Override
-//				public void onFailure(Throwable arg) {
-//					popUpInfo.mostrarMensaje("Error: ", arg.getMessage());
-//				}
-//
-//				@Override
-//				public void onSuccess(LocalidadDTO localidadGuardadoDTO) {
-//					popUpInfo.ocultar();
-//					//Actualizar detalle o agregar nuevo Row
-//					Integer row = view.getDetalle().getRowCount();
-//					if (localidadEditDTO!= null){
-//						localidadEditDTO.setCodigo(localidadGuardadoDTO.getCodigo());
-//						localidadEditDTO.setNombre(localidadGuardadoDTO.getNombre());
-//						localidadEditDTO.setProvincia(localidadGuardadoDTO.getProvincia());
-//						row = rowEditLocalidad;
-//					}
-//					else{
-//						localidades.add(localidadGuardadoDTO);
-//					}
-//					cargarDetalle(localidadGuardadoDTO,row,localidadEditDTO == null);
-//					crear();
-//				}				
-//			});
-//
-//		}
-//		else{
-//			popUpInfo.mostrarMensaje("Debe completar los campos obligatorios de localidad");
-//		}
-//		
+		ToroDTO toroDTO = buildDTO(false);
+		if (validarGuardar(toroDTO)){
+			if (toroEditDTO!= null)
+				toroDTO.setId(toroEditDTO.getId());
+			
+			popUpInfo.mostrarMensaje("Guardando Toro... espere un momento por favor.");
+			clientFactory.getVacasService().persistirToroRPC(toroDTO, new AsyncCallback<ToroDTO>(){
+
+				@Override
+				public void onFailure(Throwable arg) {
+					popUpInfo.mostrarMensaje("Error: ", arg.getMessage());
+					
+				}
+
+				@Override
+				public void onSuccess(ToroDTO toroGuardadoDTO) {
+					popUpInfo.ocultar();
+					//Actualizar detalle o agregar nuevo Row
+					Integer row = view.getDetalle().getRowCount();
+					if (toroEditDTO!= null){
+						toroEditDTO.setId(toroGuardadoDTO.getId());
+						toroEditDTO.setNombre(toroGuardadoDTO.getNombre());
+						toroEditDTO.setHba(toroGuardadoDTO.getHba());
+						toroEditDTO.setRaza_id(toroGuardadoDTO.getRaza_id());
+						toroEditDTO.setAnimalVivo(toroGuardadoDTO.getAnimalVivo());
+						row = rowEdit;
+					} else{
+						toros.add(toroGuardadoDTO);
+					}
+					cargarDetalle(toroGuardadoDTO,row,toroEditDTO == null);
+					crear();
+				}
+				
+			});
+
+		}
+		else{
+			popUpInfo.mostrarMensaje("Debe completar los campos obligatorios del toro.");
+		}
+		
 	}
 	
 	private boolean validarGuardar(ToroDTO toroDTO){
-		return true;
-//		return localidadDTO.getNombre() != null && localidadDTO.getProvincia() != null && localidadDTO.getCodigo()!=null;
+		return toroDTO.getNombre() != null && 
+				toroDTO.getRaza_id() != null && 
+				toroDTO.getHba()!=null;
 	}
 	
 
 	@Override
 	public void crear() {
-//		if (rowEditLocalidad != null)
-//			view.disabledRadioButton(rowEditLocalidad);
-//		view.limpiarCrear();
-//		localidadEditDTO =null;
-//		rowEditLocalidad = null;	
+		if (rowEdit != null)
+			view.disabledRadioButton(rowEdit);
+		view.limpiarCrear();
+		toroEditDTO =null;
+		rowEdit = null;	
 	}
 
 	@Override

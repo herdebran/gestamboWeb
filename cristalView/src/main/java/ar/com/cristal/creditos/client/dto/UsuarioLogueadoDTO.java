@@ -20,7 +20,7 @@ public class UsuarioLogueadoDTO implements Serializable, ListBoxItem{
 	private boolean admin = false;
 	private PerfilesDto perfil;
 	private String sessionId = "";
-	private Long establecimientoActual;
+	private EstablecimientoDTO establecimientoActual;
 
 	
 	
@@ -114,11 +114,11 @@ public class UsuarioLogueadoDTO implements Serializable, ListBoxItem{
 		return nombreUsuario + "_" + sessionId;
 	}
 
-	public Long getEstablecimientoActual() {
+	public EstablecimientoDTO getEstablecimientoActual() {
 		return establecimientoActual;
 	}
 
-	public void setEstablecimientoActual(Long establecimientoActual) {
+	public void setEstablecimientoActual(EstablecimientoDTO establecimientoActual) {
 		this.establecimientoActual = establecimientoActual;
 	}
 	

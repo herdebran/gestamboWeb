@@ -57,6 +57,7 @@ public class MenuActivity extends AbstractActivity implements MenuView.Presenter
 
 				
 				view.anchorUsuarioLogueado.setText(usuarioLogueado.getNombreUsuario());
+				view.anchorEstablecimientoActual.setText(" - " + usuarioLogueado.getEstablecimientoActual().getNombre());
 				view.setVisible(true);
 				containerWidget.setWidget(view.asWidget());
 				if (ClientContext.getInstance().ElegirEstablecimientoAlInicio()){

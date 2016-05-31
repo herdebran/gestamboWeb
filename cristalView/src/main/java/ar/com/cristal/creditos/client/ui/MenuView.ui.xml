@@ -40,8 +40,11 @@
  
 <!-- <div style="border-top:1px solid #ffffee;"></div> -->
 
-<div class="usuarioLogueado" style="width:900px;text-align:right" ><g:Anchor debugId="menu-usuariologueado" ui:field="anchorUsuarioLogueado"></g:Anchor><g:Anchor  ui:field="anchorSucursal"></g:Anchor>
+<div class="usuarioLogueado" style="width:900px;text-align:right" >
+	<g:Anchor ui:field="anchorUsuarioLogueado"></g:Anchor>
+	<g:Anchor ui:field="anchorEstablecimientoActual"></g:Anchor>
 </div>
+
 <div style="clear:both"></div> 
 <div style="padding: 5px 0 0 0">
 <g:Anchor ui:field="mensajes" wordWrap="true" width="80%"></g:Anchor>

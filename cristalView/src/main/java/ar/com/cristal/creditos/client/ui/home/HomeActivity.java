@@ -50,9 +50,8 @@ public class HomeActivity extends CustomAbstractActivity implements HomeView.Pre
 				ClientContext.getInstance().setUsuarioLogueadoDTO(u);
 				
 				view.usuarioLogueado.setText(u.getNombreUsuario());
-
-				if (u.isSupervisor()) view.usuarioLogueado.setText(view.usuarioLogueado.getText() + " (Supervisor)");
-				
+				view.establecimientoActual.setText("Establecimiento: " + u.getEstablecimientoActual().getNombre());
+				//if (u.isSupervisor()) view.usuarioLogueado.setText(view.usuarioLogueado.getText() + " (Supervisor)");
 			}
 			
 			public void onFailure(Throwable arg0) {

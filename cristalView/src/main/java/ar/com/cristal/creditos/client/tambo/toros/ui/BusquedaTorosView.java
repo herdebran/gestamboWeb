@@ -1,9 +1,6 @@
 package ar.com.cristal.creditos.client.tambo.toros.ui;
 
-import java.util.List;
-
-import ar.com.cristal.creditos.client.localidad.ProvinciaDTO;
-import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
+import ar.com.cristal.creditos.client.ui.util.RegularExpressionConstants;
 import ar.com.snoop.gwt.commons.client.widget.ListBox;
 import ar.com.snoop.gwt.commons.client.widget.RegExpTextBoxImpl;
 
@@ -17,6 +14,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -64,15 +62,18 @@ public class BusquedaTorosView extends Composite  {
 	FlexTable detalle;
 	
 	@UiField
-	ListBox provincia = new ListBox();
+	ListBox raza = new ListBox();
 	
 	@UiField
-	TextBox localidad;
+	TextBox nombre;
 	
 	@UiField
-	RegExpTextBoxImpl codigoPostal;
+	RegExpTextBoxImpl hba;
 	
-		
+
+	@UiField
+	CheckBox animalVivo;
+	
 	@UiField
 	DivElement containerPopUp;
 	
@@ -101,37 +102,17 @@ public class BusquedaTorosView extends Composite  {
 
 	public BusquedaTorosView(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
+		inicializarValidadores();
 	}
 	
 	public String getToroBusqueda(){
 		return getText(toroBusqueda.getText());
 	}
 	
-	public String getLocalidad(){
-		return getText(localidad.getText());
+	private void inicializarValidadores() {
+		hba.setExpresionRegular(RegularExpressionConstants.numeroLetrasEspacioGuion);
 	}
-	
-	public void setLocalidad(String text){
-		localidad.setText(text);
-	}
-	
-	public String getCodigoPostal(){
-		return getText(codigoPostal.getText());
-	}
-	
-	public void setCodigoPostal(String text){
-		codigoPostal.setText(text);
-	}
-	
-	public ListBoxItem getProvincia(){
-		return provincia.getSelectedItem();
-	}
-	
-	public void setProvincia(ListBoxItem item){
-		provincia.setSelectedItem(item);
-	}
-	
-	
+
 	
 	private String getText(String texto){
 		if (!"".equals(texto))
@@ -200,9 +181,10 @@ public class BusquedaTorosView extends Composite  {
 	}
 
 	public void limpiarCrear() {
-		setLocalidad("");
-		setProvincia(null);
-		setCodigoPostal("");
+		nombre.setText("");
+		hba.setValue("");
+		animalVivo.setValue(false);
+		raza.selectByText("");
 	}
 	
 	public void limpiarBuscar(boolean esBuscar) {
@@ -217,11 +199,6 @@ public class BusquedaTorosView extends Composite  {
 
 	public FlexTable getDetalle() {
 		return detalle;
-	}
-
-	public void setProvincias(List<ProvinciaDTO> provinciasDTO) {
-		provincia.clear();
-		provincia.addAllItems(provinciasDTO);
 	}
 
 

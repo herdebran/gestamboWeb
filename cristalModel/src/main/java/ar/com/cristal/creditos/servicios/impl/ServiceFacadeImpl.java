@@ -384,8 +384,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
 	
 	@Override
 	public Establecimiento obtenerEstablecimientoLogueado() throws Exception {
-		Long estActual=usuarioService.obtenerUsuarioLogueado().getEstablecimientoActual();
-		return usuarioService.obtenerEstablecimiento(estActual);
+		return usuarioService.obtenerUsuarioLogueado().getEstablecimientoActual();
 	}
 	
 }

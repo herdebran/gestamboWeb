@@ -46,8 +46,9 @@ public class Usuario {
 	@JoinColumn	
 	private Perfil perfil;
 
-	@Column
-	private Long establecimientoActual;
+	@ManyToOne
+	@JoinColumn	
+	private Establecimiento establecimientoActual;
 	
 	
 	@Transient
@@ -156,13 +157,13 @@ public class Usuario {
 
 
 
-	public Long getEstablecimientoActual() {
+	public Establecimiento getEstablecimientoActual() {
 		return establecimientoActual;
 	}
 
 
 
-	public void setEstablecimientoActual(Long establecimientoActual) {
+	public void setEstablecimientoActual(Establecimiento establecimientoActual) {
 		this.establecimientoActual = establecimientoActual;
 	}
 	

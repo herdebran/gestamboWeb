@@ -35,6 +35,7 @@ public class HomeView extends Composite implements IsWidget {
 	
 	
 	@UiField Label usuarioLogueado;
+	@UiField Label establecimientoActual;
 
 	public HomeView() {
 		initWidget(binder.createAndBindUi(this));

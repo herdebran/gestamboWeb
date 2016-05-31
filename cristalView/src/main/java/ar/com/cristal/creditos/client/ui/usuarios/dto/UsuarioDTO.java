@@ -3,6 +3,7 @@ package ar.com.cristal.creditos.client.ui.usuarios.dto;
 import java.io.Serializable;
 
 import ar.com.cristal.creditos.client.accesibilidad.PerfilesDto;
+import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 
 public class UsuarioDTO implements Serializable, ListBoxItem {
@@ -19,7 +20,7 @@ public class UsuarioDTO implements Serializable, ListBoxItem {
 	private boolean admin = false;
 	private PerfilesDto perfil = null;
 	private String sessionId = "";
-	private Long establecimientoActual;
+	private EstablecimientoDTO establecimientoActual;
 
 	
 	public Long getId() {
@@ -83,10 +84,10 @@ public class UsuarioDTO implements Serializable, ListBoxItem {
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
 	}
-	public Long getEstablecimientoActual() {
+	public EstablecimientoDTO getEstablecimientoActual() {
 		return establecimientoActual;
 	}
-	public void setEstablecimientoActual(Long establecimientoActual) {
+	public void setEstablecimientoActual(EstablecimientoDTO establecimientoActual) {
 		this.establecimientoActual = establecimientoActual;
 	}
 	

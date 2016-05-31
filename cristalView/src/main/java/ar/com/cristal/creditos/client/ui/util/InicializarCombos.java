@@ -19,6 +19,7 @@ import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoProductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoReproductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoSanitarioEnumDTO;
+import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
@@ -1081,4 +1082,32 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 
 		});
 	}
+	
+	static public void inicializarComboRaza(final String raza,final ListBox listBox) {
+		try {
+			final long tiempoCarga = new Date().getTime();
+			cf.getVacasService().obtenerRazasRPC(new AsyncCallback<List<RazaDTO>>() {
+			
+				public void onFailure(Throwable caught) {
+					popup.mostrarMensaje("Error", "No se pudo inicializar el combo Razas");
+					
+				}
+
+				public void onSuccess(List<RazaDTO> razas) {
+					listBox.clear();
+					listBox.addItem("","");
+					for (RazaDTO razaDTO : razas) {
+						listBox.addItem(razaDTO);
+					}
+					if (raza!= null) listBox.selectByText(raza);
+					
+					System.out.println("inicializarComboXRaza Tiempo de carga: " + (new Date().getTime() - tiempoCarga));
+				}
+
+			});
+		} catch (Exception e) {
+			popup.mostrarMensaje("Error", "No se pudo inicializar el combo de razas.");
+		}
+	}
+
 }

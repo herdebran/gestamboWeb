@@ -215,6 +215,7 @@ public class VacasServiceImpl implements VacasService {
 				toro.setFechaAlta(serviceFacade.getFechaActual());
 				toro.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
 				toro.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
+				toro.setEliminado(false);
 			}
 			genericDao.saveOrUpdate(toro);
 			if (toro.getId() != null)

@@ -70,7 +70,7 @@ public class MenuView extends Composite  implements IsWidget {
 	Anchor anchorUsuarioLogueado;
 	
 	@UiField	
-	Anchor anchorSucursal;
+	Anchor anchorEstablecimientoActual;
 	
 	private Long idSolicitudMensaje = null;
 
@@ -152,7 +152,7 @@ public class MenuView extends Composite  implements IsWidget {
 
 
 	
-	public Anchor getAnchorSucursal(){
-		return anchorSucursal;
+	public Anchor getAnchorEstablecimientoActual(){
+		return anchorEstablecimientoActual;
 	}
 }

@@ -35,19 +35,21 @@
 			</div>		
 			
 			<div class="clear20"></div>
-				<div class="title">Edici&oacute;n</div>
+				<div class="title">Alta y Edici&oacute;n</div>
 			<table>
 					<thead></thead>
 						<tbody>
 							<tr>
-								<td>Provinca</td>
-								<td>Localidad</td>
-								<td>CP</td>
+								<td>Nombre</td>
+								<td>HBA</td>
+								<td>Raza</td>
 							</tr>
 							<tr>
-								<td><snoop:ListBox ui:field="provincia"  width="160px"></snoop:ListBox></td>
-								<td><g:TextBox ui:field="localidad" maxLength="100" width="160px"></g:TextBox></td>
-								<td><snoop:RegExpTextBoxImpl ui:field="codigoPostal" maxLength="10" width="160px"></snoop:RegExpTextBoxImpl></td>
+								<td><g:TextBox ui:field="nombre" maxLength="100" width="160px"></g:TextBox></td>
+								<td><snoop:RegExpTextBoxImpl ui:field="hba" maxLength="15" width="80px"></snoop:RegExpTextBoxImpl></td>
+								<td><snoop:ListBox ui:field="raza"  width="160px"></snoop:ListBox></td>
+								<td align="right" ui:field="animalVivoText"><label for="animalVivo">Animal Vivo</label></td>
+								<td><g:CheckBox ui:field="animalVivo"></g:CheckBox></td>
 							</tr>
 						</tbody>
 			</table>

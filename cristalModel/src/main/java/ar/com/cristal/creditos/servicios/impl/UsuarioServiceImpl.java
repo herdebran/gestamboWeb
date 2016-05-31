@@ -361,7 +361,8 @@ public class UsuarioServiceImpl {
 		Usuario u= obtenerUsuario(usuarioId);
 		
 		if (u != null){
-			u.setEstablecimientoActual(establecimientoId);
+			Establecimiento e=obtenerEstablecimiento(establecimientoId);
+			u.setEstablecimientoActual(e);
 			genericDao.update(u);
 			log.info("UsuarioServiceImpl - Usuario:" + u.getNombreUsuario() + " - Set establecimiento actual id:" + establecimientoId);
 		} else {
