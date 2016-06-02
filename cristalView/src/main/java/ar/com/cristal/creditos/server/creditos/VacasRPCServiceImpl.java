@@ -98,10 +98,10 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 	}
 	
 	@Override
-	public void guardarRodeoRPC (RodeoDTO rodeo)throws Exception {
+	public RodeoDTO guardarRodeoRPC (RodeoDTO rodeo)throws Exception {
 			try {
 				Rodeo r = mapper.map(rodeo, Rodeo.class);
-				vacasService.persistirRodeo(r);
+				return mapper.map(vacasService.persistirRodeo(r),RodeoDTO.class);
 			} catch (Exception e) {
 				throw new Exception("Se produjo un error al intentar persistir Rodeo. " + e.getMessage());
 			
@@ -169,6 +169,13 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 		List<Toro> toros = vacasService.buscarToroPorNombre(nombre);
 		List<ToroDTO> torosDTO = mapper.convertList(toros, ToroDTO.class);
 		return torosDTO;
+	}
+
+	@Override
+	public List<RodeoDTO> buscarRodeoPorNombre(String nombre)	throws Exception {
+		List<Rodeo> rodeos = vacasService.buscarRodeoPorNombre(nombre);
+		List<RodeoDTO> rodeosDTO = mapper.convertList(rodeos, RodeoDTO.class);
+		return rodeosDTO;
 	}
 
 }

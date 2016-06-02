@@ -16,7 +16,7 @@ public interface VacasRPCServiceAsync {
 
 	void obtenerVacaById(Long id, AsyncCallback<VacaDTO> callback);
 
-	void guardarRodeoRPC(RodeoDTO rodeo, AsyncCallback<Void> callback);
+	void guardarRodeoRPC(RodeoDTO rodeo, AsyncCallback<RodeoDTO> callback);
 
 	void eliminarRodeoRPC(RodeoDTO rodeo, AsyncCallback<Void> callback);
 
@@ -42,6 +42,9 @@ public interface VacasRPCServiceAsync {
 
 	void buscarToroPorNombre(String nombre,
 			AsyncCallback<List<ToroDTO>> callback);
+
+	void buscarRodeoPorNombre(String nombre,
+			AsyncCallback<List<RodeoDTO>> callback);
 
 
 }

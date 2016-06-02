@@ -20,7 +20,7 @@ public interface VacasRPCService extends RemoteService {
 
 	VacaDTO obtenerVacaById(Long id) throws Exception;
 
-	void guardarRodeoRPC(RodeoDTO rodeo) throws Exception;
+	RodeoDTO guardarRodeoRPC(RodeoDTO rodeo) throws Exception;
 
 	void eliminarRodeoRPC(RodeoDTO rodeo) throws Exception;
 
@@ -43,5 +43,7 @@ public interface VacasRPCService extends RemoteService {
 	List<ToroDTO> obtenerTorosRPC() throws Exception;
 
 	List<ToroDTO> buscarToroPorNombre(String nombre) throws Exception;
+
+	List<RodeoDTO> buscarRodeoPorNombre(String nombre) throws Exception;
 
 }

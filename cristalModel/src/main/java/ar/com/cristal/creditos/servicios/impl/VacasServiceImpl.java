@@ -93,12 +93,18 @@ public class VacasServiceImpl implements VacasService {
 	
 	@Override
 	@Transactional
-	public void persistirRodeo(Rodeo rodeo) throws Exception {
+	public Rodeo persistirRodeo(Rodeo rodeo) throws Exception {
 		try {
-			rodeo.setFechaAlta(serviceFacade.getFechaActual());
-			rodeo.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
+			if (rodeo.getId() == null){
+				//ALta de Rodeo 
+				rodeo.setFechaAlta(serviceFacade.getFechaActual());
+				rodeo.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
+				rodeo.setEliminado(false);
+			}
+			
 			genericDao.saveOrUpdate(rodeo);
 			log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " se crea rodeo "+ rodeo.getNombre() + " ok.");
+			return rodeo;
 		} catch (Exception e) {
 			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " persistirRodeo(): " + e.getMessage(), e);
 			throw e;
@@ -109,7 +115,7 @@ public class VacasServiceImpl implements VacasService {
 	@Override
 	public void eliminarRodeo(Rodeo rodeo) throws Exception{
 		try {
-			rodeo.setEliminado(false);
+			rodeo.setEliminado(true);
 			persistirRodeo(rodeo);
 			log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " se elimina rodeo "+ rodeo.getNombre() + " ok.");
 			
@@ -268,5 +274,18 @@ public class VacasServiceImpl implements VacasService {
 		}
 	}
 
-
+	@Override
+	public List<Rodeo> buscarRodeoPorNombre(String nombre) throws Exception {
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Rodeo.class);
+			criteria.add(Restrictions.like("nombre",nombre,MatchMode.ANYWHERE).ignoreCase());
+			criteria.add(Restrictions.eq("establecimiento", serviceFacade.obtenerEstablecimientoLogueado()));
+			List<Rodeo>  rodeos =genericDao.findByCriteria(criteria);
+			return rodeos;
+		} catch (Exception e){
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " buscarRodeoPorNombre(): " + e.getMessage(), e);
+			throw e;
+			
+		}
+	}
 }

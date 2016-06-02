@@ -22,6 +22,7 @@ import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventService;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
+import ar.com.cristal.creditos.client.tambo.rodeos.ui.BusquedaRodeosView;
 import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosView;
 import ar.com.cristal.creditos.client.ui.MenuView;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
@@ -38,7 +39,6 @@ import ar.com.cristal.creditos.client.ui.usuarios.pass.CambioPasswordUsuarioView
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
 import ar.com.cristal.creditos.client.widget.PopUpInfoPlace;
 import ar.com.cristal.creditos.client.widget.PopUpInfoView;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -75,6 +75,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private SeleccionEstablecimientoView seleccionEstablecimientoView = null;
     private BusquedaTorosView busquedaTorosView = null;
     private ProcesosAdminView procesosAdminView=null;
+    private BusquedaRodeosView busquedaRodeosView = null;
     
     //Util
     private PopUpInfo popUpInfo = null;
@@ -230,6 +231,11 @@ public class ClientFactoryImpl implements ClientFactory {
 		return busquedaTorosView;
 	}
 
+	@Override
+	public BusquedaRodeosView getBusquedaRodeosView() {
+		if (busquedaRodeosView ==null) busquedaRodeosView = new BusquedaRodeosView();
+		return busquedaRodeosView;
+	}
 	/****************************************************
 	 * Servicios
 	 ****************************************************/

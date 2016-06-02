@@ -16,7 +16,7 @@ public interface VacasService {
 
 	Vaca obtenerVacaById(Long id);
 
-	void persistirRodeo(Rodeo rodeo) throws Exception;
+	Rodeo persistirRodeo(Rodeo rodeo) throws Exception;
 
 	void eliminarRodeo(Rodeo rodeo) throws Exception;
 
@@ -39,6 +39,8 @@ public interface VacasService {
 	List<Toro> obtenerToros() throws Exception;
 
 	List<Toro> buscarToroPorNombre(String nombre) throws Exception;
+
+	List<Rodeo> buscarRodeoPorNombre(String nombre) throws Exception;
 	
 
 }

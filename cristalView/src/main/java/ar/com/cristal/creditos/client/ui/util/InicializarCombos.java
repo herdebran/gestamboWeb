@@ -22,6 +22,7 @@ import ar.com.cristal.creditos.client.tambo.dto.EstadoSanitarioEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoRodeoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.ui.usuarios.dto.UsuarioDTO;
 import ar.com.cristal.creditos.common.EstadoProductivoEnum;
@@ -1024,7 +1025,7 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 				}
 				
 				if (nombre != null && !nombre.isEmpty())
-					listBox.selectByText("nombre");
+					listBox.selectByText(nombre);
 				
 				Log.debug("inicializarComboRodeos Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
 			}
@@ -1109,5 +1110,19 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 			popup.mostrarMensaje("Error", "No se pudo inicializar el combo de razas.");
 		}
 	}
+	
+	static public void inicializarComboTipoRodeo(final String nombre,final ListBox listBox){
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		
+		for (TipoRodeoEnumDTO tipo:TipoRodeoEnumDTO.values()) {
+			listBox.addItem(tipo);
+		}
+		if (nombre != null && !nombre.isEmpty())
+			listBox.selectByText("nombre");
+				
+		Log.debug("inicializarComboTipoRodeo Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+	}
+
 
 }

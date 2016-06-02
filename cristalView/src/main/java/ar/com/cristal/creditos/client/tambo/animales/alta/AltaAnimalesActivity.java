@@ -34,6 +34,8 @@ import ar.com.cristal.creditos.client.tambo.dto.EstadoReproductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoSanitarioEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
+import ar.com.cristal.creditos.client.tambo.rodeos.ui.BusquedaRodeosActivity;
+import ar.com.cristal.creditos.client.tambo.rodeos.ui.BusquedaRodeosPlace;
 import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosActivity;
 import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosPlace;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
@@ -567,6 +569,24 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 			 });
 			BusquedaTorosActivity toroActivity = new BusquedaTorosActivity(new BusquedaTorosPlace(""), clientFactory);
 			toroActivity.startInPopUp();			
+		
+	}
+
+	/**
+	 * Abre pop Up para buscar Rodeo
+	 */
+	@Override
+	public void buscarRodeo() {
+		 handlerRegistrationAdd = clientFactory.getEventBus().addHandler(SelectedItemEvent.TYPE, new SelectedItemEventHandler() {
+				@Override
+				public void onSelectItem(SelectedItemEvent event) {
+					handlerRegistrationAdd.removeHandler();
+					if (event.getListBoxItem() != null)
+						InicializarCombos.inicializarComboRodeos(event.getListBoxItem().getItemText(), view.cmbRodeo);
+				}
+			 });
+			BusquedaRodeosActivity rodeosActivity = new BusquedaRodeosActivity(new BusquedaRodeosPlace(""), clientFactory);
+			rodeosActivity.startInPopUp();			
 		
 	}
 

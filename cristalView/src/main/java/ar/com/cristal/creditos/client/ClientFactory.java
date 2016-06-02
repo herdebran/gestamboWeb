@@ -17,6 +17,7 @@ import ar.com.cristal.creditos.client.service.VacasRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
+import ar.com.cristal.creditos.client.tambo.rodeos.ui.BusquedaRodeosView;
 import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosView;
 import ar.com.cristal.creditos.client.ui.MenuView;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
@@ -36,7 +37,6 @@ import ar.com.cristal.creditos.client.widget.PopUpInfoView;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
-
 import de.novanic.eventservice.client.event.domain.Domain;
 import de.novanic.eventservice.client.event.domain.DomainFactory;
 
@@ -89,6 +89,7 @@ public interface ClientFactory {
 	ProcesosAdminView getProcesosAdminView();
 	SeleccionEstablecimientoView getSeleccionEstablecimientoView();
 	BusquedaTorosView getBusquedaTorosView();
+	BusquedaRodeosView getBusquedaRodeosView();
 	
     ///Servicios
     
