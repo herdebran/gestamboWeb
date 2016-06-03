@@ -178,4 +178,13 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 		return rodeosDTO;
 	}
 
+	@Override
+	public List<VacaDTO> ListarVacasXRodeoIdRPC(Long rodeoId) throws Exception{
+		try {
+			return mapper.convertList(vacasService.listarVacaXRodeoId(rodeoId),VacaDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 }

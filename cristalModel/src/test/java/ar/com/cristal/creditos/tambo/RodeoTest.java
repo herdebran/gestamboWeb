@@ -84,7 +84,20 @@ public class RodeoTest extends AbstractTransactionalJUnit4SpringContextTests {
 		}
 	}
 	
+	@Test
+	public void listarVacaxRodeoTest() {
+		List<Vaca> vacas;
+		try {
+			vacas = vacasService.listarVacaXRodeoId(2L);
+			for (Vaca v:vacas){
+				System.out.println(v.getRp());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+	}
 	
 	
 }

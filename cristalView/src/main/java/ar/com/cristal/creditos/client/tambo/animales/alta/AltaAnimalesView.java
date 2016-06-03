@@ -28,6 +28,8 @@ import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -65,6 +67,8 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 		void buscarPadre();
 		
 		void buscarRodeo();
+
+		void verificarSiExisteRP();
 	}
 	
 		
@@ -164,6 +168,18 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 	public void onClickBuscarRodeo(ClickEvent event){
 		listener.buscarRodeo();
 	}
+	
+	@UiHandler("rp")
+	void onRPKeyPress(KeyUpEvent event){
+		if (KeyCodes.KEY_ENTER == event.getNativeKeyCode())
+			listener.verificarSiExisteRP();
+	}
+	
+	@UiHandler("rp")
+	void onRPLostFocus(BlurEvent event){
+		listener.verificarSiExisteRP();
+	}
+
 	
 	public AltaAnimalesView() {
 		initWidget(binder.createAndBindUi(this));

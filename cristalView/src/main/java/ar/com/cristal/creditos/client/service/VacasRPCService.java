@@ -46,4 +46,6 @@ public interface VacasRPCService extends RemoteService {
 
 	List<RodeoDTO> buscarRodeoPorNombre(String nombre) throws Exception;
 
+	List<VacaDTO> ListarVacasXRodeoIdRPC(Long rodeoId) throws Exception;
+
 }

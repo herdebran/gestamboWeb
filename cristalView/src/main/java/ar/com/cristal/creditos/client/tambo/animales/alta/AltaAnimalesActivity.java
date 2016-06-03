@@ -591,6 +591,33 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 	}
 
 
+	@Override
+	public void verificarSiExisteRP() {
+		if (view.rp.getText() != null){
+			popup.mostrarMensaje("Espere","Verificando si existe RP...");
+			clientFactory.getVacasService().existeVacaRPC(view.rp.getValue(),new AsyncCallback<Boolean>(){
 
+				@Override
+				public void onFailure(Throwable arg) {
+					popup.mostrarMensaje("Error: " + arg);
+				}
+
+				@Override
+				public void onSuccess(Boolean result) {
+					popup.ocultar();
+					if (result)
+						ofrecerEdicion();
+					
+				}
+					
+		});
+		
+	}
+
+	}
+
+	private void ofrecerEdicion() {
+		popup.mostrarMensaje("Atencion","Ya existe ¿desea editar? blabla");
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -13,9 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.cristal.creditos.common.CristalProperties;
-import ar.com.cristal.creditos.common.EstadoClienteEnum;
 import ar.com.cristal.creditos.dao.GenericDao;
-import ar.com.cristal.creditos.entity.creditos.Cliente;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.creditos.entity.tambo.Categoria;
 import ar.com.cristal.creditos.entity.tambo.Raza;
@@ -23,8 +22,6 @@ import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
 import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
-import ar.com.cristal.creditos.localidad.Localidad;
-import ar.com.cristal.creditos.localidad.Provincia;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.VacasService;
 
@@ -288,4 +285,28 @@ public class VacasServiceImpl implements VacasService {
 			
 		}
 	}
+	
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Vaca> listarVacaXRodeoId(final Long rodeoId) throws Exception{
+		Vaca vaca = null;
+		
+		try {
+			String queryVacasXRodeo="select * from Vaca where rodeo_id = :rodeoId and eliminado=0";
+			SQLQuery query = serviceFacade.createSQLQuery(queryVacasXRodeo);
+			query.addEntity(Vaca.class);
+			query.setLong("rodeoId", rodeoId);
+
+			@SuppressWarnings("unchecked")
+			List<Vaca> result = query.list();
+
+			return result;			
+			
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " listarVacaXRodeoId(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
+
 }

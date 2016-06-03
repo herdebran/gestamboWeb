@@ -41,6 +41,8 @@ public interface VacasService {
 	List<Toro> buscarToroPorNombre(String nombre) throws Exception;
 
 	List<Rodeo> buscarRodeoPorNombre(String nombre) throws Exception;
+
+	List<Vaca> listarVacaXRodeoId(Long rodeoId) throws Exception;
 	
 
 }
