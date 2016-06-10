@@ -16,15 +16,21 @@
 		<thead></thead>
 		<tbody>
 			<tr>
+				<td>Rodeo</td>
+				<td>
+					<snoop:ListBox ui:field="cmbRodeo"  width="100px"></snoop:ListBox>
+				</td>
+			</tr>
+		    <tr>
 				<td>RC</td>
 				<td>
-					<snoop:RegExpTextBoxImpl ui:field="rcAnimal" maxLength="100" width="100px" expresionRegular="[0123456789]{0,9}"></snoop:RegExpTextBoxImpl>
+					<snoop:RegExpTextBoxImpl ui:field="rcAnimal" maxLength="100" width="100px"></snoop:RegExpTextBoxImpl>
 				</td>
 			</tr>
 			<tr>
 				<td>RP</td>
 				<td>
-					<snoop:RegExpTextBoxImpl ui:field="rpAnimal"	maxLength="100" width="60px" expresionRegular="[0123456789]{0,10}"></snoop:RegExpTextBoxImpl>
+					<snoop:RegExpTextBoxImpl ui:field="rpAnimal"	maxLength="100" width="60px"></snoop:RegExpTextBoxImpl>
 				</td>
 				<td>(ENTER para intentar abrir la ficha)</td>
 			</tr>

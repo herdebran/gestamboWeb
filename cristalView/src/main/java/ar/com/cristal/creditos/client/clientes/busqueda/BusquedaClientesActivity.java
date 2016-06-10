@@ -19,12 +19,12 @@ import java.util.Date;
 import java.util.List;
 
 import ar.com.cristal.creditos.client.ClientFactory;
-import ar.com.cristal.creditos.client.clientes.alta.ClientePlace;
 import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHistorialCreditosClientePlace;
-import ar.com.cristal.creditos.client.dto.ClienteDTO;
+import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
+import ar.com.cristal.creditos.client.ui.util.InicializarCombos;
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -57,7 +57,6 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 		clientFactory = cf;
 		popup = clientFactory.getPopUp();		
 		view = clientFactory.getBusquedaClientesView();
-		view.inicializarControles();
 		
 	}
 
@@ -89,7 +88,7 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 	 */
 	public void goTo(final Place place) {
 		if (place instanceof OperacionesHistorialCreditosClientePlace && view.obtenerIdSeleccionado() == ""){
-			popup.mostrarMensaje("No se ha seleccionado ningún cliente de la lista");
+			popup.mostrarMensaje("No se ha seleccionado ningún animal de la lista");
 		}else{
 			clientFactory.getPlaceController().goTo(place);
 		}
@@ -106,22 +105,19 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 	/***
 	 * Carga inicial de la tabla de creditos del cliente
 	 */
-	public void buscarClientes(final FlexTable tabla){
-		
-		
-		
-		//IF Todos los campos vacios
-		//view.setVisible(false);
+	public void buscarVacas(final FlexTable tabla){
 		String param = "";
-		if (view.rpAnimal.getText() == "" && view.rcAnimal.getText() == "" ){
+		if (view.rpAnimal.getText() == "" && view.rcAnimal.getText() == "" && view.cmbRodeo.getSelectedItemText().equals("")){
 			popup.mostrarMensaje("No se ha ingresado ningún dato para la búsqueda de Animales.");
 		}else{
 			if (! view.rpAnimal.getText().isEmpty()){
 				param = "rp_"+view.rpAnimal.getText();
 			}else if(! view.rcAnimal.getText().isEmpty()){
 				param = "rc_"+view.rcAnimal.getText();
+			}else if (! view.cmbRodeo.getSelectedItemId().isEmpty()){
+				param = "rodeo_"+view.cmbRodeo.getSelectedItemId();
 			}
-			}
+		}
 		
 		
 		Log.debug(getClientContext().getUsuarioLogueadoDTO().getNombreUsuarioSessionId() +  " - Boton Buscar: " + param);
@@ -130,15 +126,13 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 			//TODO: llamar al servicio que te levanta todo
 		final Long tiempoOriginal = new Date().getTime();
 		view.buttonBuscar.setEnabled(false);
-			clientFactory.getClientesService().obtenerClientesByParam(param,new AsyncCallback<List<ClienteDTO>>() {
-				
-				public void onSuccess(List<ClienteDTO> clientes) {
+		clientFactory.getVacasService().obtenerVacasByParam(param, new AsyncCallback<List<VacaDTO>>(){
+			
+				public void onSuccess(List<VacaDTO> vacas) {
 					Log.debug(getClientContext().getUsuarioLogueadoDTO().getNombreUsuarioSessionId() +  " - Boton Buscar: respuesta ok " + (new Date().getTime() - tiempoOriginal) / 1000);
 					long tiempoActual = new Date().getTime();
-					//popup.mostrarMensaje("Tiempo consumido al obtener clientes asincrono: " + tiempoActual );
-					//view.setVisible(true);
 					popup.ocultar();
-					mostrarClientes(tabla, clientes);
+					mostrarVacas(tabla, vacas);
 					view.buttonBuscar.setEnabled(true);
 					Log.debug(getClientContext().getUsuarioLogueadoDTO().getNombreUsuarioSessionId() +  " - Tiempo tomado para mostrar los resultados [s]: " +  (new Date().getTime() - tiempoActual)/1000);
 					
@@ -156,21 +150,21 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 	
 	
 		
-	private void mostrarClientes(final FlexTable tabla,
-			List<ClienteDTO> clientes) {
+	private void mostrarVacas(final FlexTable tabla,
+			List<VacaDTO> vacas) {
 		int i=0;
 		view.initTable();
-		if (clientes.isEmpty()){
-			popup.mostrarMensaje("No se encontró ningún cliente con la búsqueda ingresada.");
+		if (vacas.isEmpty()){
+			popup.mostrarMensaje("No se encontró ningún animal con la búsqueda ingresada.");
 		} 
 		
-		if (clientes.size() > 5){
+		if (vacas.size() > 5){
 			view.divTabla.setAttribute("class", "divScroll");
  		} else {
  			view.divTabla.setAttribute("class", "divNoScroll");
  		}
 		
-		for (ClienteDTO cli : clientes){
+		for (VacaDTO v : vacas){
 			
 			final RadioButton radio = new RadioButton("busquedaClientesGroup");
 			radio.addClickHandler(new ClickHandler() {		
@@ -181,15 +175,14 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 			});
 			
 		    tabla.setWidget(i+1,0, radio);
-		    tabla.setText(i+1,1, cli.getId().toString());
-		    tabla.setText(i+1,2, cli.getApellido());
-		    tabla.setText(i+1,3, cli.getNombre());			
-			tabla.setText(i+1,4, cli.getDni());
-			tabla.setText(i+1,5, cli.getTelefono() == null ? "" : cli.getCaracteristica() == null ? "" : cli.getCaracteristica() + cli.getTelefono());
-			tabla.setText(i+1,6, cli.getEstado());
-			tabla.setText(i+1,7, cli.getNroCuenta() == null ? "" : cli.getNroCuenta().toString());
-			tabla.setText(i+1,8, cli.getCondicionMorosidad() == null ? "" : cli.getCondicionMorosidad());
-								
+		    tabla.setText(i+1,1, v.getRp());
+		    tabla.setText(i+1,2, v.getRc());
+		    tabla.setText(i+1,3, v.getRodeo_id().toString());			
+			tabla.setText(i+1,4, v.getEstadoReproductivo().name());
+			tabla.setText(i+1,5, v.getEstadoProductivo().name());
+			tabla.setText(i+1,6, "Ultimo parto!");
+			tabla.setText(i+1,7, "Ultimom Servicio!");
+
 			if (i % 2 == 0) {
 				tabla.getRowFormatter().addStyleName(i+1, ConstantesView.ESTILO_FILA1_PUNTERO);
 			} else {				
@@ -199,17 +192,16 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 			i++;
 		}
 		
-		
-		if (clientes.size() == 1){
+		/*
+		if (vacas.size() == 1){
 			view.seleccionarUnicoCliente();
 		}
-		
+		*/
 	}
 
 
 
 	private void habilitarBotones(boolean b){
-//		view.buttonSeleccionar.setEnabled(b);
 		view.buttonModificar.setEnabled(b);
 	}
 
@@ -218,18 +210,19 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 		view.limpiarDatosCliente();
 		view.initTable();
 		view.resetBotones(true);
-		Place p = new ClientePlace(idCliente);
-		clientFactory.getPlaceController().goTo(p);
+		//Place p = new ClientePlace(idCliente);
+		//clientFactory.getPlaceController().goTo(p);
 		
+		popup.mostrarMensaje("Atencion", "Sin Implementar. Muestra Ficha Vaca.");
 	}
 
 
 	@Override
 	public void inicializarActivity() {
-		//BusquedaClientesView view = clientFactory.getBusquedaClientesView();
-		
 		clientContext.setUsuarioLogueadoDTO(getClientContext().getUsuarioLogueadoDTO());
-		
+		InicializarCombos.inicializarComboRodeos("", view.cmbRodeo);
+		view.cmbRodeo.addItem("","");
+		view.cmbRodeo.selectByText("");
 	}
 
 	

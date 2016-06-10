@@ -14,7 +14,7 @@ public interface VacasService {
 
 	Vaca guardarVaca(Vaca vaca) throws Exception;
 
-	Vaca obtenerVacaById(Long id);
+	Vaca obtenerVacaById(Long id) throws Exception;
 
 	Rodeo persistirRodeo(Rodeo rodeo) throws Exception;
 
@@ -43,6 +43,8 @@ public interface VacasService {
 	List<Rodeo> buscarRodeoPorNombre(String nombre) throws Exception;
 
 	List<Vaca> listarVacaXRodeoId(Long rodeoId) throws Exception;
+
+	List<Vaca> obtenerVacasByParam(String param) throws Exception;
 	
 
 }

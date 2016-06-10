@@ -17,6 +17,7 @@ package ar.com.cristal.creditos.client.clientes.busqueda;
 
 import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHistorialCreditosClientePlace;
 import ar.com.cristal.creditos.client.ui.util.RegularExpressionConstants;
+import ar.com.snoop.gwt.commons.client.widget.ListBox;
 import ar.com.snoop.gwt.commons.client.widget.RegExpTextBoxImpl;
 
 import com.google.gwt.core.client.GWT;
@@ -50,7 +51,7 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 		 */
 		void goTo(Place place);
 		
-		void buscarClientes(FlexTable tabla);
+		void buscarVacas(FlexTable tabla);
 
 		void irACliente(String idCliente);
 		
@@ -97,10 +98,19 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 	
 	@UiField
 	Button buttonFichaVaca;
+	
+	@UiField
+	ListBox cmbRodeo = new ListBox();
+
 
 	public BusquedaClientesView() {
 		initWidget(binder.createAndBindUi(this));
+		inicializarValidadores();
 	
+	}
+	private void inicializarValidadores() {
+		rcAnimal.setExpresionRegular(RegularExpressionConstants.numeroLetrasEspacioGuion);
+		rpAnimal.setExpresionRegular(RegularExpressionConstants.numeroLetrasEspacioGuion);
 	}
 
 
@@ -110,6 +120,10 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 	}
 
 	
+	@UiHandler("buttonBorrar")
+	void onButtonBorrar(ClickEvent event) {
+		limpiarDatosCliente();
+	}
 	
 	@UiHandler("buttonNuevo")
 	void onButtonNuevo(ClickEvent event) {
@@ -118,7 +132,7 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 	
 	@UiHandler("buttonBuscar")
 	void onButtonBuscarClick(ClickEvent event) {
-		listener.buscarClientes(listadoAnimales);
+		listener.buscarVacas(listadoAnimales);
 	}
 	
 	
@@ -141,6 +155,7 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 	public void limpiarDatosCliente(){
 		rpAnimal.setText("");
 		rcAnimal.setText("");
+		cmbRodeo.selectByText("");
 	}
 	
 	void initTable(){
@@ -172,12 +187,6 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 		buttonNuevo.setEnabled(b);
 	}
 	
-	public void inicializarControles() {
-		rpAnimal.setExpresionRegular(RegularExpressionConstants.letras);
-		rcAnimal.setExpresionRegular(RegularExpressionConstants.letras);		
-	}
-	
-	
 	public void seleccionarUnicoCliente(){
 		if (listadoAnimales.getRowCount() > 1){
 			RadioButton radio = (RadioButton) listadoAnimales.getWidget(1, 0);
@@ -193,14 +202,14 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 	@UiHandler("rpAnimal")
 	void onRpKeyPress(KeyUpEvent event){
 		if (KeyCodes.KEY_ENTER == event.getNativeKeyCode())
-			listener.buscarClientes(listadoAnimales);
+			listener.buscarVacas(listadoAnimales);
 	}
 	
 	
 	@UiHandler("rcAnimal")
 	void onRcKeyPress(KeyUpEvent event){
 		if (KeyCodes.KEY_ENTER == event.getNativeKeyCode())
-			listener.buscarClientes(listadoAnimales);
+			listener.buscarVacas(listadoAnimales);
 	}
 	
 	

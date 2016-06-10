@@ -52,6 +52,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.DialogBox;
 
 /**
  * Activities are started and stopped by an ActivityManager associated with a container Widget.
@@ -65,7 +66,6 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 	private String token;
 	private VacaDTO vacaActual = null;
 	private Place place = null;
-	private String estadoVaca = "";
 	private HandlerRegistration handlerRegistrationAdd;
 	private final String ID_COMPONENTE_ACTIVITY = "ALTA_EDICION_CLIENTE";
 
@@ -116,11 +116,6 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 				InicializarCombos.inicializarComboRodeos(null, view.cmbRodeo);
 				InicializarCombos.inicializarComboProblemasTacto(view.cmbResultadoUltTacto,null);
 				InicializarCombos.inicializarComboToros(null, view.cmbPadre);
-				//inicializarTipoDocumento(null);
-				//inicializarComboProvincia(null);
-				//inicializarComboLocalidad(null,true);
-				//view.buscarToro.setEnabled(true);
-				
 
 			} else {
 				
@@ -218,16 +213,16 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 			view.ltsPromedio.setText(String.valueOf(c.getLitrosPromedio()));
 			view.observaciones.setText(c.getObservaciones());
 			
-			//Combos USAR inicializarTipoDocumento(c.getTipoDocumento());
-			//cmbRaza.setSelectedIndex(0);
-			//cmbCategoria.setSelectedIndex(0);
-			//cmbPadre.setSelectedIndex(0);
-			//cmbCategMadre.setSelectedIndex(0);
-			//cmbRodeo.setSelectedIndex(0);
-			//cmbEstadoProd.setSelectedIndex(0);
-			//cmbEstadoReprod.setSelectedIndex(0);
-			//cmbEstadoSanitario.setSelectedIndex(0);
-			//cmbResultadoUltTacto.setSelectedIndex(0);
+			//Combos 
+			view.cmbCategoria.selectByText(c.getCategoria()== null ? "" : c.getCategoria());
+			view.cmbCategMadre.selectByText(c.getCategoriaMadre()== null ? "" :c.getCategoriaMadre());
+			view.cmbEstadoProd.selectByText(c.getEstadoProductivo()== null ? "" :c.getEstadoProductivo().name());
+			view.cmbEstadoReprod.selectByText(c.getEstadoReproductivo()== null ? "" : c.getEstadoReproductivo().name());
+			view.cmbEstadoSanitario.selectByText(c.getEstadoSanitario()== null ? "" :c.getEstadoSanitario().name());
+			view.cmbPadre.selectByValue(c.getPadre_id()== null ? "" :c.getPadre_id().toString());
+			view.cmbRaza.selectByValue(c.getRaza_id()== null ? "" :c.getRaza_id().toString());
+			view.cmbRodeo.selectByValue(c.getRodeo_id()== null ? "" :c.getRodeo_id().toString());
+			view.cmbResultadoUltTacto.selectByValue(c.getResultadoTacto_id() == null ? "" : c.getResultadoTacto_id().toString());
 
 			//DatePicker
 			view.fechaNacimientoDatePicker.setSelectedDate(c.getFechaNacimiento());			
@@ -268,51 +263,23 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 			@Override
 			public void onClick(ClickEvent event) {
 				CustomSiNoDialogBox.ocultar();
-				
-				
-				clientFactory.getVacasService().existeVacaRPC(vacaActual.getRp(), new AsyncCallback<Boolean>() {
-				
-					
+				clientFactory.getVacasService().guardarVacaRPC(vacaActual, new AsyncCallback<VacaDTO>() {
+
 					public void onFailure(Throwable e) {
 						popup.mostrarMensaje("Error", e.getMessage());
 						
 					}
-	
-					public void onSuccess(Boolean existe) {
-						if (existe)
-							popup.mostrarMensaje("Información", "Ya existe un animal con el RP.");
-						else {
-							
-							if (vacaActual.getId() != null) {
-								
-									//ACA MODIFICARIA EL ANIMAL ACTUAL
-								
-								
-								
-							} else {
-							
-								clientFactory.getVacasService().guardarVacaRPC(vacaActual, new AsyncCallback<VacaDTO>() {
-		
-									public void onFailure(Throwable e) {
-										popup.mostrarMensaje("Error", e.getMessage());
-										
-									}
-		
-									public void onSuccess(VacaDTO vaca) {
-										vacaActual = vaca;
-										popup.mostrarMensaje("Los datos han sido guardados con éxito.");
-										
-									}
-								});
-							
-							}
-						}
+
+					public void onSuccess(VacaDTO vaca) {
+						vacaActual = vaca;
+						popup.mostrarMensaje("Los datos han sido guardados con éxito.");
+						view.limpiarControles();
 						
 					}
-					
 				});
-				
+						
 			}
+						
 		};
 
 		ClickHandler noHandler = new ClickHandler() {
@@ -327,7 +294,7 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 		datosValidos = validarDatos(errores);
 		if (datosValidos){
 			generarDto();
-			CustomSiNoDialogBox.dialogBox("Atención!", "Está seguro que desea aplicar los cambios?");
+			CustomSiNoDialogBox.dialogBox("Atención!", "¿Guardar los cambios?");
 			CustomSiNoDialogBox.inicializarTamBotones();
 			CustomSiNoDialogBox.setHandlers(siHandler, noHandler);
 				
@@ -349,15 +316,15 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 		vacaActual.setLactancia(view.lactancia.getText().length() == 0 ? 0 : Integer.valueOf(view.lactancia.getText()));
 		vacaActual.setLitrosPromedio(view.ltsPromedio.getText().length() == 0 ? 0D: Double.valueOf(view.ltsPromedio.getText()));
 		vacaActual.setObservaciones(view.observaciones.getText());
-		vacaActual.setPadre_id(view.cmbPadre.getSelectedItemId()==null? 0L : Long.valueOf(view.cmbPadre.getSelectedItemId()));
+		vacaActual.setPadre_id((view.cmbPadre.getSelectedItemId()==null ||view.cmbPadre.getSelectedItemId().equals("")) ? 0L : Long.valueOf(view.cmbPadre.getSelectedItemId()));
 		vacaActual.setParaVender(view.paraVender.getValue());
 		vacaActual.setProduccionVitalicia(view.prodVitalicia.getText().length() == 0 ? 0D : Double.valueOf(view.prodVitalicia.getText()));
 		vacaActual.setProteina(view.proteina.getText().length() == 0 ? 0D : Double.valueOf(view.proteina.getText()));
-		vacaActual.setRaza_id(Long.valueOf(view.cmbRaza.getSelectedItemId()));
+		vacaActual.setRaza_id((view.cmbRaza.getSelectedItemId()==null ||view.cmbRaza.getSelectedItemId().equals("")) ? 0L :Long.valueOf(view.cmbRaza.getSelectedItemId()));
 		vacaActual.setRc(view.rc.getText());
 		vacaActual.setRcMadre(view.rcMadre.getText());
-		vacaActual.setResultadoTacto_id(view.cmbResultadoUltTacto.getSelectedItemId()==null ? 0L :Long.valueOf(view.cmbResultadoUltTacto.getSelectedItemId()));
-		vacaActual.setRodeo_id(Long.valueOf(view.cmbRodeo.getSelectedItemId()));
+		vacaActual.setResultadoTacto_id((view.cmbResultadoUltTacto.getSelectedItemId()==null ||view.cmbResultadoUltTacto.getSelectedItemId().equals("")) ? 0L :Long.valueOf(view.cmbResultadoUltTacto.getSelectedItemId()));
+		vacaActual.setRodeo_id((view.cmbRodeo.getSelectedItemId()==null ||view.cmbRodeo.getSelectedItemId().equals("")) ? 0L :Long.valueOf(view.cmbRodeo.getSelectedItemId()));
 		vacaActual.setRp(view.rp.getText());
 		vacaActual.setRpMadre(view.rpMadre.getText());
 		vacaActual.setSolidosTotales(view.solTot.getText().length() == 0 ? 0D : Double.valueOf(view.solTot.getText()));
@@ -593,7 +560,7 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 
 	@Override
 	public void verificarSiExisteRP() {
-		if (view.rp.getText() != null){
+		if (vacaActual.getId()==null && view.rp.getText() != null){
 			popup.mostrarMensaje("Espere","Verificando si existe RP...");
 			clientFactory.getVacasService().existeVacaRPC(view.rp.getValue(),new AsyncCallback<Boolean>(){
 
@@ -617,7 +584,43 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 	}
 
 	private void ofrecerEdicion() {
-		popup.mostrarMensaje("Atencion","Ya existe ¿desea editar? blabla");
+		final DialogBox dialogbox = CustomSiNoDialogBox.dialogBox("Atención", "El animal ya existe. ¿Desea editarlo?");
+		
+		ClickHandler siHandler = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				dialogbox.hide();
+				
+				popup.mostrarMensaje("Espere","Cargando informacion del animal...");
+				clientFactory.getVacasService().obtenerVacaDTOPorRP(view.rp.getText(),new AsyncCallback<VacaDTO>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						popup.mostrarMensaje("Atencion","Ha ocurrido un error. Espere e intente nuevamente.");
+						
+					}
+
+					@Override
+					public void onSuccess(VacaDTO result) {
+						vacaActual=result;
+						cargarDatosVaca(result);
+						popup.ocultar();
+					}
+					
+				});
+			}
+		};
+		ClickHandler noHandler = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				dialogbox.hide();
+				
+			}
+		};
+		
+		CustomSiNoDialogBox.setHandlers(siHandler, noHandler);
 	}
 
 }

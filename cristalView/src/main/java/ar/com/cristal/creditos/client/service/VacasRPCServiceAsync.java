@@ -49,5 +49,7 @@ public interface VacasRPCServiceAsync {
 	void ListarVacasXRodeoIdRPC(Long rodeoId,
 			AsyncCallback<List<VacaDTO>> callback);
 
+	void obtenerVacasByParam(String param, AsyncCallback<List<VacaDTO>> callback);
+
 
 }

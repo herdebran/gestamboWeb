@@ -169,11 +169,6 @@ public class AltaAnimalesView extends Composite implements IsWidget {
 		listener.buscarRodeo();
 	}
 	
-	@UiHandler("rp")
-	void onRPKeyPress(KeyUpEvent event){
-		if (KeyCodes.KEY_ENTER == event.getNativeKeyCode())
-			listener.verificarSiExisteRP();
-	}
 	
 	@UiHandler("rp")
 	void onRPLostFocus(BlurEvent event){

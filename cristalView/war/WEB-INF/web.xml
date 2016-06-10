@@ -65,7 +65,12 @@
 		<servlet-class>ar.com.cristal.creditos.server.creditos.ComunesRPCServiceImpl</servlet-class>
 	</servlet>
 	
-	<servlet-mapping>
+	<servlet>
+		<servlet-name>vacasServlet</servlet-name>
+		<servlet-class>ar.com.cristal.creditos.server.creditos.VacasRPCServiceImpl</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
 		<servlet-name>creditosServlet</servlet-name>
 		<url-pattern>/creditos/creditosService</url-pattern>
 	</servlet-mapping>
@@ -98,6 +103,11 @@
 	</servlet-mapping>
 	
 
+	<servlet-mapping>
+		<servlet-name>vacasServlet</servlet-name>
+		<url-pattern>/creditos/vacasService</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>/creditos.html</welcome-file>
 	</welcome-file-list>

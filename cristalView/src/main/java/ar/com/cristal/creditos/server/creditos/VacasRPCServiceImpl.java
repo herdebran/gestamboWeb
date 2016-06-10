@@ -1,5 +1,7 @@
 package ar.com.cristal.creditos.server.creditos;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import ar.com.cristal.creditos.client.dto.ClienteDTO;
 import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
 import ar.com.cristal.creditos.client.localidad.ProvinciaDTO;
 import ar.com.cristal.creditos.client.service.VacasRPCService;
@@ -186,5 +189,21 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 			throw e;
 		}
 	}
+	
+	@Override
+	public List<VacaDTO> obtenerVacasByParam(String param) throws Exception {
+		try {
+			long tiempo = new Date().getTime(); 
+			List<Vaca> busqueda= vacasService.obtenerVacasByParam(param);
+			
+			log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " Tiempo de búsqueda [ms] : " + (new Date().getTime() - tiempo) + ". Cantidad de resultados: " + busqueda.size());
+			
+			return mapper.convertList(busqueda, VacaDTO.class);
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " - Se produjo un error al obtener vacas." + e.getMessage(), e);
+			throw new Exception("Se produjo un error al obtener los vacas.");
+		}
+	}
+
 
 }

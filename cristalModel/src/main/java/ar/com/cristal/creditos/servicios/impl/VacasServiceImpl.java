@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.cristal.creditos.common.CristalProperties;
 import ar.com.cristal.creditos.dao.GenericDao;
+import ar.com.cristal.creditos.entity.creditos.Cliente;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
+import ar.com.cristal.creditos.entity.login.Usuario;
 import ar.com.cristal.creditos.entity.tambo.Categoria;
 import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
@@ -35,6 +37,9 @@ public class VacasServiceImpl implements VacasService {
 
 	@Autowired
 	private ServiceFacade serviceFacade;
+	
+	@Autowired
+	private UsuarioServiceImpl usuarioService;
 
 	private CristalProperties cristalProperties = CristalProperties
 			.getInstance();
@@ -59,8 +64,22 @@ public class VacasServiceImpl implements VacasService {
 	}
 
 	@Override
-	public Vaca obtenerVacaById(Long id){
-		Vaca result = genericDao.get(Vaca.class, id);				
+	public Vaca obtenerVacaById(Long id) throws Exception{
+		return obtenerVacaById(id,false);
+		
+	}
+	
+	public Vaca obtenerVacaById(Long id,boolean todosLosEstablecimientos) throws Exception{
+		Vaca result =null;
+		result = genericDao.get(Vaca.class, id);
+		
+		if (! todosLosEstablecimientos){
+			if (result != null && result.getEstablecimiento() != null){
+				if (! result.getEstablecimiento().equals(serviceFacade.obtenerEstablecimientoLogueado()))
+						result=null;
+			}
+		}
+		
 		return result;
 		
 	}
@@ -308,5 +327,61 @@ public class VacasServiceImpl implements VacasService {
 			throw e;
 		}
 	}
+	
+	
+	/**
+	 * Según el criterio de busqueda ingresado por el usuario, 
+	 * se procede a ejecutar una busqueda de VACAS en la base de datos
+	 * por Rodeo, RP o RC. Maneja solo el universo del Establec. logueado
+	 * Modo de uso
+	 * obtenerClientesByParam(rp_230);<br></br>
+	 * obtenerClientesByParam(rc_19656552);<br></br>
+	 * obtenerClientesByParam(rodeo_12);
+	 * @return
+	 * @throws Exception 
+	 */
+	@Override
+	public List<Vaca> obtenerVacasByParam(String param) throws Exception{
+
+		try {
+			
+			Usuario u = usuarioService.obtenerUsuarioLogueado();
+			log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " realiza búsqueda de vaca: " + param);
+			
+			String[] params = param.split("_");
+			
+			List<Vaca> result = new ArrayList<Vaca>();
+			
+			if (params[0].equals("rp")){	
+				//Busqueda por rp
+				String qry = "from Vaca where rp = "+ params[1];
+				qry = qry+ " and establecimiento_id = "+ serviceFacade.obtenerEstablecimientoLogueado().getId();
+				qry = qry + " order by rp";
+				result = genericDao.find(qry);
+				
+			}else if (params[0].equals("rc")){			
+//				Busqueda por rc
+				String qry = "from Vaca where rc = "+ params[1];
+				qry = qry+ " and establecimiento_id = "+ serviceFacade.obtenerEstablecimientoLogueado().getId();
+				qry = qry + " order by rp";
+				result = genericDao.find(qry);
+			}else if (params[0].equals("rodeo")){	
+				//Busqueda por rodeo
+				String qry = "from Vaca where rodeo_id = "+ params[1];
+				qry = qry+ " and establecimiento_id = "+ serviceFacade.obtenerEstablecimientoLogueado().getId();
+				qry = qry + " order by rp";
+				result = genericDao.find(qry);
+			}
+			
+			log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " realiza búsqueda de Vaca: " + param + " resultado: " + result.size() + " ocurrencias." ) ;
+
+			
+			return result;
+		} catch (Exception e) {
+			log.error("Se produjo un error al obtener las vacas." + e.getMessage(), e);
+			throw e;
+		}
+
+	}	
 
 }
