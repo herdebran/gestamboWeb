@@ -17,12 +17,18 @@ package ar.com.cristal.creditos.client.ui;
 
 import ar.com.cristal.creditos.client.ClientFactory;
 import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
+import ar.com.cristal.creditos.client.event.SelectedItemEvent;
+import ar.com.cristal.creditos.client.handler.SelectedItemEventHandler;
+import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoActivity;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Popup;
 import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -38,6 +44,7 @@ public class MenuActivity extends AbstractActivity implements MenuView.Presenter
 	private String name;
 	private ClientFactory clientFactory;
 	private MenuView view;
+	private HandlerRegistration handler;
 	
 
 	public MenuActivity(MenuPlace place, ClientFactory cf) {
@@ -60,10 +67,6 @@ public class MenuActivity extends AbstractActivity implements MenuView.Presenter
 				view.anchorEstablecimientoActual.setText(" - " + usuarioLogueado.getEstablecimientoActual().getNombre());
 				view.setVisible(true);
 				containerWidget.setWidget(view.asWidget());
-				if (ClientContext.getInstance().ElegirEstablecimientoAlInicio()){
-					SeleccionEstablecimientoPlace place = new SeleccionEstablecimientoPlace("");
-					goTo(place);
-				}
 				
 			}
 			
@@ -88,6 +91,27 @@ public class MenuActivity extends AbstractActivity implements MenuView.Presenter
 		System.out.println("gotoplace: " + place.toString());
 		
 		clientFactory.getPlaceController().goTo(place);
+	}
+
+	@Override
+	public void mostarSeelccionEstablecimiento() {
+		SeleccionEstablecimientoPlace newPlace = new SeleccionEstablecimientoPlace("");
+
+		handler = clientFactory.getEventBus()
+				.addHandler(SelectedItemEvent.TYPE, new SelectedItemEventHandler() {
+					@Override
+					public void onSelectItem(SelectedItemEvent event) {
+						handler.removeHandler();
+						if (event.getListBoxItem() != null){
+							view.anchorEstablecimientoActual.setText(" - " + ClientContext.getInstance().getUsuarioLogueadoDTO().getEstablecimientoActual().getNombre());
+						}
+							
+					}
+				 });
+		
+		
+		SeleccionEstablecimientoActivity newAct=new SeleccionEstablecimientoActivity(newPlace, clientFactory);
+		newAct.startInPopUp();		
 	}
 
 }

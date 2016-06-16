@@ -81,7 +81,7 @@ public interface UsuarioRPCServiceAsync {
 			AsyncCallback<EstablecimientoDTO> callback);
 
 	void setearEstablecimientoXUsuarioRPC(long usuarioId,
-			long establecimientoId, AsyncCallback<Void> callback);
+			long establecimientoId, AsyncCallback<UsuarioDTO> callback);
 
 
 

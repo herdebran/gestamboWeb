@@ -1,8 +1,9 @@
 package ar.com.cristal.creditos.client.ui.establecimientos;
 
 import ar.com.cristal.creditos.client.ClientFactory;
-import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
+import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
 import ar.com.cristal.creditos.client.event.SelectedItemEvent;
+import ar.com.cristal.creditos.client.ui.usuarios.dto.UsuarioDTO;
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
@@ -18,7 +19,8 @@ public class SeleccionEstablecimientoActivity extends CustomAbstractActivity imp
 	private ClientFactory clientFactory;
 	private PopUpInfo popUpInfo;
 	private SeleccionEstablecimientoView view;
-	private EstablecimientoDTO establecimientoActualDTO = null;
+	private static final String COMPONENTE_ID = "ABM_LINEA_CREDITO";
+	private UsuarioLogueadoDTO usuarioLogueado=null;
 	
 	public SeleccionEstablecimientoActivity(SeleccionEstablecimientoPlace place,ClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
@@ -27,7 +29,7 @@ public class SeleccionEstablecimientoActivity extends CustomAbstractActivity imp
 	
 	@Override
 	public void start(AcceptsOneWidget container, EventBus eventBus) {
-		super.start(container, eventBus, "ABM_LINEA_CREDITO");
+		super.start(container, eventBus, COMPONENTE_ID);
 		view = clientFactory.getSeleccionEstablecimientoView();
 		container.setWidget(view.asWidget());
 	}
@@ -36,6 +38,7 @@ public class SeleccionEstablecimientoActivity extends CustomAbstractActivity imp
 	public void inicializarActivity() {
 		view.setPresenter(this);
 		view.inicializarCombos();
+		view.showPopUp(true);
 	}
 
 	@Override
@@ -49,19 +52,20 @@ public class SeleccionEstablecimientoActivity extends CustomAbstractActivity imp
 	@Override
 	public void seleccionar() {
 		popUpInfo.mostrarMensaje("Espere","Seleccionando establecimiento...");
-		clientFactory.getUsuarioService().setearEstablecimientoXUsuarioRPC(ClientContext.getInstance().getUsuarioLogueadoDTO().getId(), Long.valueOf(view.cmbEstablecimiento.getSelectedItemId()),
-				new AsyncCallback<Void>(){
+		usuarioLogueado=ClientContext.getInstance().getUsuarioLogueadoDTO();
+		clientFactory.getUsuarioService().setearEstablecimientoXUsuarioRPC(usuarioLogueado.getId(), Long.valueOf(view.cmbEstablecimiento.getSelectedItemId()),
+				new AsyncCallback<UsuarioDTO>(){
 
 					@Override
 					public void onFailure(Throwable caught) {
 						popUpInfo.mostrarMensaje("Atencion","Ocurrió algún problema seleccionando el establecimiento.");
-						
 					}
 
 					@Override
-					public void onSuccess(Void result) {
-						popUpInfo.ocultar();
-						cerrar();
+					public void onSuccess(UsuarioDTO usuarioModificado) {
+						usuarioLogueado.setEstablecimientoActual(usuarioModificado.getEstablecimientoActual());
+						ClientContext.getInstance().setUsuarioLogueadoDTO(usuarioLogueado);						popUpInfo.ocultar();
+						cerrar(view.cmbEstablecimiento.getSelectedItem());
 						
 					}
 
@@ -76,7 +80,32 @@ public class SeleccionEstablecimientoActivity extends CustomAbstractActivity imp
 	private void cerrar(ListBoxItem item){
 		hidePopUp();
 		view.showPopUp(false);
-		//clientFactory.getEventBus().fireEvent(new SelectedItemEvent(item));
+		clientFactory.getEventBus().fireEvent(new SelectedItemEvent(item));
 	}
+	
+	public void startInPopUp() {
+		view = clientFactory.getSeleccionEstablecimientoView();
+		view.setPresenter(this);
+		startInPopUp(view);
+		
+		clientFactory.getUsuarioService().tienePermisoAcceso(COMPONENTE_ID, new AsyncCallback<Boolean>() {
+			
+			public void onSuccess(Boolean tienePermisos) {
+				
+				if (!tienePermisos){
+					popUpInfo.mostrarMensaje("No tiene permisos de acceso.");
+					cerrar();			
+				}
+				
+			}
+			public void onFailure(Throwable e) {
+				cerrarSesion();
+				
+			};
+			
+		});
+
+	}
+
 
 }

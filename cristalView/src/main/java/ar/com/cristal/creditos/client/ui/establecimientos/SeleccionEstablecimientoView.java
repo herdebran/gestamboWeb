@@ -78,11 +78,10 @@ public class SeleccionEstablecimientoView extends Composite {
 	public void showPopUp(boolean show){
 		btnCerrar.setVisible(show);
 		btnSeleccionar.setVisible(show);
-		if (show) {
+		if (show)
 			UIObject.setStyleName(containerPopUp, "popUPContainer");
-		}
-		else{
+		else
 			UIObject.setStyleName(containerPopUp, "");
-		}			
+		
 	}
 }

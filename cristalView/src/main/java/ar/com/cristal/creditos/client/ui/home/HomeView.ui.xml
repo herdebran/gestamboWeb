@@ -11,7 +11,10 @@
 		<thead></thead>
 		<tbody>
 			<tr><g:Label ui:field="usuarioLogueado" width="200px"></g:Label></tr>
-			<tr><g:Label ui:field="establecimientoActual" width="200px"></g:Label></tr>
+			<tr>
+			    <td><g:Label ui:field="establecimientoActual" width="200px"></g:Label></td>
+			    <td><g:Button ui:field="cambiarEstablecimiento" text="Cambiar..." /></td>
+			</tr>
 		</tbody>
 	</table>	
 </div>

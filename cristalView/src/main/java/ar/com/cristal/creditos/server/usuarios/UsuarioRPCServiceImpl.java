@@ -394,8 +394,9 @@ public class UsuarioRPCServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	@Override
-	public void setearEstablecimientoXUsuarioRPC (long usuarioId,long establecimientoId){
-		usuarioService.setearEstablecimientoXUsuario(usuarioId, establecimientoId);
+	public UsuarioDTO setearEstablecimientoXUsuarioRPC (long usuarioId,long establecimientoId){
+		Usuario u=usuarioService.setearEstablecimientoXUsuario(usuarioId, establecimientoId);
+		return mapper.map(u, UsuarioDTO.class);
 	}
 
 }

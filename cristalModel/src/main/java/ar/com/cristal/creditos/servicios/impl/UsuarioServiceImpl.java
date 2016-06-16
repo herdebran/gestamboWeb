@@ -357,7 +357,7 @@ public class UsuarioServiceImpl {
 	}
 	
 	@Transactional
-	public void setearEstablecimientoXUsuario (long usuarioId,long establecimientoId){
+	public Usuario setearEstablecimientoXUsuario (long usuarioId,long establecimientoId){
 		Usuario u= obtenerUsuario(usuarioId);
 		
 		if (u != null){
@@ -365,8 +365,10 @@ public class UsuarioServiceImpl {
 			u.setEstablecimientoActual(e);
 			genericDao.update(u);
 			log.info("UsuarioServiceImpl - Usuario:" + u.getNombreUsuario() + " - Set establecimiento actual id:" + establecimientoId);
+			return u;
 		} else {
 			log.error("UsuarioServiceImpl - No se encontro usuario con id:" + usuarioId);
+			return null;
 		}
 		
 	}

@@ -53,7 +53,7 @@ public interface UsuarioRPCService extends RemoteService {
 	List<UsuarioDTO> obtenerUsuarios(boolean incluirBorrados);
 	List<EstablecimientoDTO> obtenerEstablecimientosUsuarioLogueadoRPC();
 	EstablecimientoDTO obtenerEstablecimientoRPC(Long id);
-	void setearEstablecimientoXUsuarioRPC(long usuarioId,
+	UsuarioDTO setearEstablecimientoXUsuarioRPC(long usuarioId,
 			long establecimientoId);
 
 }

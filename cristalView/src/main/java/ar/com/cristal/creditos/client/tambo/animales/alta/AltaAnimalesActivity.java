@@ -103,23 +103,17 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 		try {
 			view.limpiarControles();	
 			view.habilitarBotonGuardar(true);
+			inicializarCombos();
 			
 			if (token == null || token.isEmpty() || token.equalsIgnoreCase("null")){
 				vacaActual = new VacaDTO();
 				vacaActual.setFechaAlta(new Date());
 				
-				//Inicializo combos
-				inicializarComboRaza(null);
-				InicializarCombos.inicializarComboEstadoProductivo(view.cmbEstadoProd, null);
-				InicializarCombos.inicializarComboEstadoReproductivo(view.cmbEstadoReprod, null);
-				InicializarCombos.inicializarComboEstadoSanitario(view.cmbEstadoSanitario, null);
-				InicializarCombos.inicializarComboRodeos(null, view.cmbRodeo);
-				InicializarCombos.inicializarComboProblemasTacto(view.cmbResultadoUltTacto,null);
-				InicializarCombos.inicializarComboToros(null, view.cmbPadre);
 
 			} else {
 				
 				if (token != null && !token.isEmpty()){
+						popup.mostrarMensaje("Espere","Cargando datos del animal...");
 						clientFactory.getVacasService().obtenerVacaById(Long.valueOf(token), new AsyncCallback<VacaDTO>() {
 						
 							public void onSuccess(VacaDTO c) {
@@ -194,6 +188,18 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 //	}
 //	
 //
+
+	private void inicializarCombos() {
+		//Inicializo combos
+		inicializarComboRaza(null);
+		InicializarCombos.inicializarComboEstadoProductivo(view.cmbEstadoProd, null);
+		InicializarCombos.inicializarComboEstadoReproductivo(view.cmbEstadoReprod, null);
+		InicializarCombos.inicializarComboEstadoSanitario(view.cmbEstadoSanitario, null);
+		InicializarCombos.inicializarComboRodeos(null, view.cmbRodeo);
+		InicializarCombos.inicializarComboProblemasTacto(view.cmbResultadoUltTacto,null);
+		InicializarCombos.inicializarComboToros(null, view.cmbPadre);
+	}
+
 
 	private void cargarDatosVaca(VacaDTO c) {
 		

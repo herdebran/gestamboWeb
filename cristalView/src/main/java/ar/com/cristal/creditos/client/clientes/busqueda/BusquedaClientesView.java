@@ -53,9 +53,11 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 		
 		void buscarVacas(FlexTable tabla);
 
-		void irACliente(String idCliente);
-		
 		void irAOperaciones(String idCliente);
+
+		void irAbmAnimal(String idString);
+
+		void irFichaVaca(String idString);
 
 	}
 	
@@ -127,7 +129,7 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 	
 	@UiHandler("buttonNuevo")
 	void onButtonNuevo(ClickEvent event) {
-		listener.irACliente(null);
+		listener.irAbmAnimal(null);
 	}
 	
 	@UiHandler("buttonBuscar")
@@ -140,14 +142,22 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 	void onButtonModificarClick(ClickEvent event) {
 		String idString = obtenerIdSeleccionado();
 		if (idString != null && !idString.isEmpty())
-			listener.irACliente(idString);
+			listener.irAbmAnimal(idString);
+		
+	}
+	
+	@UiHandler("buttonFichaVaca")
+	void onButtonFichaClick(ClickEvent event) {
+		String idString = obtenerIdSeleccionado();
+		if (idString != null && !idString.isEmpty())
+			listener.irFichaVaca(idString);
 		
 	}
 	
 	public String obtenerIdSeleccionado() {
 		for (int i = 1;i<listadoAnimales.getRowCount();i++){
 			RadioButton radio = (RadioButton) listadoAnimales.getWidget(i, 0);
-			if (radio.getValue()) return listadoAnimales.getText(i,COLUMNA_RP_ANIMAL);
+			if (radio.getValue()) return listadoAnimales.getText(i,8);
 		}
 		return "";
 	}
@@ -170,6 +180,9 @@ public class BusquedaClientesView extends Composite implements IsWidget{
 		listadoAnimales.setText(0,5,"Estado Prod.");
 		listadoAnimales.setText(0,6,"Ult. Parto");
 		listadoAnimales.setText(0,7,"Ult. Servicio");
+		listadoAnimales.setText(0,8,"id");
+		listadoAnimales.getCellFormatter().setVisible(0, 8, false);
+		
 		
 		listadoAnimales.setCellPadding(0);
 		listadoAnimales.setCellSpacing(0);

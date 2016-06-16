@@ -19,11 +19,14 @@ package ar.com.cristal.creditos.client.ui;
 import ar.com.cristal.creditos.client.accesibilidad.PerfilesCRUDPlace;
 import ar.com.cristal.creditos.client.clientes.busqueda.BusquedaClientesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
+import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoActivity;
+import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.sucursales.ABMSucursalPlace;
 import ar.com.cristal.creditos.client.ui.sucursales.ProcesosAdminPlace;
 import ar.com.cristal.creditos.client.ui.usuarios.listado.ListadoUsuariosPlace;
 import ar.com.cristal.creditos.client.ui.usuarios.pass.CambioPasswordUsuarioPlace;
 
+import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.Place;
@@ -49,6 +52,8 @@ public class MenuView extends Composite  implements IsWidget {
 		 * Navigate to a new Place in the bro.
 		 */
 		void goTo(Place place);
+
+		void mostarSeelccionEstablecimiento();
 	}
 	
 		
@@ -149,6 +154,10 @@ public class MenuView extends Composite  implements IsWidget {
 		listener.goTo(newPlace);
 	}
 
+	@UiHandler("anchorEstablecimientoActual")
+	void onClickAnchorEstablecimientoActual(ClickEvent event) {
+		listener.mostarSeelccionEstablecimiento();
+	}
 
 
 	

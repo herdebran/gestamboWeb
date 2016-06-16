@@ -20,6 +20,7 @@ import java.util.List;
 
 import ar.com.cristal.creditos.client.ClientFactory;
 import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHistorialCreditosClientePlace;
+import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
@@ -48,9 +49,8 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 	public PopUpInfo popup=null;
 	private ClientContext clientContext = ClientContext.getInstance();
 	BusquedaClientesView view;
-
-	
 	private final String ID_COMPONENTE_ACTIVITY = "BUSQUEDA_CLIENTES";
+	
 
 	public BusquedaClientesActivity(BusquedaClientesPlace place, ClientFactory cf) {
 		Log.info("Inicio BusquedaClientesActivity");
@@ -182,6 +182,8 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 			tabla.setText(i+1,5, v.getEstadoProductivo().name());
 			tabla.setText(i+1,6, "Ultimo parto!");
 			tabla.setText(i+1,7, "Ultimom Servicio!");
+			tabla.setText(i+1,8, v.getId().toString());
+			tabla.getCellFormatter().setVisible(i+1, 8, false);
 
 			if (i % 2 == 0) {
 				tabla.getRowFormatter().addStyleName(i+1, ConstantesView.ESTILO_FILA1_PUNTERO);
@@ -205,15 +207,13 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 		view.buttonModificar.setEnabled(b);
 	}
 
-	public void irACliente(String idCliente) {
+	public void irAbmAnimal(String idVaca) {
 		view.limpiarTabla();
 		view.limpiarDatosCliente();
 		view.initTable();
 		view.resetBotones(true);
-		//Place p = new ClientePlace(idCliente);
-		//clientFactory.getPlaceController().goTo(p);
-		
-		popup.mostrarMensaje("Atencion", "Sin Implementar. Muestra Ficha Vaca.");
+		Place p = new AltaAnimalesPlace(idVaca);
+		clientFactory.getPlaceController().goTo(p);
 	}
 
 
@@ -223,6 +223,13 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 		InicializarCombos.inicializarComboRodeos("", view.cmbRodeo);
 		view.cmbRodeo.addItem("","");
 		view.cmbRodeo.selectByText("");
+	}
+ 
+
+	@Override
+	public void irFichaVaca(String idString) {
+		popup.mostrarMensaje("Sin implementar","Te llevaria a la ficha del animal "+ idString);
+		
 	}
 
 	

@@ -27,7 +27,6 @@
  				<g:Button ui:field="btnSeleccionar" styleName="gwt-Button" text="Seleccionar" visible="true"></g:Button>
  				<g:Button ui:field="btnCerrar" styleName="gwt-Button" text="Cerrar" visible="true"></g:Button>
  			</div>
-			<div class="clear20"></div>
 	</div>
 	</div>
 	</g:HTMLPanel>

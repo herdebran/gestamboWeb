@@ -92,8 +92,8 @@ public class AppActivityMapper implements ActivityMapper {
         else if (place instanceof ABMSucursalPlace)
         	currentActivity = new ABMSucursalActivity((ABMSucursalPlace)place, clientFactory);
         
-        else if (place instanceof SeleccionEstablecimientoPlace)
-        	currentActivity = new SeleccionEstablecimientoActivity((SeleccionEstablecimientoPlace)place, clientFactory);
+        //else if (place instanceof SeleccionEstablecimientoPlace)
+        //	currentActivity = new SeleccionEstablecimientoActivity((SeleccionEstablecimientoPlace)place, clientFactory);
         
         else   if (place instanceof HomePlace)
         	currentActivity = new HomeActivity((HomePlace) place, clientFactory);
