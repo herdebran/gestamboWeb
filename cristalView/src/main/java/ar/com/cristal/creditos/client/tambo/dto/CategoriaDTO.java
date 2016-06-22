@@ -1,7 +1,6 @@
 package ar.com.cristal.creditos.client.tambo.dto;
 
 import ar.com.cristal.creditos.client.dto.DTO;
-import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 
 

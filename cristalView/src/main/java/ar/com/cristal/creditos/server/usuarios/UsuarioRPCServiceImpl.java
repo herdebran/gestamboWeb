@@ -3,20 +3,16 @@ package ar.com.cristal.creditos.server.usuarios;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.ServletException;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.log4j.Logger;
 import org.dozer.MappingException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import ar.com.cristal.creditos.client.accesibilidad.ComponenteDePantallaDto;
 import ar.com.cristal.creditos.client.accesibilidad.PerfilesDto;
 import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
-import ar.com.cristal.creditos.client.dto.SucursalDTO;
 import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
 import ar.com.cristal.creditos.client.service.UsuarioRPCService;
 import ar.com.cristal.creditos.client.ui.usuarios.dto.UsuarioDTO;
@@ -25,7 +21,6 @@ import ar.com.cristal.creditos.entity.login.ComponenteDePantalla;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.creditos.entity.login.Perfil;
 import ar.com.cristal.creditos.entity.login.Usuario;
-import ar.com.cristal.creditos.entity.sucursales.Sucursal;
 import ar.com.cristal.creditos.server.util.MapperExtended;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.impl.UsuarioServiceImpl;

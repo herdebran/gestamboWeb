@@ -13,7 +13,6 @@ import ar.com.cristal.creditos.client.dto.EmpresaDTO;
 import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
 import ar.com.cristal.creditos.client.dto.ItemGastoSucursalDTO;
 import ar.com.cristal.creditos.client.dto.MedioContactoDTO;
-import ar.com.cristal.creditos.client.dto.SucursalDTO;
 import ar.com.cristal.creditos.client.dto.TipoReporteDTO;
 import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoProductivoEnumDTO;
@@ -25,7 +24,6 @@ import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoRodeoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.ui.usuarios.dto.UsuarioDTO;
-import ar.com.cristal.creditos.common.EstadoProductivoEnum;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 import ar.com.snoop.gwt.commons.client.widget.ListBox;
 

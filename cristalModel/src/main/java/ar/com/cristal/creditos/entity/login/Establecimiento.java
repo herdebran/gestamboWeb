@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import ar.com.cristal.creditos.entity.cliente.DatoAnexo;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
 
 @Entity

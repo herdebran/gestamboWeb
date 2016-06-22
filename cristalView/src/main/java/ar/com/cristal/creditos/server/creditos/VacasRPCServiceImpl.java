@@ -1,6 +1,5 @@
 package ar.com.cristal.creditos.server.creditos;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,9 +9,6 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import ar.com.cristal.creditos.client.dto.ClienteDTO;
-import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
-import ar.com.cristal.creditos.client.localidad.ProvinciaDTO;
 import ar.com.cristal.creditos.client.service.VacasRPCService;
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
@@ -20,15 +16,12 @@ import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
-import ar.com.cristal.creditos.entity.creditos.Cliente;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
 import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
-import ar.com.cristal.creditos.localidad.Localidad;
 import ar.com.cristal.creditos.server.util.MapperExtended;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.VacasService;
-import ar.com.cristal.creditos.servicios.impl.UsuarioServiceImpl;
 import de.novanic.eventservice.service.RemoteEventServiceServlet;
 
 @SuppressWarnings("serial")
@@ -36,7 +29,6 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 	
 	private WebApplicationContext context;
 	private VacasService vacasService;
-	private UsuarioServiceImpl  usuarioService;
 	private MapperExtended mapper;
 	private ServiceFacade serviceFacade;
 	private Logger log = Logger.getLogger(VacasRPCServiceImpl.class);	
@@ -46,7 +38,6 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 		super.init();
 		context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		vacasService = (VacasService) context.getBean("vacasService");
-		usuarioService = (UsuarioServiceImpl) context.getBean("usuarioService");
 		serviceFacade = (ServiceFacade) context.getBean("serviceFacade");
 		mapper = (MapperExtended) context.getBean("dozerMapper");
 	}

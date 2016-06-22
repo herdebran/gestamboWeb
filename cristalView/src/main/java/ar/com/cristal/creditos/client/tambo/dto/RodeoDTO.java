@@ -2,18 +2,8 @@ package ar.com.cristal.creditos.client.tambo.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
 import ar.com.cristal.creditos.client.dto.DTO;
 import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
-import ar.com.cristal.creditos.entity.login.Establecimiento;
-import ar.com.cristal.tambo.enums.TipoRodeoEnum;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 
 

@@ -1,12 +1,6 @@
 package ar.com.cristal.creditos.client.tambo.dto;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-
 import ar.com.cristal.creditos.client.dto.DTO;
-import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
-import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 
 

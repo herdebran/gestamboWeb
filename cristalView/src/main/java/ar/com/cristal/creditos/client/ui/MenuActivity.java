@@ -24,9 +24,7 @@ import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimien
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Popup;
 import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.place.shared.Place;
@@ -64,7 +62,11 @@ public class MenuActivity extends AbstractActivity implements MenuView.Presenter
 
 				
 				view.anchorUsuarioLogueado.setText(usuarioLogueado.getNombreUsuario());
-				view.anchorEstablecimientoActual.setText(" - " + usuarioLogueado.getEstablecimientoActual().getNombre());
+				if (usuarioLogueado.getEstablecimientoActual() != null)
+					view.anchorEstablecimientoActual.setText(" - " + usuarioLogueado.getEstablecimientoActual().getNombre());
+				else
+					view.anchorEstablecimientoActual.setText("SIN ESTABLECIMIENTO!");
+				
 				view.setVisible(true);
 				containerWidget.setWidget(view.asWidget());
 				
