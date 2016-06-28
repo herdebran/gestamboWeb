@@ -67,7 +67,7 @@ public class AltaAnimalesActivity extends CustomAbstractActivity implements Alta
 	private VacaDTO vacaActual = null;
 	private Place place = null;
 	private HandlerRegistration handlerRegistrationAdd;
-	private final String ID_COMPONENTE_ACTIVITY = "ALTA_EDICION_CLIENTE";
+	private final String ID_COMPONENTE_ACTIVITY = "ABM_ANIMALES";
 
 	private long tiempo = new Date().getTime();
 	

@@ -51,10 +51,7 @@
 		<security:intercept-url pattern="/creditos/login.html" filters="none" />
 
 		<security:form-login login-page="/creditos/login.html" always-use-default-target="true"
-			default-target-url="/creditos/creditos.html?gwt.codesvr=127.0.0.1:9997" authentication-failure-url="/creditos/login.html?authfailed=true" />
-		
-<!-- 	<security:form-login login-page="/creditos/login.html" always-use-default-target="true"
-			default-target-url="/creditos/creditos.html" authentication-failure-url="/creditos/login.html?authfailed=true" />		 -->
+			default-target-url="/creditos/tambo.html?gwt.codesvr=127.0.0.1:9997" authentication-failure-url="/creditos/login.html?authfailed=true" />
 		
 		<security:intercept-url pattern="/creditos/**" access="ROLE_USER" />
 		<security:intercept-url pattern="/creditos/*" access="ROLE_USER" />

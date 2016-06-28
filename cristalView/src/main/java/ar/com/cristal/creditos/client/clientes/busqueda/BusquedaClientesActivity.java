@@ -49,7 +49,7 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 	public PopUpInfo popup=null;
 	private ClientContext clientContext = ClientContext.getInstance();
 	BusquedaClientesView view;
-	private final String ID_COMPONENTE_ACTIVITY = "BUSQUEDA_CLIENTES";
+	private final String ID_COMPONENTE_ACTIVITY = "BUSQUEDA_ANIMALES";
 	
 
 	public BusquedaClientesActivity(BusquedaClientesPlace place, ClientFactory cf) {

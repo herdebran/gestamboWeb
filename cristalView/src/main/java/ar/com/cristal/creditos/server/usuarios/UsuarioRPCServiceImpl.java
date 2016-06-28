@@ -239,28 +239,36 @@ public class UsuarioRPCServiceImpl extends RemoteServiceServlet implements
 					return false;
 					
 			} else {
-					String componentesCsv = u.getPerfil().getListaComponentes();
-					
-					String[] componentes = componentesCsv.split(",");
-					int i = 0;
-					String componenteID = usuarioService.obtenerComponenteID(componente);
-							
-					if (componenteID == null){
-						log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " - No existe el componente, revisar nombre del componente dado.");
-						return false;
-					}
-					else 
-					{
+					if (u.isAdmin())
+						//Los Admin acceden a todos lados
 						
-						while (!tienePermisos  && i < componentes.length) {
-							if (componentes[i].trim().equals(componenteID)){
-								tienePermisos = true;
-								break;
-							}
-							i++;
+						return true;
+					else {
+						
+						//Usuario hijo de vecino
+						String componentesCsv = u.getPerfil().getListaComponentes();
+						
+						String[] componentes = componentesCsv.split(",");
+						int i = 0;
+						String componenteID = usuarioService.obtenerComponenteID(componente);
+								
+						if (componenteID == null){
+							log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " - No existe el componente, revisar nombre del componente dado.");
+							return false;
 						}
-						log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " - Tiene Permisos para " + componente +" id: " + componenteID + " - " + tienePermisos + " tiempo [ms]: " + (new Date().getTime() - tiempo));
-						return tienePermisos;
+						else 
+						{
+							
+							while (!tienePermisos  && i < componentes.length) {
+								if (componentes[i].trim().equals(componenteID)){
+									tienePermisos = true;
+									break;
+								}
+								i++;
+							}
+							log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " - Tiene Permisos para " + componente +" id: " + componenteID + " - " + tienePermisos + " tiempo [ms]: " + (new Date().getTime() - tiempo));
+							return tienePermisos;
+						}
 					}
 			}
 		}		

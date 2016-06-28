@@ -19,7 +19,7 @@ public class SeleccionEstablecimientoActivity extends CustomAbstractActivity imp
 	private ClientFactory clientFactory;
 	private PopUpInfo popUpInfo;
 	private SeleccionEstablecimientoView view;
-	private static final String COMPONENTE_ID = "ABM_LINEA_CREDITO";
+	private static final String COMPONENTE_ID = "ABM_SELECCION_ESTABLECIMIENTO";
 	private UsuarioLogueadoDTO usuarioLogueado=null;
 	
 	public SeleccionEstablecimientoActivity(SeleccionEstablecimientoPlace place,ClientFactory clientFactory) {
