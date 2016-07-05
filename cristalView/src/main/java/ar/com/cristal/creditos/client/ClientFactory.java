@@ -9,6 +9,8 @@ import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHisto
 import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReporteView;
 import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadView;
+import ar.com.cristal.creditos.client.partediario.ParteDiarioPlace;
+import ar.com.cristal.creditos.client.partediario.ParteDiarioView;
 import ar.com.cristal.creditos.client.service.ClientesRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.ComunesRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.CreditosRPCServiceAsync;
@@ -68,11 +70,13 @@ public interface ClientFactory {
     OperacionesHistorialCreditosClientePlace getOperacionesHistorialCreditosClientePlace(String string);
     Place getCausaLegalPlace(UsuarioLogueadoDTO usuarioLogueadoDTO, String gestionCausasLegalesEscritura, String token);
     SeleccionEstablecimientoPlace getSeleccionEstablecimientoPlace (String id);
+    ParteDiarioPlace getParteDiarioPlace (String id);
     
     ///Vistas
     MenuView getMenuView();
     HomeView getHomeView();
     AltaAnimalesView getAltaAnimalesView();
+    ParteDiarioView getParteDiarioView();
     
     OperacionesHistorialCreditosClienteView getOperacionesHistorialCreditosClienteView();
     PerfilesCRUDView getPerfilesView();

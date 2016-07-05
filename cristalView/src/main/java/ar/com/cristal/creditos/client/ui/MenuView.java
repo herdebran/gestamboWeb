@@ -18,6 +18,7 @@ package ar.com.cristal.creditos.client.ui;
 
 import ar.com.cristal.creditos.client.accesibilidad.PerfilesCRUDPlace;
 import ar.com.cristal.creditos.client.clientes.busqueda.BusquedaClientesPlace;
+import ar.com.cristal.creditos.client.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoActivity;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
@@ -115,6 +116,11 @@ public class MenuView extends Composite  implements IsWidget {
 		listener.goTo(newPlace);
 	}
 	
+	@UiHandler("mnuCargaParteDiario")
+	void onCargaParteDiarioClick(ClickEvent event) {
+		Place newPlace = new ParteDiarioPlace(null);
+		listener.goTo(newPlace);
+	}
 
 	@UiHandler("anchorUsuarios")
 	void onUsuariosClick(ClickEvent event) {

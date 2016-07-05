@@ -17,7 +17,7 @@
    </li>
    <li class='has-sub'><a href='#'><span>Parte Diario</span></a>
       <ul>
-         <li class='last'><g:Anchor debugId="menu-PerfilesCrud" ui:field="realizacionLlamadasMoraTardia" title=""><span>Carga de parte diario</span></g:Anchor></li>
+         <li class='last'><g:Anchor debugId="mnuCargaParteDiario" ui:field="mnuCargaParteDiario" title=""><span>Carga de parte diario</span></g:Anchor></li>
       </ul>
    </li>
    <li class='has-sub'><a href='#'><span>Administración</span></a>

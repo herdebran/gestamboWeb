@@ -8,6 +8,8 @@ import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHisto
 import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReporteView;
 import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadView;
+import ar.com.cristal.creditos.client.partediario.ParteDiarioPlace;
+import ar.com.cristal.creditos.client.partediario.ParteDiarioView;
 import ar.com.cristal.creditos.client.service.ClientesRPCService;
 import ar.com.cristal.creditos.client.service.ClientesRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.ComunesRPCService;
@@ -60,6 +62,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private HomeView homeView = null;
     private MenuView menuView = null;
     private AltaAnimalesView altaAnimalesView = null;
+    private ParteDiarioView parteDiarioView = null;
     
     private OperacionesHistorialCreditosClienteView operacionesHistorialCreditosClienteView = null;
     private BusquedaClientesView busquedaClientesView = null;
@@ -85,6 +88,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private HomePlace homePlace = null;
     private PopUpInfoPlace popUpInfoPlace = null;
     private AltaAnimalesPlace altaAnimalesPlace = null;
+    private ParteDiarioPlace parteDiarioPlace = null;
     
     private AltaEdicionUsuarioPlace altaEdicionUsuarioPlace;
     private OperacionesHistorialCreditosClientePlace operacionesHistorialCreditosClientePlace = null;
@@ -133,6 +137,12 @@ public class ClientFactoryImpl implements ClientFactory {
 			return altaAnimalesPlace;
 		}
 
+	 public ParteDiarioPlace getParteDiarioPlace(String token) {
+		 if (parteDiarioPlace == null) parteDiarioPlace = new ParteDiarioPlace(token);
+		 parteDiarioPlace.setToken(token);
+			return parteDiarioPlace;
+		}
+	 
 	 public AltaEdicionUsuarioPlace getAltaEdicionUsuarioPlace(String token) {
 		 if (altaEdicionUsuarioPlace == null) altaEdicionUsuarioPlace = new AltaEdicionUsuarioPlace(token);
 		 altaEdicionUsuarioPlace.setToken(token);
@@ -178,6 +188,10 @@ public class ClientFactoryImpl implements ClientFactory {
 		return altaAnimalesView;
 	}
 	
+	public ParteDiarioView getParteDiarioView() {
+		if (parteDiarioView == null) parteDiarioView = new ParteDiarioView();
+		return parteDiarioView;
+	}
 	
 	public PopUpInfoView getPopUpInfoView() {
 		if (popUpInfoView == null) popUpInfoView = new PopUpInfoView();
