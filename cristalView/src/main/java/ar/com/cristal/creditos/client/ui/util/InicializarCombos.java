@@ -13,16 +13,20 @@ import ar.com.cristal.creditos.client.dto.EmpresaDTO;
 import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
 import ar.com.cristal.creditos.client.dto.ItemGastoSucursalDTO;
 import ar.com.cristal.creditos.client.dto.MedioContactoDTO;
+import ar.com.cristal.creditos.client.dto.TipoCeloServicioEnumDTO;
 import ar.com.cristal.creditos.client.dto.TipoReporteDTO;
 import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoProductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoReproductivoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.EstadoSanitarioEnumDTO;
+import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoRodeoEnumDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
+import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.usuarios.dto.UsuarioDTO;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 import ar.com.snoop.gwt.commons.client.widget.ListBox;
@@ -620,108 +624,35 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 	}
 	
 	
-	public static void resetearYCargarComboUsuuariosComercializadores(final String value, final ListBox listbox){
-		usuariosComercializadoresDTO = null;
-		inicializarComboUsuariosComercializadores(value, listbox);
-	}
-	
-	public static void inicializarComboUsuariosComercializadores(final String value,
-			final ListBox listBox) {
-		final long tiempoCarga = new Date().getTime();
-		listBox.clear();		
-		if (usuariosComercializadoresDTO == null){
-
-			cf.getUsuarioService().obtenerUsariosComercializadores(new AsyncCallback<List<UsuarioDTO>>(){
-				public void onSuccess(List<UsuarioDTO> usuarios) {
-					usuariosComercializadoresDTO = usuarios;
-					listBox.clear();
-					UsuarioDTO u = new UsuarioDTO();
-					u.setId(-1L);
-					u.setNombre("");
-					listBox.addItem(u);
-					
-					listBox.addAllItems(usuariosComercializadoresDTO);
-				
-					if (value != null) 
-						listBox.selectByValue(value);
-					else 
-						listBox.selectByText("");
-					
-					
-					Log.debug("inicializarComboUsuariosComercializadores Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
-				}
-
-				
-				public void onFailure(Throwable arg0) {
-					PopUpInfo popup = cf.getPopUp();
-					popup.mostrarMensaje("Error", "inicializarCombos() " + arg0.getMessage());
-					
-				}
-
-				
-
-			});
-
-		} else {
-			
-			listBox.clear();
-			UsuarioDTO u = new UsuarioDTO();
-			u.setId(-1L);
-			u.setNombre("");
-			listBox.addItem(u);
-			
-			listBox.addAllItems(usuariosComercializadoresDTO);
-		
-			if (value!= null) 
-				listBox.selectByValue(value);
-			else 
-				listBox.selectByText("");
-			
-			Log.debug("inicializarUsuariosComercializadores Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
-			
-		}
-		
-		
-	}
-	
-	
-	
-	public static void inicializarComboUsuariosComercializadores(final Long id,
-			final ListBox listBox) {
+	static public void inicializarComboVacas(final String rp,final ListBox listBox){
 		final long tiempoCarga = new Date().getTime();
 		listBox.clear();
-		cf.getUsuarioService().obtenerUsariosComercializadores(new AsyncCallback<List<UsuarioDTO>>(){
-			public void onSuccess(List<UsuarioDTO> usuarios) {
-				UsuarioDTO u = new UsuarioDTO();
-				u.setId(-1L);
-				u.setNombre("");
-				listBox.addItem(u);
+		listBox.addItem("", "");
+		popup.mostrarMensaje("Espere.","Cargando animales del establecimiento...");
+		cf.getVacasService().obtenerVacasEstablecimientoActualRPC(new AsyncCallback<List<VacaDTO>>() {
+			
+			public void onFailure(Throwable caught) {
+				cf.getPopUp().mostrarMensaje("Error", caught.getMessage());
+			}
+
+			public void onSuccess(List<VacaDTO> result) {
 				
-				
-				for (UsuarioDTO localidadDTO : usuarios) {
-					listBox.addItem(localidadDTO);
+				for (VacaDTO obj : result) {
+					listBox.addItem(obj);
 				}
-			
-				if (id!= null) 
-					listBox.selectByValue(id.toString());
-				else 
-					listBox.setSelectedIndex(0);
 				
-				Log.debug("inicializarComboUsuariosComercializadores Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
-			}
-
-			
-			public void onFailure(Throwable arg0) {
-				PopUpInfo popup = cf.getPopUp();
-				popup.mostrarMensaje("Error", "inicializarCombos() " + arg0.getMessage());
+				if (rp != null && !rp.isEmpty())
+					listBox.selectByText(rp);
 				
+				Log.debug("inicializarComboVacas. Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+				popup.ocultar();
 			}
-
-			
 
 		});
-		
 	}
+
+	
+	
 	
 	/**
 	 * Inicializa con los 12 meses del año
@@ -750,57 +681,6 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 		 else
 			 listBox.selectByText("");
 		
-	}
-
-
-	public static void inicializarComboCuotas(String texto, ListBox listBox) {
-		listBox.clear();
-		
-		listBox.addItem("", "");
-		for (int i = 1; i <= 36; i++){
-			listBox.addItem(String.valueOf(i), String.valueOf(i));
-		}
-		
-		if (texto == null || !texto.isEmpty()) texto = "";
-		
-		listBox.selectByText(texto);
-		
-	}
-	
-	
-
-	
-	public static void inicializarComboCuotasSolicitud(String texto, ListBox listBox) {
-		listBox.clear();
-		
-		listBox.addItem("", "");
-		
-		
-		listBox.addItem("1", "1");
-		listBox.addItem("3", "3");
-		listBox.addItem("6", "6");
-		listBox.addItem("9", "9");
-		listBox.addItem("12", "12");
-		listBox.addItem("15", "15");
-		listBox.addItem("18", "18");
-		listBox.addItem("24", "24");
-		listBox.addItem("36", "36");
-		listBox.selectByText("1");
-		
-		if (texto == null || texto.isEmpty()) texto = "";
-		
-		listBox.selectByText(texto);
-		
-	}
-	
-
-
-
-
-
-
-	public static void inicializarComboMedioContacto(final String itemText, final ListBox listBox) {
-		inicializarComboMedioContacto(itemText, listBox, false);
 	}
 
 
@@ -1121,6 +1001,74 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 				
 		Log.debug("inicializarComboTipoRodeo Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
 	}
+	
+	static public void inicializarComboInseminadores(final String nombre,final ListBox listBox){
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		listBox.addItem("", "");
+		popup.mostrarMensaje("Espere.","Cargando inseminadores...");
+		cf.getVacasService().obtenerInseminadoresRPC(new AsyncCallback<List<InseminadorDTO>>() {
+			
+			public void onFailure(Throwable caught) {
+				cf.getPopUp().mostrarMensaje("Error", caught.getMessage());
+			}
+
+			public void onSuccess(List<InseminadorDTO> result) {
+				
+				for (InseminadorDTO obj : result) {
+					listBox.addItem(obj);
+				}
+				
+				if (nombre != null && !nombre.isEmpty())
+					listBox.selectByText(nombre);
+				
+				Log.debug("inicializarComboInseminadores Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+				popup.ocultar();
+			}
+
+		});
+	}
+
+	static public void InicializarComboTipoCeloServicio(final ListBox listBox){
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		listBox.addItem("", "");
+		popup.mostrarMensaje("Espere.","Cargando tipos...");
+
+		for (TipoCeloServicioEnumDTO v: TipoCeloServicioEnumDTO.values()){
+			listBox.addItem(v);
+		}
+		
+		Log.debug("inicializarComboTipoCeloServicio. Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+		popup.ocultar();
 
 
+	}
+	static public void inicializarComboTiposServicio(final String descripcion,final ListBox listBox){
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		listBox.addItem("", "");
+		popup.mostrarMensaje("Espere.","Cargando Tipos de servicio...");
+		cf.getVacasService().obtenerTiposServicioRPC(new AsyncCallback<List<TipoServicioDTO>>() {
+			
+			public void onFailure(Throwable caught) {
+				cf.getPopUp().mostrarMensaje("Error", caught.getMessage());
+			}
+
+			public void onSuccess(List<TipoServicioDTO> result) {
+				
+				for (TipoServicioDTO obj : result) {
+					listBox.addItem(obj);
+				}
+				
+				if (descripcion != null && !descripcion.isEmpty())
+					listBox.selectByText(descripcion);
+				
+				Log.debug("inicializarComboTiposServicio Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+				popup.ocultar();
+			}
+
+		});
+	}
+	
 }

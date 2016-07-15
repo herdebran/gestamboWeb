@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.cristal.creditos.client.partediario;
+package ar.com.cristal.creditos.client.tambo.partediario.celoservicio;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
@@ -24,14 +24,14 @@ import com.google.gwt.place.shared.PlaceTokenizer;
  * {@link PlaceHistoryHandler} automatically updates the browser URL corresponding to each 
  * {@link Place} in your app.
  */
-public class ParteDiarioPlace extends Place {
+public class PdCeloServicioPlace extends Place {
   
 	/**
 	 * Sample property (stores token). 
 	 */
 	private String name;
 
-	public ParteDiarioPlace(String token) {
+	public PdCeloServicioPlace(String token) {
 		this.name = token;
 	}
 
@@ -51,14 +51,14 @@ public class ParteDiarioPlace extends Place {
 	/**
 	 * PlaceTokenizer knows how to serialize the Place's state to a URL token.
 	 */
-	public static class Tokenizer implements PlaceTokenizer<ParteDiarioPlace> {
+	public static class Tokenizer implements PlaceTokenizer<PdCeloServicioPlace> {
 
-		public String getToken(ParteDiarioPlace place) {
+		public String getToken(PdCeloServicioPlace place) {
 			return place.getName();
 		}
 
-		public ParteDiarioPlace getPlace(String token) {
-			return new ParteDiarioPlace(token);
+		public PdCeloServicioPlace getPlace(String token) {
+			return new PdCeloServicioPlace(token);
 		}
 
 	}

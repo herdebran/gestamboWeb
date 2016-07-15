@@ -98,6 +98,5 @@ public class VacaTest extends AbstractTransactionalJUnit4SpringContextTests {
 		}
 		
 	}
-	
-	
+		
 }

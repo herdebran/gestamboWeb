@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.cristal.creditos.client.partediario;
+package ar.com.cristal.creditos.client.tambo.partediario;
 
 import java.util.Date;
 
 import ar.com.cristal.creditos.client.ClientFactory;
 import ar.com.cristal.creditos.client.dto.ClienteDTO;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioPlace;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
@@ -142,8 +143,8 @@ public class ParteDiarioActivity extends CustomAbstractActivity implements Parte
 
 	@Override
 	public void irCelosServicios() {
-		// TODO Auto-generated method stub
-		
+		Place place = new PdCeloServicioPlace("");
+		clientFactory.getPlaceController().goTo(place);
 	}
 
 

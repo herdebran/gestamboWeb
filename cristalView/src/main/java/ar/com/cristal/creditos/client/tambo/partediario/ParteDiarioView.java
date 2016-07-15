@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.cristal.creditos.client.partediario;
+package ar.com.cristal.creditos.client.tambo.partediario;
 
 import ar.com.cristal.creditos.client.dto.ClienteDTO;
 

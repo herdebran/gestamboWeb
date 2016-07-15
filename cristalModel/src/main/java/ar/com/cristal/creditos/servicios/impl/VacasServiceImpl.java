@@ -15,13 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.cristal.creditos.common.CristalProperties;
 import ar.com.cristal.creditos.dao.GenericDao;
-import ar.com.cristal.creditos.entity.creditos.Cliente;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.creditos.entity.login.Usuario;
 import ar.com.cristal.creditos.entity.tambo.Categoria;
+import ar.com.cristal.creditos.entity.tambo.CeloServicio;
+import ar.com.cristal.creditos.entity.tambo.Inseminador;
 import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
+import ar.com.cristal.creditos.entity.tambo.TipoServicio;
 import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
@@ -158,7 +160,8 @@ public class VacasServiceImpl implements VacasService {
 	public void eliminarRodeoById(Long id)throws Exception{
 		try {
 			Rodeo r = obtenerRodeoById(id);
-			eliminarRodeo(r);
+			if (r != null)
+				eliminarRodeo(r);
 		} catch (Exception e) {
 			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " EliminarRodeoById(): " + e.getMessage(), e);
 			throw e;
@@ -356,6 +359,7 @@ public class VacasServiceImpl implements VacasService {
 				//Busqueda por rp
 				String qry = "from Vaca where rp = "+ params[1];
 				qry = qry+ " and establecimiento_id = "+ serviceFacade.obtenerEstablecimientoLogueado().getId();
+				qry = qry+ " and eliminado = false";
 				qry = qry + " order by rp";
 				result = genericDao.find(qry);
 				
@@ -363,12 +367,14 @@ public class VacasServiceImpl implements VacasService {
 //				Busqueda por rc
 				String qry = "from Vaca where rc = "+ params[1];
 				qry = qry+ " and establecimiento_id = "+ serviceFacade.obtenerEstablecimientoLogueado().getId();
+				qry = qry+ " and eliminado = false";
 				qry = qry + " order by rp";
 				result = genericDao.find(qry);
 			}else if (params[0].equals("rodeo")){	
 				//Busqueda por rodeo
 				String qry = "from Vaca where rodeo_id = "+ params[1];
 				qry = qry+ " and establecimiento_id = "+ serviceFacade.obtenerEstablecimientoLogueado().getId();
+				qry = qry+ " and eliminado = false";
 				qry = qry + " order by rp";
 				result = genericDao.find(qry);
 			}
@@ -383,5 +389,126 @@ public class VacasServiceImpl implements VacasService {
 		}
 
 	}	
+	
+	@Override
+	@Transactional
+	public Inseminador persistirInseminador(Inseminador inseminador) throws Exception {
+		try {
+			if (inseminador.getId() == null){
+				//ALTA: Agrega usuario y Fecha
+				inseminador.setFechaAlta(serviceFacade.getFechaActual());
+				inseminador.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
+				inseminador.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
+			}
+			genericDao.saveOrUpdate(inseminador);
+			return inseminador;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " persistirInseminador(): " + e.getMessage(), e);
+			throw e;
+		}
+		
+	}
+	
+	@Override
+	@Transactional
+	public CeloServicio persistirCeloServicio(CeloServicio celoServicio) throws Exception {
+		try {
+			if (celoServicio.getId() == null){
+				//ALTA: Agrega usuario y Fecha
+				celoServicio.setFechaAlta(serviceFacade.getFechaActual());
+				celoServicio.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
+			}
+			genericDao.saveOrUpdate(celoServicio);
+			return celoServicio;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " persistirCeloServicio(): " + e.getMessage(), e);
+			throw e;
+		}
+		
+	}
 
+	@Override
+	@Transactional
+	public void eliminarCeloServicio(CeloServicio cs) throws Exception{
+		try {
+			cs.setEliminado(true);
+			persistirCeloServicio(cs);
+			log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " se elimina celoServicio id: "+ cs.getId() + " ok.");
+			
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " EliminarCeloServicio(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
+	
+	@Override
+	public CeloServicio obtenerCeloServicioById(Long id){
+		CeloServicio result = genericDao.get(CeloServicio.class, id);				
+		return result;
+		
+	}
+
+	@Override
+	public void eliminarCeloServicioById(Long id)throws Exception{
+		try {
+			CeloServicio cs = obtenerCeloServicioById(id);
+			if (cs != null)
+				eliminarCeloServicio(cs);
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " eliminarCeloServicioById(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Inseminador> obtenerInseminadores() throws Exception{
+		try {
+			Establecimiento establecimiento=serviceFacade.obtenerEstablecimientoLogueado();
+			
+			List<Inseminador> inse = genericDao.getSessionFactory().getCurrentSession().createCriteria(Inseminador.class)
+				.add(Restrictions.eq("eliminado", Boolean.FALSE))
+				.add(Restrictions.eq("establecimiento", establecimiento))
+				.addOrder(Order.asc("apellido")).list();
+			  
+			return inse;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerInseminadores(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Vaca> obtenerVacasEstablecimientoActual() throws Exception{
+		try {
+			Establecimiento establecimiento=serviceFacade.obtenerEstablecimientoLogueado();
+			
+			List<Vaca> vacas = genericDao.getSessionFactory().getCurrentSession().createCriteria(Vaca.class)
+				.add(Restrictions.eq("eliminado", Boolean.FALSE))
+				.add(Restrictions.eq("establecimiento", establecimiento))
+				.addOrder(Order.asc("rp")).list();
+			  
+			return vacas;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerVacas(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<TipoServicio> obtenerTiposServicio() throws Exception{
+		try {
+			
+			List<TipoServicio> ts = genericDao.getSessionFactory().getCurrentSession().createCriteria(TipoServicio.class)
+				.add(Restrictions.eq("activo", Boolean.TRUE))
+				.addOrder(Order.asc("id")).list();
+			  
+			return ts;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerTiposServicio(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
 }

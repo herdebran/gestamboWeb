@@ -18,8 +18,8 @@ package ar.com.cristal.creditos.client.ui;
 
 import ar.com.cristal.creditos.client.accesibilidad.PerfilesCRUDPlace;
 import ar.com.cristal.creditos.client.clientes.busqueda.BusquedaClientesPlace;
-import ar.com.cristal.creditos.client.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoActivity;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.sucursales.ABMSucursalPlace;

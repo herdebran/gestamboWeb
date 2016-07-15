@@ -8,8 +8,6 @@ import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHisto
 import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReporteView;
 import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadView;
-import ar.com.cristal.creditos.client.partediario.ParteDiarioPlace;
-import ar.com.cristal.creditos.client.partediario.ParteDiarioView;
 import ar.com.cristal.creditos.client.service.ClientesRPCService;
 import ar.com.cristal.creditos.client.service.ClientesRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.ComunesRPCService;
@@ -24,6 +22,10 @@ import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventService;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
+import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioView;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioView;
 import ar.com.cristal.creditos.client.tambo.rodeos.ui.BusquedaRodeosView;
 import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosView;
 import ar.com.cristal.creditos.client.ui.MenuView;
@@ -63,6 +65,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private MenuView menuView = null;
     private AltaAnimalesView altaAnimalesView = null;
     private ParteDiarioView parteDiarioView = null;
+    private PdCeloServicioView pdCeloServicioView = null;
     
     private OperacionesHistorialCreditosClienteView operacionesHistorialCreditosClienteView = null;
     private BusquedaClientesView busquedaClientesView = null;
@@ -193,6 +196,11 @@ public class ClientFactoryImpl implements ClientFactory {
 		return parteDiarioView;
 	}
 	
+	public PdCeloServicioView getPdCeloServicioView() {
+		if (pdCeloServicioView == null) pdCeloServicioView = new PdCeloServicioView();
+		return pdCeloServicioView;
+	}
+
 	public PopUpInfoView getPopUpInfoView() {
 		if (popUpInfoView == null) popUpInfoView = new PopUpInfoView();
 		return popUpInfoView;

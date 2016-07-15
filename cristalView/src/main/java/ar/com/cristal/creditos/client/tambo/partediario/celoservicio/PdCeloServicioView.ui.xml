@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:snoop="urn:import:ar.com.snoop.gwt.commons.client.widget"	
+	xmlns:dp="urn:import:ar.com.snoop.gwt.commons.client.widget.datepicker">
+
+	<g:HTMLPanel> 
+	    
+	     <div class="gwt-TitledPanel">
+	    	  <div class="title" ui:field="clienteDiv">Parte Diario</div>
+	      </div>
+	      
+	<g:HTMLPanel>
+		<ul id="menu">
+			<li><g:Anchor ui:field="anchorCelosServicios" debugId="anchorCelosServicios">Celos y Servicios</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorPartos" debugId="anchorPartos">Partos</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorIngresosSecadas" debugId="anchorIngresosSecadas">Ingresos y Secadas</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorSuplementacion" debugId="anchorSuplementacion">Suplementacion</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorSanidad" debugId="anchorSanidad">Sanidad</g:Anchor></li>
+			<li><g:Anchor ui:field="anchorBajas" debugId="anchorBajas">Bajas</g:Anchor></li>
+		</ul>
+	</g:HTMLPanel>
+	
+	
+		<div class="clear5"></div>
+		<div class="title" style="float:left">Carga de Celos y Servicios</div>
+		<div class="clear5"></div>
+		
+		<table>
+			<thead></thead>
+			<tbody>
+			    <tr>
+				 	<td>RP</td>
+					<td width="30px">Nro</td>
+					<td width="50px">Lactancia</td>
+					<td>Evento</td>
+					<td><g:Label ui:field="lblToro" text="Toro" styleName="textoCSS" /></td>
+					<td><g:Label ui:field="lblTipoServicio" text="Tipo Servicio" styleName="textoCSS" /></td>
+					<td><g:Label ui:field="lblInseminador" text="Inseminador" styleName="textoCSS" /></td>
+					<td></td>
+			    </tr>
+			    <tr>
+					<td><snoop:ListBox ui:field="cmbVaca" width="80px" multipleSelect="false"></snoop:ListBox></td>
+					<td width="30px" ><snoop:RegExpTextBoxImpl ui:field="nroCeloServicio" maxLength="2" width="30px"></snoop:RegExpTextBoxImpl></td>
+					<td width="50px" ><snoop:RegExpTextBoxImpl ui:field="nroLactancia" maxLength="2" width="50px"></snoop:RegExpTextBoxImpl></td>
+					<td><snoop:ListBox ui:field="cmbTipo" width="120px" multipleSelect="false"></snoop:ListBox></td>
+					<td><snoop:ListBox ui:field="cmbToro" width="120px" multipleSelect="false"></snoop:ListBox></td>
+					<td><snoop:ListBox ui:field="cmbTipoServicio" width="120px" multipleSelect="false"></snoop:ListBox></td>
+					<td><snoop:ListBox ui:field="cmbInseminador" width="120px" multipleSelect="false"></snoop:ListBox></td>
+					<td><g:Button ui:field="cmdAgregarCeloServicio" text="Agregar"/></td>
+			    </tr>
+				
+			</tbody>
+			<tfoot>
+				
+			</tfoot>
+		
+		</table>
+		
+		<div class="clear10"></div>
+			
+		<div style="overflow-y: scroll; height: 300px">
+			<g:FlexTable debugId="lstCelosServicios" ui:field="lstCelosServicios" styleName="dataTable" width="100%" >
+				</g:FlexTable>
+		 </div>
+				
+	
+		<div class="clear10"></div>
+		<div style="float:right">
+		    <g:Button ui:field="cmdGuardar" text="Guardar"/>
+			<g:Button ui:field="cmdCerrar" text="Cerrar" />
+		</div>
+		<div class="clear20"></div>
+			
+	</g:HTMLPanel>
+</ui:UiBinder>

@@ -14,12 +14,12 @@ import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReporteActivity
 import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReportePlace;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadActivity;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadPlace;
-import ar.com.cristal.creditos.client.partediario.ParteDiarioActivity;
-import ar.com.cristal.creditos.client.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesActivity;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
-import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoActivity;
-import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioActivity;
+import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioPlace;
 import ar.com.cristal.creditos.client.ui.home.HomeActivity;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
 import ar.com.cristal.creditos.client.ui.sucursales.ABMSucursalActivity;
@@ -60,6 +60,9 @@ public class AppActivityMapper implements ActivityMapper {
 
         else if (place instanceof ParteDiarioPlace)
         	currentActivity = new ParteDiarioActivity((ParteDiarioPlace)place, clientFactory);
+
+        else if (place instanceof PdCeloServicioPlace)
+        	currentActivity = new PdCeloServicioActivity((PdCeloServicioPlace)place, clientFactory);
 
         else if (place instanceof ListadoUsuariosPlace)
         	currentActivity = new ListadoUsuariosActivity((ListadoUsuariosPlace)place, clientFactory);

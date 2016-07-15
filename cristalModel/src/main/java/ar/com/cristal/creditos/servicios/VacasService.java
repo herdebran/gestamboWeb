@@ -3,9 +3,12 @@ package ar.com.cristal.creditos.servicios;
 import java.util.List;
 
 import ar.com.cristal.creditos.entity.tambo.Categoria;
+import ar.com.cristal.creditos.entity.tambo.CeloServicio;
+import ar.com.cristal.creditos.entity.tambo.Inseminador;
 import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
+import ar.com.cristal.creditos.entity.tambo.TipoServicio;
 import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
 
@@ -45,6 +48,23 @@ public interface VacasService {
 	List<Vaca> listarVacaXRodeoId(Long rodeoId) throws Exception;
 
 	List<Vaca> obtenerVacasByParam(String param) throws Exception;
+
+	CeloServicio persistirCeloServicio(CeloServicio celoServicio)
+			throws Exception;
+
+	Inseminador persistirInseminador(Inseminador inseminador) throws Exception;
+
+	void eliminarCeloServicio(CeloServicio cs) throws Exception;
+
+	CeloServicio obtenerCeloServicioById(Long id);
+
+	void eliminarCeloServicioById(Long id) throws Exception;
+
+	List<Inseminador> obtenerInseminadores() throws Exception;
+
+	List<Vaca> obtenerVacasEstablecimientoActual() throws Exception;
+
+	List<TipoServicio> obtenerTiposServicio() throws Exception;
 	
 
 }

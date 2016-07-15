@@ -8,3 +8,10 @@ INSERT INTO `cristal`.`ComponenteDePantalla` (`id`, `descripcion`, `nombre`) VAL
 --CREA LOS PERFILES NECESARIOS
 INSERT INTO `Perfil` (`id`,`descripcion`,`nombre`,`listacomponentes`) VALUES (1,'Son aquellos que tienen acceso a las pantallas ADMINISTRADOR','ADMINISTRADOR','1,2,3,4');
 INSERT INTO `Perfil` (`id`, `descripcion`, `listacomponentes`, `nombre`) VALUES ('2', 'Perfil para usuario estándar', '1,2,3,4', 'USUARIO');
+
+--TIPOS DE SERVICIO
+INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('1', 1, 'INSEMINACION ARTIFICIAL');
+INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('2', 1, 'NATURAL');
+INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('3', 1, 'A CAMPO');
+INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('4', 1, 'ROBO');
+INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('5', 1, 'IATF');

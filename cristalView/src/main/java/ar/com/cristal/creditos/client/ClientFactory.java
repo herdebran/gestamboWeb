@@ -9,8 +9,6 @@ import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHisto
 import ar.com.cristal.creditos.client.creditos.reportes.SeleccionReporteView;
 import ar.com.cristal.creditos.client.dto.UsuarioLogueadoDTO;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadView;
-import ar.com.cristal.creditos.client.partediario.ParteDiarioPlace;
-import ar.com.cristal.creditos.client.partediario.ParteDiarioView;
 import ar.com.cristal.creditos.client.service.ClientesRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.ComunesRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.CreditosRPCServiceAsync;
@@ -19,6 +17,10 @@ import ar.com.cristal.creditos.client.service.VacasRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
+import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioView;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioView;
 import ar.com.cristal.creditos.client.tambo.rodeos.ui.BusquedaRodeosView;
 import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosView;
 import ar.com.cristal.creditos.client.ui.MenuView;
@@ -77,6 +79,7 @@ public interface ClientFactory {
     HomeView getHomeView();
     AltaAnimalesView getAltaAnimalesView();
     ParteDiarioView getParteDiarioView();
+    PdCeloServicioView getPdCeloServicioView();
     
     OperacionesHistorialCreditosClienteView getOperacionesHistorialCreditosClienteView();
     PerfilesCRUDView getPerfilesView();

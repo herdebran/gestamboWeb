@@ -3,9 +3,11 @@ package ar.com.cristal.creditos.client.service;
 import java.util.List;
 
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
+import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 
@@ -50,6 +52,13 @@ public interface VacasRPCServiceAsync {
 			AsyncCallback<List<VacaDTO>> callback);
 
 	void obtenerVacasByParam(String param, AsyncCallback<List<VacaDTO>> callback);
+
+	void obtenerInseminadoresRPC(AsyncCallback<List<InseminadorDTO>> callback);
+
+	void obtenerVacasEstablecimientoActualRPC(
+			AsyncCallback<List<VacaDTO>> callback);
+
+	void obtenerTiposServicioRPC(AsyncCallback<List<TipoServicioDTO>> callback);
 
 
 }
