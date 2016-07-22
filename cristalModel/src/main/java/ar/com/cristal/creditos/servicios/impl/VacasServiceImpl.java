@@ -1,6 +1,8 @@
 package ar.com.cristal.creditos.servicios.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -28,6 +30,7 @@ import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.VacasService;
+import ar.com.cristal.creditos.util.DateUtil;
 
 @Service("vacasService")
 public class VacasServiceImpl implements VacasService {
@@ -428,13 +431,18 @@ public class VacasServiceImpl implements VacasService {
 	}
 
 	@Override
-	@Transactional
-	public void eliminarCeloServicio(CeloServicio cs) throws Exception{
+	public CeloServicio eliminarCeloServicio(CeloServicio cs) throws Exception{
 		try {
+			CeloServicio result;
 			cs.setEliminado(true);
-			persistirCeloServicio(cs);
-			log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " se elimina celoServicio id: "+ cs.getId() + " ok.");
+			cs.setUsuarioBaja(serviceFacade.obtenerUsuarioLogueadoId());
+			cs.setFechaBaja(serviceFacade.getFechaActual());
+			result=persistirCeloServicio(cs);
 			
+			if (result.getEliminado())
+				log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " se elimina celoServicio id: "+ cs.getId() + " ok.");
+			
+			return result;
 		} catch (Exception e) {
 			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " EliminarCeloServicio(): " + e.getMessage(), e);
 			throw e;
@@ -449,11 +457,16 @@ public class VacasServiceImpl implements VacasService {
 	}
 
 	@Override
-	public void eliminarCeloServicioById(Long id)throws Exception{
+	public CeloServicio eliminarCeloServicioById(Long id)throws Exception{
 		try {
 			CeloServicio cs = obtenerCeloServicioById(id);
+			CeloServicio result=null;
 			if (cs != null)
-				eliminarCeloServicio(cs);
+				result=eliminarCeloServicio(cs);
+			else
+				log.warn(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " eliminarCeloServicioById(): No se encontro servicio para eliminar con id: " + id);
+			
+			return result;
 		} catch (Exception e) {
 			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " eliminarCeloServicioById(): " + e.getMessage(), e);
 			throw e;
@@ -508,6 +521,39 @@ public class VacasServiceImpl implements VacasService {
 			return ts;
 		} catch (Exception e) {
 			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerTiposServicio(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
+	
+	
+	/**
+	 * Devuelve los celos y servicios cargados en Fecha dentro del establecimiento logueado
+	 * @param fecha
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<CeloServicio> obtenerCelosServiciosPorFecha(final Date fecha) throws Exception{
+		try {
+			Establecimiento establecimiento=serviceFacade.obtenerEstablecimientoLogueado();
+			Calendar fDesde = DateUtil.createCalendar(fecha);
+			fDesde.set(Calendar.HOUR, 0);
+			fDesde.set(Calendar.MINUTE, 0);
+			fDesde.set(Calendar.SECOND, 0);
+			Calendar fHasta = DateUtil.createCalendar(fecha);
+			fHasta.set(Calendar.HOUR, 23);
+			fHasta.set(Calendar.MINUTE,59);
+			fHasta.set(Calendar.SECOND, 59);
+			
+			List<CeloServicio> result = genericDao.getSessionFactory().getCurrentSession().createCriteria(CeloServicio.class)
+				.add(Restrictions.between("fecha", fDesde.getTime(),fHasta.getTime()))
+				.add(Restrictions.eq("establecimiento", establecimiento))
+				.add(Restrictions.eq("eliminado", false)).list();
+			  
+			return result;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerCelosServiciosPorFecha(): " + e.getMessage(), e);
 			throw e;
 		}
 	}

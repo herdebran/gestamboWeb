@@ -1,8 +1,10 @@
 package ar.com.cristal.creditos.client.service;
 
+import java.util.Date;
 import java.util.List;
 
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
+import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
@@ -57,5 +59,11 @@ public interface VacasRPCService extends RemoteService {
 	List<VacaDTO> obtenerVacasEstablecimientoActualRPC() throws Exception;
 
 	List<TipoServicioDTO> obtenerTiposServicioRPC() throws Exception;
+
+	List<CeloServicioDTO> obtenerCelosServiciosPorFechaRPC(Date fecha) throws Exception;
+
+	CeloServicioDTO insertarCeloServicioRPC(CeloServicioDTO csDTO)	throws Exception;
+
+	CeloServicioDTO eliminarCeloServicioPorIdRPC(Long id) throws Exception;
 
 }

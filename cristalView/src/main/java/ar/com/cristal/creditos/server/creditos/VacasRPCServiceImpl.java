@@ -11,6 +11,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import ar.com.cristal.creditos.client.service.VacasRPCService;
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
+import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
@@ -18,6 +19,7 @@ import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
+import ar.com.cristal.creditos.entity.tambo.CeloServicio;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
 import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
@@ -220,6 +222,35 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 	public List<TipoServicioDTO> obtenerTiposServicioRPC() throws Exception{
 		try {
 			return mapper.convertList(vacasService.obtenerTiposServicio(),TipoServicioDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public List<CeloServicioDTO> obtenerCelosServiciosPorFechaRPC(Date fecha) throws Exception{
+		try {
+			return mapper.convertList(vacasService.obtenerCelosServiciosPorFecha(fecha),CeloServicioDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	@Override
+	public CeloServicioDTO insertarCeloServicioRPC (CeloServicioDTO csDTO)throws Exception {
+		try {
+			CeloServicio cs = mapper.map(csDTO, CeloServicio.class);
+			return mapper.map(vacasService.persistirCeloServicio(cs),CeloServicioDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public CeloServicioDTO eliminarCeloServicioPorIdRPC (Long id)throws Exception {
+		try {
+			return mapper.map(vacasService.eliminarCeloServicioById(id),CeloServicioDTO.class);
+			
 		} catch (Exception e) {
 			throw e;
 		}

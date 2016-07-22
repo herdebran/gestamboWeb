@@ -22,6 +22,8 @@ import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventService;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesPlace;
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesView;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioView;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
@@ -64,6 +66,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private HomeView homeView = null;
     private MenuView menuView = null;
     private AltaAnimalesView altaAnimalesView = null;
+    private FichaAnimalesView fichaAnimalesView = null;
     private ParteDiarioView parteDiarioView = null;
     private PdCeloServicioView pdCeloServicioView = null;
     
@@ -91,6 +94,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private HomePlace homePlace = null;
     private PopUpInfoPlace popUpInfoPlace = null;
     private AltaAnimalesPlace altaAnimalesPlace = null;
+    private FichaAnimalesPlace fichaAnimalesPlace = null;
     private ParteDiarioPlace parteDiarioPlace = null;
     
     private AltaEdicionUsuarioPlace altaEdicionUsuarioPlace;
@@ -138,6 +142,12 @@ public class ClientFactoryImpl implements ClientFactory {
 		 if (altaAnimalesPlace == null) altaAnimalesPlace = new AltaAnimalesPlace(token);
 		 altaAnimalesPlace.setToken(token);
 			return altaAnimalesPlace;
+		}
+
+	 public FichaAnimalesPlace getFichaAnimalesPlace(String token) {
+		 if (fichaAnimalesPlace == null) fichaAnimalesPlace = new FichaAnimalesPlace(token);
+		 fichaAnimalesPlace.setToken(token);
+			return fichaAnimalesPlace;
 		}
 
 	 public ParteDiarioPlace getParteDiarioPlace(String token) {
@@ -189,6 +199,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	public AltaAnimalesView getAltaAnimalesView() {
 		if (altaAnimalesView == null) altaAnimalesView = new AltaAnimalesView();
 		return altaAnimalesView;
+	}
+	
+	public FichaAnimalesView getFichaAnimalesView() {
+		if (fichaAnimalesView == null) fichaAnimalesView = new FichaAnimalesView();
+		return fichaAnimalesView;
 	}
 	
 	public ParteDiarioView getParteDiarioView() {

@@ -70,8 +70,6 @@ public class PdCeloServicioView extends Composite implements IsWidget {
 
 		void onGuardar();
 		
-		void inicializarTabla(final FlexTable tabla,Date fecha);
-
 		void onAgregarCeloServicio();
 	}
 	
@@ -199,7 +197,7 @@ public class PdCeloServicioView extends Composite implements IsWidget {
 	void initTable(){
 		lstCelosServicios.removeAllRows();
 		
-		lstCelosServicios.setHTML(0,0,"ID");
+		lstCelosServicios.setHTML(0,0,"Id");
 		lstCelosServicios.setText(0, 1, "RP");
 		lstCelosServicios.setText(0, 2, "Nro");
 		lstCelosServicios.setText(0, 3, "Lact");
@@ -207,6 +205,7 @@ public class PdCeloServicioView extends Composite implements IsWidget {
 		lstCelosServicios.setText(0, 5, "Toro");
 		lstCelosServicios.setText(0, 6, "Tipo Serv.");
 		lstCelosServicios.setText(0, 7, "Inseminador");
+		lstCelosServicios.setText(0, 8, "Accion");
 
 		lstCelosServicios.setCellPadding(0);
 		lstCelosServicios.setCellSpacing(0);

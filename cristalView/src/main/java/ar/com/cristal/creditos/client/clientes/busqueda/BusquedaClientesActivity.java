@@ -21,6 +21,7 @@ import java.util.List;
 import ar.com.cristal.creditos.client.ClientFactory;
 import ar.com.cristal.creditos.client.clientes.busqueda.detalle.OperacionesHistorialCreditosClientePlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
@@ -227,8 +228,9 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
  
 
 	@Override
-	public void irFichaVaca(String idString) {
-		popup.mostrarMensaje("Sin implementar","Te llevaria a la ficha del animal "+ idString);
+	public void irFichaVaca(String idVaca) {
+		Place p = new FichaAnimalesPlace(idVaca);
+		clientFactory.getPlaceController().goTo(p);
 		
 	}
 

@@ -17,6 +17,8 @@ import ar.com.cristal.creditos.client.service.VacasRPCServiceAsync;
 import ar.com.cristal.creditos.client.service.event.DefaultRemoteEventServiceAsync;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesView;
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesPlace;
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesView;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioView;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
@@ -66,6 +68,7 @@ public interface ClientFactory {
     HomePlace getHomePlace();
     Place getPopUpInfoPlace();
     AltaAnimalesPlace getAltaAnimalesPlace (String token);
+    FichaAnimalesPlace getFichaAnimalesPlace (String token);
     
     AltaEdicionUsuarioPlace getAltaEdicionUsuarioPlace(String id);
     Place getCalculoSolicitudRefinanciacionCreditosPlace(String token);
@@ -78,6 +81,7 @@ public interface ClientFactory {
     MenuView getMenuView();
     HomeView getHomeView();
     AltaAnimalesView getAltaAnimalesView();
+    FichaAnimalesView getFichaAnimalesView();
     ParteDiarioView getParteDiarioView();
     PdCeloServicioView getPdCeloServicioView();
     

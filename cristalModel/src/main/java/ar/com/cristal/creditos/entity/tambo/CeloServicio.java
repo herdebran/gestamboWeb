@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.NotNull;
 
 import ar.com.cristal.creditos.common.TipoCeloServicioEnum;
+import ar.com.cristal.creditos.entity.login.Establecimiento;
 
 @Entity
 @Table
@@ -43,10 +44,16 @@ public class CeloServicio {
 	private String observaciones;
 	@Column
 	private Boolean eliminado=false;
+	@ManyToOne
+	private Establecimiento establecimiento;
 	@Column
 	private Date fechaAlta;
 	@Column
 	private Long usuarioAlta;
+	@Column
+	private Date fechaBaja;
+	@Column
+	private Long usuarioBaja;
 	
 
 	public CeloServicio(){
@@ -174,6 +181,16 @@ public class CeloServicio {
 	}
 
 
+	public Establecimiento getEstablecimiento() {
+		return establecimiento;
+	}
+
+
+	public void setEstablecimiento(Establecimiento establecimiento) {
+		this.establecimiento = establecimiento;
+	}
+
+
 	public Long getUsuarioAlta() {
 		return usuarioAlta;
 	}
@@ -181,6 +198,26 @@ public class CeloServicio {
 
 	public void setUsuarioAlta(Long usuarioAlta) {
 		this.usuarioAlta = usuarioAlta;
+	}
+
+
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+
+
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+
+
+	public Long getUsuarioBaja() {
+		return usuarioBaja;
+	}
+
+
+	public void setUsuarioBaja(Long usuarioBaja) {
+		this.usuarioBaja = usuarioBaja;
 	}
 
 

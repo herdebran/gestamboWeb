@@ -20,25 +20,30 @@ import java.util.Date;
 import java.util.List;
 
 import ar.com.cristal.creditos.client.ClientFactory;
-import ar.com.cristal.creditos.client.dto.ClienteDTO;
+import ar.com.cristal.creditos.client.dto.TipoCeloServicioEnumDTO;
+import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
+import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
+import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
+import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
-import ar.com.cristal.creditos.client.ui.usuarios.dto.UsuarioDTO;
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
-import ar.com.cristal.creditos.client.ui.util.GwtValidationUtils;
 import ar.com.cristal.creditos.client.ui.util.InicializarCombos;
-import ar.com.cristal.creditos.client.ui.util.OperacionesDocumentos;
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
-import ar.com.cristal.creditos.common.TipoCeloServicioEnum;
-import ar.com.cristal.creditos.entity.tambo.TipoServicio;
+import ar.com.cristal.creditos.client.widget.CustomSiNoDialogBox;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTMLTable.Cell;
 
 /**
  * Activities are started and stopped by an ActivityManager associated with a container Widget.
@@ -54,6 +59,7 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 	private HandlerRegistration handlerRegistrationAdd;
 	private final String ID_COMPONENTE_ACTIVITY = "PD_CELOSYSERVICIOS";
 	private long tiempo = new Date().getTime();
+	private Date fechaParteDiario;
 	
 	public PdCeloServicioActivity(PdCeloServicioPlace place, ClientFactory cf) {
 		clientFactory = cf;
@@ -87,6 +93,7 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		try {
 			view.limpiarControles();	
 			view.initTable();
+			cargarCelosServicios(fechaParteDiario);
 			inicializarCombos();
 			view.visibilizarControlesParaServicio(false);
 			
@@ -99,7 +106,37 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		
 	}
 
-	
+	/**
+	 * Recupera los celos y servicios de la fecha y los muestra en la grilla
+	 * @param date
+	 */
+	private void cargarCelosServicios(Date fecha) {
+		popup.mostrarMensaje("Espere", "Obteniendo celos y servicios...");
+		clientFactory.getVacasService().obtenerCelosServiciosPorFechaRPC(fecha, 
+				new AsyncCallback<List<CeloServicioDTO>>(){
+
+					@Override
+					public void onFailure(Throwable e) {
+						popup.mostrarMensaje("Atencion", "Ha ocurrido un error: " + e.getMessage());
+						
+					}
+
+					@Override
+					public void onSuccess(List<CeloServicioDTO> lista) {
+						view.initTable();
+						for (CeloServicioDTO c:lista){
+							agregarCeloServicioATabla(c);							
+						}
+						popup.ocultar();
+						
+					}
+			
+		});
+		
+		
+	}
+
+
 	/**
 	 * El goTo place es cambiado para dar el comportamiento deseado por la pantalla:
 	 * Primero se ubica la operación que se esta tratando de hacer para luego verificar si el cliente y/o el credito
@@ -139,9 +176,10 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 	@Override
 	public void inicializarActivity() {
 		System.out.println("Tiempo de validación de permisos y usuario [ms]: " + (new Date().getTime() - tiempo));
+		fechaParteDiario=new Date();
 		tiempo = new Date().getTime();
 		inicializarControles();
-		view.anchorCelosServicios.getElement().getStyle().setBackgroundColor("#006AA4");		
+		view.anchorCelosServicios.getElement().getStyle().setBackgroundColor("#006AA4");
 	}
 
 
@@ -193,30 +231,6 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		
 	}
 
-	/***
-	 * Carga Inicial para los Celos Servicios ya cargados esa fecha
-	 */
-	public void inicializarTabla(final FlexTable tabla,Date fecha){
-		
-		//LLAMAR UN METODO QUE OBTIENE CELOS Y SERVICIOS PARA ESA FECHA
-		//clientFactory.getUsuarioService().obtenerUsarios(new AsyncCallback<List<UsuarioDTO>>() {
-			
-			
-/*
-		public void onSuccess(List<UsuarioDTO> usuarios) {
-				
-				METODO QUE AGREGA EN TABLA
-			}
-			
-			public void onFailure(Throwable arg) {
-				popup.mostrarMensaje("Error: ", arg.getMessage());
-				
-			}
-		});
-		
-*/
-	}
-
 	private void inicializarCombos() {
 		InicializarCombos.inicializarComboVacas(null, view.cmbVaca);
 		InicializarCombos.inicializarComboToros(null, view.cmbToro);
@@ -230,18 +244,51 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		List<String> errores = new ArrayList<String>();
 		boolean datosValidos=validarDatos(errores);
 		if (datosValidos){
-			agregarDatosPantallaATabla();
-			view.limpiarControles();
+			CeloServicioDTO csDTO=armarCeloServicioDTO();
+			popup.mostrarMensaje("Espere", "Insertando novedad...");
+			clientFactory.getVacasService().insertarCeloServicioRPC(csDTO, new AsyncCallback<CeloServicioDTO>() {
+
+				@Override
+				public void onFailure(Throwable e) {
+					popup.mostrarMensaje("Ha ocurrido un error: " + e.getMessage());
+				}
+
+				@Override
+				public void onSuccess(CeloServicioDTO r) {
+					view.limpiarControles();
+					cargarCelosServicios(fechaParteDiario);
+				}
+				
+			});
+			
 		} else {
 			popup.mostrarMensaje("Error", errores);
 		}
 	}
 	
-	private void agregarDatosPantallaATabla() {
-		agregarCeloServicioATabla(view.cmbVaca.getSelectedItemText(),
-				view.nroCeloServicio.getText(), view.nroLactancia.getText(), view.cmbTipo.getSelectedItemText(), 
-				view.cmbToro.getSelectedItemText(),view.cmbTipoServicio.getSelectedItemText() , view.cmbInseminador.getSelectedItemText());
+
+
+
+	/**
+	 * Devuelve el DTO armado con los datos de la pantalla
+	 * @return
+	 */
+	private CeloServicioDTO armarCeloServicioDTO() {
+		CeloServicioDTO result= new CeloServicioDTO();
+
+		result.setEliminado(false);
+		result.setFecha(fechaParteDiario);
+		result.setEstablecimiento(ClientContext.getInstance().getUsuarioLogueadoDTO().getEstablecimientoActual());
+		result.setInseminador((view.cmbInseminador.isVisible() && view.cmbInseminador.getSelectedItem()!=null)?(InseminadorDTO) view.cmbInseminador.getSelectedItem():null);
+		result.setLactancia(Integer.valueOf(view.nroLactancia.getText()));
+		result.setNroCeloServicio(Integer.valueOf(view.nroCeloServicio.getText()));
+		result.setObservaciones("");
+		result.setTipo((TipoCeloServicioEnumDTO) view.cmbTipo.getSelectedItem());
+		result.setTipoServicio(view.cmbTipoServicio.isVisible()?(TipoServicioDTO) view.cmbTipoServicio.getSelectedItem():null);
+		result.setToro((view.cmbToro.isVisible() && view.cmbToro.getSelectedItem()!=null)?(ToroDTO) view.cmbToro.getSelectedItem():null);
+		result.setVaca((VacaDTO) view.cmbVaca.getSelectedItem());
 		
+		return result;
 	}
 
 
@@ -290,17 +337,29 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		return result;
 	}
 
-	private void agregarCeloServicioATabla(String rp,String nro,String lact,String evento,String toro,String tipoServ,String inseminador) {
+	private void agregarCeloServicioATabla(CeloServicioDTO c) {
 		int i= view.lstCelosServicios.getRowCount()-1;
 		
-		view.lstCelosServicios.setText(i+1, 0, "");
-		view.lstCelosServicios.setText(i+1, 1, rp);
-		view.lstCelosServicios.setText(i+1, 2, nro);
-		view.lstCelosServicios.setText(i+1, 3, lact);
-		view.lstCelosServicios.setText(i+1, 4, evento);
-		view.lstCelosServicios.setText(i+1, 5, toro);
-		view.lstCelosServicios.setText(i+1, 6, tipoServ);
-		view.lstCelosServicios.setText(i+1, 7, inseminador);
+		view.lstCelosServicios.setText(i+1, 0, String.valueOf(c.getId()));
+		view.lstCelosServicios.setText(i+1, 1, c.getVaca().getRp());
+		view.lstCelosServicios.setText(i+1, 2, String.valueOf(c.getNroCeloServicio()));
+		view.lstCelosServicios.setText(i+1, 3, String.valueOf(c.getLactancia()));
+		view.lstCelosServicios.setText(i+1, 4, c.getTipo().getItemText());
+		view.lstCelosServicios.setText(i+1, 5, (c.getToro()!=null)?c.getToro().getNombre():"");
+		view.lstCelosServicios.setText(i+1, 6, (c.getTipoServicio() != null)?c.getTipoServicio().getDescripcion(): "");
+		view.lstCelosServicios.setText(i+1, 7, (c.getInseminador()!=null)?c.getInseminador().getItemText():"");
+		
+		//Boton Elimimnar
+		Button cmdEliminarCeloServicio=new Button("Eliminar");
+		cmdEliminarCeloServicio.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				Cell cellSelected =  view.lstCelosServicios.getCellForEvent(event);
+				int rowSelected=cellSelected.getRowIndex();
+				Long idCeloServicio= Long.valueOf(view.lstCelosServicios.getText(rowSelected, 0));
+				eliminarCeloServicio (idCeloServicio);
+			}
+		});
+		view.lstCelosServicios.setWidget(i+1, 8, cmdEliminarCeloServicio);
 		
 		
 		if (i % 2 == 0) {
@@ -309,6 +368,44 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 			view.lstCelosServicios.getRowFormatter().addStyleName(i+1, "TableRow2Pointer");
 		}
 
+	}
+
+	/**
+	 * Llama al RPC que borra el servicio y refresca la grilla 
+	 */
+	  
+	private void eliminarCeloServicio(final Long idCeloServicio) {
+		final DialogBox dialogbox = CustomSiNoDialogBox.dialogBox("Atención", "¿Está seguro de eliminar el evento?");
+		ClickHandler listenerNo = new ClickHandler() {
+			
+			public void onClick(ClickEvent arg0) {
+				dialogbox.hide();		
+			}
+		};
+		
+		ClickHandler listenerSi = new ClickHandler() {
+			
+			public void onClick(ClickEvent arg0) {
+				dialogbox.hide();
+				popup.mostrarMensaje("Espere","Eliminando el evento...");
+				clientFactory.getVacasService().eliminarCeloServicioPorIdRPC(idCeloServicio,new AsyncCallback<CeloServicioDTO>() {
+
+					@Override
+					public void onFailure(Throwable e) {
+						popup.mostrarMensaje("Atención","Ha ocurrido un error al eliminar el evento.");
+					}
+
+					@Override
+					public void onSuccess(CeloServicioDTO result) {
+						popup.ocultar();
+						cargarCelosServicios(fechaParteDiario);
+					}
+				});
+			}
+		};
+	
+		CustomSiNoDialogBox.setHandlers(listenerSi, listenerNo);
+		
 	}
 	
 }

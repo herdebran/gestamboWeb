@@ -16,6 +16,8 @@ import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadActivity;
 import ar.com.cristal.creditos.client.localidad.ui.BusquedaLocalidadPlace;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesActivity;
 import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesActivity;
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioActivity;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
@@ -57,6 +59,9 @@ public class AppActivityMapper implements ActivityMapper {
         
         else if (place instanceof AltaAnimalesPlace)
         	currentActivity = new AltaAnimalesActivity((AltaAnimalesPlace)place, clientFactory);
+
+        else if (place instanceof FichaAnimalesPlace)
+        	currentActivity = new FichaAnimalesActivity((FichaAnimalesPlace)place, clientFactory);
 
         else if (place instanceof ParteDiarioPlace)
         	currentActivity = new ParteDiarioActivity((ParteDiarioPlace)place, clientFactory);

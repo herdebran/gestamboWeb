@@ -1,5 +1,6 @@
 package ar.com.cristal.creditos.servicios;
 
+import java.util.Date;
 import java.util.List;
 
 import ar.com.cristal.creditos.entity.tambo.Categoria;
@@ -54,17 +55,19 @@ public interface VacasService {
 
 	Inseminador persistirInseminador(Inseminador inseminador) throws Exception;
 
-	void eliminarCeloServicio(CeloServicio cs) throws Exception;
+	CeloServicio eliminarCeloServicio(CeloServicio cs) throws Exception;
 
 	CeloServicio obtenerCeloServicioById(Long id);
 
-	void eliminarCeloServicioById(Long id) throws Exception;
+	CeloServicio eliminarCeloServicioById(Long id) throws Exception;
 
 	List<Inseminador> obtenerInseminadores() throws Exception;
 
 	List<Vaca> obtenerVacasEstablecimientoActual() throws Exception;
 
 	List<TipoServicio> obtenerTiposServicio() throws Exception;
+
+	List<CeloServicio> obtenerCelosServiciosPorFecha(Date fecha) throws Exception;
 	
 
 }

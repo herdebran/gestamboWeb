@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.cristal.creditos.client.tambo.animales.alta;
-
-import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesPlace;
+package ar.com.cristal.creditos.client.tambo.animales.ficha;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
+
 
 /**
  * A place object representing a particular state of the UI. A Place can be converted to and from a
@@ -26,14 +25,14 @@ import com.google.gwt.place.shared.PlaceTokenizer;
  * {@link PlaceHistoryHandler} automatically updates the browser URL corresponding to each 
  * {@link Place} in your app.
  */
-public class AltaAnimalesPlace extends Place {
+public class FichaAnimalesPlace extends Place {
   
 	/**
 	 * Sample property (stores token). 
 	 */
 	private String name;
 
-	public AltaAnimalesPlace(String token) {
+	public FichaAnimalesPlace(String token) {
 		this.name = token;
 	}
 
@@ -53,14 +52,14 @@ public class AltaAnimalesPlace extends Place {
 	/**
 	 * PlaceTokenizer knows how to serialize the Place's state to a URL token.
 	 */
-	public static class Tokenizer implements PlaceTokenizer<AltaAnimalesPlace> {
+	public static class Tokenizer implements PlaceTokenizer<FichaAnimalesPlace> {
 
-		public String getToken(AltaAnimalesPlace place) {
+		public String getToken(FichaAnimalesPlace place) {
 			return place.getName();
 		}
 
-		public AltaAnimalesPlace getPlace(String token) {
-			return new AltaAnimalesPlace(token);
+		public FichaAnimalesPlace getPlace(String token) {
+			return new FichaAnimalesPlace(token);
 		}
 
 	}

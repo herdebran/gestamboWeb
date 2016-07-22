@@ -17,6 +17,7 @@ package ar.com.cristal.creditos.client.tambo.animales.alta;
 
 import java.util.Date;
 
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesView;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.util.RegularExpressionConstants;
 import ar.com.snoop.gwt.commons.client.widget.ListBox;

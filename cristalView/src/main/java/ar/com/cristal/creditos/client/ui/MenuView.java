@@ -18,7 +18,7 @@ package ar.com.cristal.creditos.client.ui;
 
 import ar.com.cristal.creditos.client.accesibilidad.PerfilesCRUDPlace;
 import ar.com.cristal.creditos.client.clientes.busqueda.BusquedaClientesPlace;
-import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
+import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoActivity;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
@@ -112,7 +112,7 @@ public class MenuView extends Composite  implements IsWidget {
 	/*   MENU TAMBO                        */
 	@UiHandler("mnuAltaAnimales")
 	void onAltaAnimalesClick(ClickEvent event) {
-		Place newPlace = new AltaAnimalesPlace(null);
+		Place newPlace = new FichaAnimalesPlace(null);
 		listener.goTo(newPlace);
 	}
 	
