@@ -66,6 +66,14 @@ public class Vaca {
 	@Column
 	private double litrosPromedio=0.0;
 	@Column
+	private Date fechaUltimoServicio;
+	@Column
+	private int serviciosDados=0;
+	@Column
+	private int preniecesConfirmadas=0;
+	@Column
+	private Date fechaUltimoParto;
+	@Column
 	private Boolean paraVender;
 	@Column(length=500)
 	private String observaciones;
@@ -347,6 +355,47 @@ public class Vaca {
 
 	public void setFechaBaja(Date fechaBaja) {
 		this.fechaBaja = fechaBaja;
+	}
+
+	
+
+	public Date getFechaUltimoServicio() {
+		return fechaUltimoServicio;
+	}
+
+
+	public void setFechaUltimoServicio(Date fechaUltimoServicio) {
+		this.fechaUltimoServicio = fechaUltimoServicio;
+	}
+
+
+	public int getServiciosDados() {
+		return serviciosDados;
+	}
+
+
+	public void setServiciosDados(int serviciosDados) {
+		this.serviciosDados = serviciosDados;
+	}
+
+
+	public int getPreniecesConfirmadas() {
+		return preniecesConfirmadas;
+	}
+
+
+	public void setPreniecesConfirmadas(int preniecesConfirmadas) {
+		this.preniecesConfirmadas = preniecesConfirmadas;
+	}
+
+
+	public Date getFechaUltimoParto() {
+		return fechaUltimoParto;
+	}
+
+
+	public void setFechaUltimoParto(Date fechaUltimoParto) {
+		this.fechaUltimoParto = fechaUltimoParto;
 	}
 
 

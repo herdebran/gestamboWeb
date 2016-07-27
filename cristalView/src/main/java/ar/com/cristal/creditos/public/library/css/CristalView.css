@@ -287,7 +287,22 @@ A {
 	
 }
 
-
+.ficha-Title {
+	width: 100% !IMPORTANT;
+	margin-top: 0px !IMPORTANT;
+	margin-left: 0px !IMPORTANT;
+	margin-right: 0px !IMPORTANT;
+	vertical-align: middle;
+	background-color: #FFFFFF;
+	background-repeat: repeat-x;
+	text-align: center;
+	line-height: 25px ! IMPORTANT;
+	color: #006AA4;
+	font-family: Arial, Verdana, Geneva, Kalimati, sans-serif;
+	font-size: 13px;
+	margin-bottom: 5px;
+	letter-spacing: 1px;	
+}
 
 .header td {
 /* 	background-color: #006AA4; Color institucional - azul */

@@ -1,31 +1,32 @@
+/**
+ * Es un DTO especifico pensado para llenar la Ficha de la vaca
+ */
+
 package ar.com.cristal.creditos.client.tambo.dto;
 
 import java.util.Date;
-
-import javax.persistence.Column;
-
 import ar.com.cristal.creditos.client.dto.DTO;
 import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
 import ar.com.snoop.gwt.commons.client.dto.ListBoxItem;
 
 
 @SuppressWarnings("serial")
-public class VacaDTO  extends DTO implements ListBoxItem{
+public class FichaVacaDTO  extends DTO implements ListBoxItem{
 	private Long id;
 	private String rp;
 	private String rc;
-	private Long rodeo_id;
+	private String rodeo;
 	private String categoria;
 	private Date fechaNacimiento;
-	private Long raza_id;
-	private Long padre_id;
+	private String raza;
+	private String nombrePadre;
+	private String hbaPadre;
 	private String rpMadre;
 	private String rcMadre;
 	private String categoriaMadre;
 	private EstadoProductivoEnumDTO estadoProductivo;
 	private EstadoReproductivoEnumDTO estadoReproductivo;
 	private EstadoSanitarioEnumDTO estadoSanitario;
-	private Long resultadoTacto_id;
 	private int lactancia;
 	private double grasa=0.0;
 	private double proteina=0.0;
@@ -34,6 +35,8 @@ public class VacaDTO  extends DTO implements ListBoxItem{
 	private double produccionVitalicia=0.0;
 	private double litrosPromedio=0.0;
 	private Date fechaUltimoServicio;
+	private String nombreToroUS;
+	private int nroUS;
 	private int serviciosDados=0;
 	private int preniecesConfirmadas=0;
 	private Date fechaUltimoParto;
@@ -46,6 +49,50 @@ public class VacaDTO  extends DTO implements ListBoxItem{
 	private EstablecimientoDTO establecimiento;
 	private Long usuarioAlta;
 	private Long usuarioBajaId;
+	
+	
+	
+	public FichaVacaDTO() {
+		super();
+		this.id = 0L;
+		this.rp = "";
+		this.rc = "";
+		this.rodeo = "";
+		this.categoria = "";
+		this.fechaNacimiento = null;
+		this.raza = "";
+		this.nombrePadre = "";
+		this.hbaPadre = "";
+		this.rpMadre = "";
+		this.rcMadre = "";
+		this.categoriaMadre ="";
+		this.estadoProductivo = null;
+		this.estadoReproductivo = null;
+		this.estadoSanitario = null;
+		this.lactancia =0;
+		this.grasa = 0.0;
+		this.proteina = 0.0;
+		this.solidosTotales = 0.0;
+		this.somaticas = 0.0;
+		this.produccionVitalicia = 0.0;
+		this.litrosPromedio = 0.0;
+		this.fechaUltimoServicio = null;
+		this.nombreToroUS = "";
+		this.nroUS = 0;
+		this.serviciosDados = 0;
+		this.preniecesConfirmadas = 0;
+		this.fechaUltimoParto = null;
+		this.paraVender = false;
+		this.observaciones = "";
+		this.fechaAlta = null;
+		this.fechaBaja = null;
+		this.eliminado = false;
+		this.imagen = null;
+		this.establecimiento = null;
+		this.usuarioAlta = null;
+		this.usuarioBajaId = null;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -64,12 +111,6 @@ public class VacaDTO  extends DTO implements ListBoxItem{
 	public void setRc(String rc) {
 		this.rc = rc;
 	}
-	public Long getRodeo_id() {
-		return rodeo_id;
-	}
-	public void setRodeo_id(Long rodeo_id) {
-		this.rodeo_id = rodeo_id;
-	}
 	public String getCategoria() {
 		return categoria;
 	}
@@ -81,18 +122,6 @@ public class VacaDTO  extends DTO implements ListBoxItem{
 	}
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-	}
-	public Long getRaza_id() {
-		return raza_id;
-	}
-	public void setRaza_id(Long raza_id) {
-		this.raza_id = raza_id;
-	}
-	public Long getPadre_id() {
-		return padre_id;
-	}
-	public void setPadre_id(Long padre_id) {
-		this.padre_id = padre_id;
 	}
 	public String getRpMadre() {
 		return rpMadre;
@@ -130,11 +159,41 @@ public class VacaDTO  extends DTO implements ListBoxItem{
 	public void setEstadoSanitario(EstadoSanitarioEnumDTO estadoSanitario) {
 		this.estadoSanitario = estadoSanitario;
 	}
-	public Long getResultadoTacto_id() {
-		return resultadoTacto_id;
+	public String getRodeo() {
+		return rodeo;
 	}
-	public void setResultadoTacto_id(Long resultadoTacto_id) {
-		this.resultadoTacto_id = resultadoTacto_id;
+	public void setRodeo(String rodeo) {
+		this.rodeo = rodeo;
+	}
+	public String getRaza() {
+		return raza;
+	}
+	public void setRaza(String raza) {
+		this.raza = raza;
+	}
+	public String getNombrePadre() {
+		return nombrePadre;
+	}
+	public void setNombrePadre(String nombrePadre) {
+		this.nombrePadre = nombrePadre;
+	}
+	public String getHbaPadre() {
+		return hbaPadre;
+	}
+	public void setHbaPadre(String hbaPadre) {
+		this.hbaPadre = hbaPadre;
+	}
+	public String getNombreToroUS() {
+		return nombreToroUS;
+	}
+	public void setNombreToroUS(String nombreToroUS) {
+		this.nombreToroUS = nombreToroUS;
+	}
+	public int getNroUS() {
+		return nroUS;
+	}
+	public void setNroUS(int nroUS) {
+		this.nroUS = nroUS;
 	}
 	public int getLactancia() {
 		return lactancia;

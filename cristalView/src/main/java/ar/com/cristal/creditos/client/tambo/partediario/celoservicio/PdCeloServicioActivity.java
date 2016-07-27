@@ -246,7 +246,7 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		if (datosValidos){
 			CeloServicioDTO csDTO=armarCeloServicioDTO();
 			popup.mostrarMensaje("Espere", "Insertando novedad...");
-			clientFactory.getVacasService().insertarCeloServicioRPC(csDTO, new AsyncCallback<CeloServicioDTO>() {
+			clientFactory.getVacasService().insertarCeloServicioRPC(csDTO,true, new AsyncCallback<CeloServicioDTO>() {
 
 				@Override
 				public void onFailure(Throwable e) {
@@ -388,7 +388,7 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 			public void onClick(ClickEvent arg0) {
 				dialogbox.hide();
 				popup.mostrarMensaje("Espere","Eliminando el evento...");
-				clientFactory.getVacasService().eliminarCeloServicioPorIdRPC(idCeloServicio,new AsyncCallback<CeloServicioDTO>() {
+				clientFactory.getVacasService().eliminarCeloServicioPorIdRPC(idCeloServicio,true,new AsyncCallback<CeloServicioDTO>() {
 
 					@Override
 					public void onFailure(Throwable e) {

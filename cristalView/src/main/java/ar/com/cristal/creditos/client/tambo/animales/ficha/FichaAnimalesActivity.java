@@ -20,6 +20,7 @@ import java.util.Date;
 import ar.com.cristal.creditos.client.ClientFactory;
 import ar.com.cristal.creditos.client.clientes.alta.ClienteView;
 import ar.com.cristal.creditos.client.clientes.busqueda.BusquedaClientesPlace;
+import ar.com.cristal.creditos.client.tambo.dto.FichaVacaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
@@ -41,7 +42,7 @@ public class FichaAnimalesActivity extends CustomAbstractActivity implements Fic
 	public PopUpInfo popup=null;
 	private FichaAnimalesView view;
 	private String token;
-	private VacaDTO vacaActual = null;
+	private FichaVacaDTO fichaActual = null;
 	private Place place = null;
 	private HandlerRegistration handlerRegistrationAdd;
 	private final String ID_COMPONENTE_ACTIVITY = "ABM_ANIMALES";
@@ -88,10 +89,9 @@ public class FichaAnimalesActivity extends CustomAbstractActivity implements Fic
 				
 				if (token != null && !token.isEmpty()){
 						popup.mostrarMensaje("Espere","Cargando datos del animal...");
-						clientFactory.getVacasService().obtenerVacaById(Long.valueOf(token), new AsyncCallback<VacaDTO>() {
-						
-							public void onSuccess(VacaDTO c) {
-								vacaActual = c;
+						clientFactory.getVacasService().armarFichaDTOPorIdVaca(Long.valueOf(token), new AsyncCallback<FichaVacaDTO>() {
+							public void onSuccess(FichaVacaDTO c) {
+								fichaActual = c;
 								cargarDatosVaca(c);
 							}
 							
@@ -117,19 +117,31 @@ public class FichaAnimalesActivity extends CustomAbstractActivity implements Fic
 	}
 
 
-	private void cargarDatosVaca(VacaDTO c) {
+	private void cargarDatosVaca(FichaVacaDTO c) {
 		
 		try {
 			view.clienteDiv.setInnerText("Ficha Animal RP " + c.getRp());
 			
 			//Campos de texto
 			view.rp.setText(c.getRp());
-			view.rc.setText(c.getRc());
-			
-			//Combos 
-			view.cmbCategoria.selectByText(c.getCategoria()== null ? "" : c.getCategoria());
-			view.cmbRaza.selectByValue(c.getRaza_id()== null ? "" :c.getRaza_id().toString());
+			view.lblRaza.setText(c.getRaza());
+			view.lblPadre.setText(c.getNombrePadre());
+			view.lblMadre.setText(c.getRpMadre());
+			view.lblFNacim.setText(c.getFechaNacimiento().toString());
+			view.lblRodeo.setText(c.getRodeo());
+			view.lblEstadoProductivo.setText(c.getEstadoProductivo().name());
+			view.lblEstadoReproductivo.setText(c.getEstadoReproductivo().name());
+			view.lblEstadoSanitario.setText(c.getEstadoSanitario().name());
+			view.lblDiasLactancia.setText("!");
+			view.lblIntPartoPreniez.setText("!");
+			view.lblIntPartoParto.setText("!");
+			view.lblPrenieces1Serv.setText("!");
+			view.lblServiciosPreniez.setText("!");
+			view.lblFechaUS.setText(c.getFechaUltimoServicio().toString());
+			view.lblToroUS.setText(c.getNombreToroUS());
+			view.lblNroUS.setText(String.valueOf(c.getNroUS()));
 
+			
 			
 			
 		} catch (Exception e) {
@@ -157,20 +169,11 @@ public class FichaAnimalesActivity extends CustomAbstractActivity implements Fic
 
 	public void onCerrar() {
 		//TODO: Ver a donde dirigir cdo cierra
-		vacaActual = null;
+		fichaActual = null;
 		Place place = new BusquedaClientesPlace("");
 		clientFactory.getPlaceController().goTo(place);
 		
 	}
-
-
-
-
-	public VacaDTO getVacaActual() {
-		return vacaActual;
-		
-	}
-
 
 
 	@Override

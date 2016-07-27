@@ -50,16 +50,16 @@ public interface VacasService {
 
 	List<Vaca> obtenerVacasByParam(String param) throws Exception;
 
-	CeloServicio persistirCeloServicio(CeloServicio celoServicio)
+	CeloServicio persistirCeloServicio(CeloServicio celoServicio,boolean actualizaSituacionActual)
 			throws Exception;
 
 	Inseminador persistirInseminador(Inseminador inseminador) throws Exception;
 
-	CeloServicio eliminarCeloServicio(CeloServicio cs) throws Exception;
+	CeloServicio eliminarCeloServicio(CeloServicio cs,boolean actualizaSituacionActual) throws Exception;
 
 	CeloServicio obtenerCeloServicioById(Long id);
 
-	CeloServicio eliminarCeloServicioById(Long id) throws Exception;
+	CeloServicio eliminarCeloServicioById(Long id,boolean actualizaSituacionActual) throws Exception;
 
 	List<Inseminador> obtenerInseminadores() throws Exception;
 
@@ -68,6 +68,9 @@ public interface VacasService {
 	List<TipoServicio> obtenerTiposServicio() throws Exception;
 
 	List<CeloServicio> obtenerCelosServiciosPorFecha(Date fecha) throws Exception;
+
+	CeloServicio obtenerUltimoCeloServicioPorVacaId(Long vacaId)
+			throws Exception;
 	
 
 }

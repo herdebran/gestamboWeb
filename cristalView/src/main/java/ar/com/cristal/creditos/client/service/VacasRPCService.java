@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
+import ar.com.cristal.creditos.client.tambo.dto.FichaVacaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
@@ -62,8 +63,10 @@ public interface VacasRPCService extends RemoteService {
 
 	List<CeloServicioDTO> obtenerCelosServiciosPorFechaRPC(Date fecha) throws Exception;
 
-	CeloServicioDTO insertarCeloServicioRPC(CeloServicioDTO csDTO)	throws Exception;
+	CeloServicioDTO insertarCeloServicioRPC(CeloServicioDTO csDTO,boolean actualizaSituacionActual)	throws Exception;
 
-	CeloServicioDTO eliminarCeloServicioPorIdRPC(Long id) throws Exception;
+	CeloServicioDTO eliminarCeloServicioPorIdRPC(Long id,boolean actualizaSituacionActual) throws Exception;
+
+	FichaVacaDTO armarFichaDTOPorIdVaca(Long id) throws Exception;
 
 }

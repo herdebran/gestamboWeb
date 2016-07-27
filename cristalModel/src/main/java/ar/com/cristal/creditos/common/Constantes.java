@@ -148,5 +148,6 @@ public class Constantes {
 	public static final String TELEPROM_SMS_ENVIO_EXITOSO = "Envio_Exitoso";
 	public static final int DIAS_ULTIMO_PAGO_MORA_TARDIA = 105; //Son los dias que deben pasar desde el ultimo pago hasta que una persona entra en Mora tardia
 	public static final String CREDITO_COMUN_MT = "CREDITO_COMUN_MT";
+	public static final String CELO_SIN_SERVICIO = "CELO SIN SERVICIO";
 	
 }

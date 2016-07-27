@@ -28,6 +28,8 @@ public class Inseminador {
 	private Date fechaBaja;
 	@Column
 	private Boolean eliminado=false;
+	@Column
+	private Long serviciosCampo;
 	@ManyToOne
 	private Establecimiento establecimiento;
 	@Column
@@ -88,6 +90,16 @@ public class Inseminador {
 
 	public void setFechaBaja(Date fechaBaja) {
 		this.fechaBaja = fechaBaja;
+	}
+
+
+	public Long getServiciosCampo() {
+		return serviciosCampo;
+	}
+
+
+	public void setServiciosCampo(Long serviciosCampo) {
+		this.serviciosCampo = serviciosCampo;
 	}
 
 

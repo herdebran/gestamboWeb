@@ -14,30 +14,32 @@
 		<div class="clear5"></div>
 
 		<div id="contenedorFichaIzquierda" style="float:left;width:25%;border: 1px solid #CCC;">
-			<div style="float:left">Estado Actual</div>
-			<div class="clear5"></div>
 			  <table>
 			  	<thead></thead>
 				<tbody>
 			  		<tr>
-				  		<td>RP</td>
+				  		<td><div style="font-size: 20px;font-weight: bold;">RP</div></td>
 						<td><snoop:RegExpTextBoxImpl ui:field="rp" maxLength="10" width="100px"></snoop:RegExpTextBoxImpl></td>
 					</tr>
 				    <tr>
-						<td></td>
+						<td><g:Label ui:field="lblRaza" text="" styleName="textoCSS" /></td>
 						<td></td>
 					</tr>
 					<tr>
 				  		<td>Padre</td>
-						<td>ROYALIST</td>
+						<td><g:Label ui:field="lblPadre" text="" styleName="textoCSS" /></td>
 					</tr>
 					<tr>
 				  		<td>Madre</td>
-						<td>12</td>
+						<td><g:Label ui:field="lblMadre" text="" styleName="textoCSS" /></td>
 					</tr>
 					<tr>
 				  		<td>F. Nacimiento</td>
-						<td>12/12/2012</td>
+						<td><g:Label ui:field="lblFNacim" text="" styleName="textoCSS" /></td>
+					</tr>
+					<tr>
+				  		<td>Rodeo</td>
+						<td><g:Label ui:field="lblRodeo" text="" styleName="textoCSS" /></td>
 					</tr>
 				</tbody>
 				<tfoot>
@@ -45,54 +47,94 @@
 				</tfoot>
 		    </table>		    		
 		    <div class="clear5"></div>
-			  <table>
-			  	<thead></thead>
+			<div id="contenedorEstadosActuales" style="float:bottom;border: 1px solid #CCC;">
+				<table>
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td><g:Label ui:field="lblEstadoProductivo" text="" styleName="textoCSS" /></td>
+						</tr>
+					    <tr>
+							<td><g:Label ui:field="lblEstadoReproductivo" text="" styleName="textoCSS" /></td>
+						</tr>
+						<tr>
+							<td><g:Label ui:field="lblEstadoSanitario" text="" styleName="textoCSS" /></td>
+						</tr>
+											
+					</tbody>
+					<tfoot>
+						
+					</tfoot>
+				
+				</table>		    		
+			</div>		
+			  		
+		</div>		
+		<div id="contenedorFichaDerecha" style="float:right;width:65%;border: 1px solid #CCC;">
+			
+			<div id="contenedorDatosImportantes" style="float:right;width:40%;border: 1px solid #CCC;">
+				<div class="ficha-Title">Datos Importantes</div>
+				<div class="clear5"></div>
+			
+				<table>
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td width="80px">Dias Lact.</td>
+							<td><g:Label ui:field="lblDiasLactancia" text="" styleName="textoCSS" /></td>
+						</tr>
+					    <tr>
+							<td width="80px">Int. Parto-Prenez</td>
+							<td><g:Label ui:field="lblIntPartoPreniez" text="" styleName="textoCSS" /></td>
+						</tr>
+						<tr>
+							<td width="80px">Int. Parto-Parto</td>
+							<td><g:Label ui:field="lblIntPartoParto" text="" styleName="textoCSS" /></td>
+						</tr>
+						<tr>
+							<td width="80px">Preneces 1er Serv</td>
+							<td><g:Label ui:field="lblPrenieces1Serv" text="" styleName="textoCSS" /></td>
+						</tr>
+						<tr>
+							<td width="80px">Serv. x Prenez</td>
+							<td><g:Label ui:field="lblServiciosPreniez" text="" styleName="textoCSS" /></td>
+						</tr>
+																							
+					</tbody>
+					<tfoot>
+						
+					</tfoot>
+				
+				</table>		    		
+			</div>  
+			
+			<div id="contenedorUltimoServicio" style="float:right;width:30%;border: 1px solid #CCC;">
+				<div class="ficha-Title">Ultimo Servicio</div>
+				<div class="clear5"></div>
+			
+			<table>
+				<thead></thead>
 				<tbody>
-			  		<tr>
-				  		<td>EN ORDEÑE</td>
+					<tr>
+						<td width="80px">Fecha</td>
+						<td><g:Label ui:field="lblFechaUS" text="" styleName="textoCSS" /></td>
 					</tr>
 				    <tr>
-						<td>PREÑADA</td>
+						<td width="80px">Toro</td>
+						<td><g:Label ui:field="lblToroUS" text="" styleName="textoCSS" /></td>
 					</tr>
 					<tr>
-						<td>SANA</td>
+						<td width="80px">Nº</td>
+						<td><g:Label ui:field="lblNroUS" text="" styleName="textoCSS" /></td>
 					</tr>
-					<tr>
-				  		<td>TAMBO GENERAL</td>
-					</tr>
+										
 				</tbody>
 				<tfoot>
 					
 				</tfoot>
-		    </table>		    		
-			  		
-		</div>		
-		<div id="contenedorFichaDerecha" style="float:right;width:65%;border: 1px solid #CCC;">
-			<div style="float:left">Datos Principales</div>
-			<div class="clear5"></div>
-		
-		<table>
-			<thead></thead>
-			<tbody>
-				<tr>
-					<td width="80px">RC</td>
-					<td><snoop:RegExpTextBoxImpl ui:field="rc" maxLength="20" width="100px"></snoop:RegExpTextBoxImpl></td>
-					<td width="80px">Raza</td>
-					<td><snoop:ListBox ui:field="cmbRaza" width="100px" multipleSelect="false"></snoop:ListBox></td>
-					<td width="80px">Categor&iaccute;a</td>
-					<td><snoop:ListBox ui:field="cmbCategoria" width="100px" multipleSelect="false"></snoop:ListBox></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-
-				
-			</tbody>
-			<tfoot>
-				
-			</tfoot>
-		
-		</table>		    		
+			
+			</table>		    		
+			</div>  		
 		</div>		
 		
 

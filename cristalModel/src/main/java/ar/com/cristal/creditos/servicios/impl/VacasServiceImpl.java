@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.cristal.creditos.common.CristalProperties;
 import ar.com.cristal.creditos.dao.GenericDao;
+import ar.com.cristal.creditos.entity.creditos.CuotaSocial;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.creditos.entity.login.Usuario;
 import ar.com.cristal.creditos.entity.tambo.Categoria;
@@ -411,10 +412,16 @@ public class VacasServiceImpl implements VacasService {
 		}
 		
 	}
-	
+	/**
+	 * Persiste el celo/servicio, 
+	 * Incrementa los servicios a la Vaca, Toro e Inseminador
+	 * actualizaSituacionActual=true
+	 * 		- Resta el Stock de Semen
+	 *  	- Actualiza ultimo servicio en la tabla Vacas
+	 */
 	@Override
 	@Transactional
-	public CeloServicio persistirCeloServicio(CeloServicio celoServicio) throws Exception {
+	public CeloServicio persistirCeloServicio(CeloServicio celoServicio,boolean actualizaSituacionActual) throws Exception {
 		try {
 			if (celoServicio.getId() == null){
 				//ALTA: Agrega usuario y Fecha
@@ -422,6 +429,19 @@ public class VacasServiceImpl implements VacasService {
 				celoServicio.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
 			}
 			genericDao.saveOrUpdate(celoServicio);
+			
+			//Si hay toro, actualizo su estadistica
+			if (celoServicio.getToro() != null)
+				registrarServicioDadoToro(celoServicio.getToro().getId(),actualizaSituacionActual);
+			
+			//Si hay Inseminador, actualizo su estadistica
+			if (celoServicio.getInseminador() != null)
+				registrarServicioDadoInseminador(celoServicio.getInseminador().getId());
+			
+			
+			//Actualizar ultimo Servicio Vaca
+			//Incrementar Servicios Dados Vaca
+			
 			return celoServicio;
 		} catch (Exception e) {
 			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " persistirCeloServicio(): " + e.getMessage(), e);
@@ -430,14 +450,62 @@ public class VacasServiceImpl implements VacasService {
 		
 	}
 
+	/**
+	 * Incrementa los servicios de un inseminador
+	 * @param id
+	 */
+	private void registrarServicioDadoInseminador(Long id) {
+		Inseminador i;
+		try {
+			i = obtenerInseminadorById(id);
+			if (i != null){
+				i.setServiciosCampo(i.getServiciosCampo()+1);
+				
+				persistirInseminador(i);
+				log.info("Se actualizan servicios dados inseminador id: " + id + ". Cant: " + i.getServiciosCampo());
+			}
+
+		} catch (Exception e) {
+			log.error("Error al registrarServicioDadoInseminador:" + e.getMessage() );
+		}
+		
+		
+	}
+
+	/**
+	 * Incrementa el servicio de Un toro y resta el stock de semen.
+	 * @param id
+	 * @param actualizaSituacionActual
+	 */
+	private void registrarServicioDadoToro(Long id,	boolean actualizaSituacionActual) {
+		try {
+			Toro t = obtenerToroById(id);
+			t.setServiciosCampo(t.getServiciosCampo()+1);
+			
+			if (actualizaSituacionActual)
+				registrarSalidaSemenPorIdToro(id);
+			
+			persistirToro(t);
+			log.info("Se incrementan servicios dados toro id " + id + ". Servicios:" + t.getServiciosCampo());
+		} catch (Exception e) {
+			log.error("Error al registrarServicioDadoToro id " + id + ": " + e.getMessage());
+		}
+		
+	}
+
+	private void registrarSalidaSemenPorIdToro(Long id) {
+		// TODO Implementar la parte de Stock. Restar pajuela aqui.
+		
+	}
+
 	@Override
-	public CeloServicio eliminarCeloServicio(CeloServicio cs) throws Exception{
+	public CeloServicio eliminarCeloServicio(CeloServicio cs,boolean actualizaSituacionActual) throws Exception{
 		try {
 			CeloServicio result;
 			cs.setEliminado(true);
 			cs.setUsuarioBaja(serviceFacade.obtenerUsuarioLogueadoId());
 			cs.setFechaBaja(serviceFacade.getFechaActual());
-			result=persistirCeloServicio(cs);
+			result=persistirCeloServicio(cs,actualizaSituacionActual);
 			
 			if (result.getEliminado())
 				log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " se elimina celoServicio id: "+ cs.getId() + " ok.");
@@ -457,12 +525,12 @@ public class VacasServiceImpl implements VacasService {
 	}
 
 	@Override
-	public CeloServicio eliminarCeloServicioById(Long id)throws Exception{
+	public CeloServicio eliminarCeloServicioById(Long id,boolean actualizaSituacionActual)throws Exception{
 		try {
 			CeloServicio cs = obtenerCeloServicioById(id);
 			CeloServicio result=null;
 			if (cs != null)
-				result=eliminarCeloServicio(cs);
+				result=eliminarCeloServicio(cs,actualizaSituacionActual);
 			else
 				log.warn(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " eliminarCeloServicioById(): No se encontro servicio para eliminar con id: " + id);
 			
@@ -557,4 +625,60 @@ public class VacasServiceImpl implements VacasService {
 			throw e;
 		}
 	}
+
+	private Toro obtenerToroById(Long id) throws Exception{
+		return obtenerToroById(id,false);
+		
+	}
+	private Toro obtenerToroById(Long id,boolean todosLosEstablecimientos) throws Exception{
+		Toro result =null;
+		result = genericDao.get(Toro.class, id);
+		
+		if (! todosLosEstablecimientos){
+			if (result != null && result.getEstablecimiento() != null){
+				if (! result.getEstablecimiento().equals(serviceFacade.obtenerEstablecimientoLogueado()))
+						result=null;
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	private Inseminador obtenerInseminadorById(Long id) throws Exception{
+		Inseminador result =null;
+		result = genericDao.get(Inseminador.class, id);
+		
+		return result;
+		
+	}
+	
+	@Override
+	public CeloServicio obtenerUltimoCeloServicioPorVacaId(Long vacaId) throws Exception{	
+		try {
+			List<CeloServicio> resultado=new ArrayList<CeloServicio>();
+
+			String sql = "select c.* from CeloServicio c " +
+					"where c.vaca_id = :vaca_id ";
+			
+			String sqlOrder = " order by c.fecha desc "; 
+			String sqlLimit = " LIMIT 1";
+			
+					
+			SQLQuery query = serviceFacade.createSQLQuery(sql + sqlOrder + sqlLimit);
+			query.addEntity(CeloServicio.class);
+			query.setLong("vaca_id", vacaId);
+			
+			resultado = (List) query.list();
+	
+			if (resultado.size()>0)
+				return resultado.get(0);
+			else
+				return null;
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			throw e;
+		}
+	}
+	
 }

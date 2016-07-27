@@ -58,7 +58,7 @@ public class CeloServicioTest extends AbstractTransactionalJUnit4SpringContextTe
 				cs.setNroCeloServicio(1);
 				cs.setTipo(TipoCeloServicioEnum.CELO_SIN_SERVICIO);
 				cs.setVaca(v);
-				vacasService.persistirCeloServicio(cs);
+				vacasService.persistirCeloServicio(cs,true);
 				
 				Assert.assertNotNull(cs.getId());
 			} else 
@@ -96,11 +96,25 @@ public class CeloServicioTest extends AbstractTransactionalJUnit4SpringContextTe
 	public void eliminarCeloServicioTest() {
 		try {
 			
-			vacasService.eliminarCeloServicioById(2L);
+			vacasService.eliminarCeloServicioById(2L,true);
 			
 			Assert.assertTrue(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	public void consultarUltimoCeloServicioTest() {
+		try {
+			
+			CeloServicio cs=vacasService.obtenerUltimoCeloServicioPorVacaId(2L);
+			System.out.println(cs.getFecha() + " Tipo:" + cs.getTipo().name());
+			
+			Assert.assertTrue(true);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

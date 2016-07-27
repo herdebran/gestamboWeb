@@ -15,13 +15,9 @@
  */
 package ar.com.cristal.creditos.client.tambo.animales.ficha;
 
-import java.util.Date;
-
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.client.ui.util.RegularExpressionConstants;
-import ar.com.snoop.gwt.commons.client.widget.ListBox;
 import ar.com.snoop.gwt.commons.client.widget.RegExpTextBoxImpl;
-import ar.com.snoop.gwt.commons.client.widget.datepicker.FullDatePicker;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
@@ -30,10 +26,9 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -52,9 +47,6 @@ public class FichaAnimalesView extends Composite implements IsWidget {
 		void goTo(Place place);
 
 		void onCerrar();
-
-		VacaDTO getVacaActual();
-
 	}
 	
 		
@@ -68,12 +60,40 @@ public class FichaAnimalesView extends Composite implements IsWidget {
 	
 	@UiField
 	RegExpTextBoxImpl rp;
+
 	@UiField
-	RegExpTextBoxImpl rc;
+	Label lblRaza;
 	@UiField
-	ListBox cmbRaza;
+	Label lblPadre;
 	@UiField
-	ListBox cmbCategoria;
+	Label lblMadre;
+	@UiField
+	Label lblFNacim;
+	@UiField
+	Label lblRodeo;
+	@UiField
+	Label lblEstadoProductivo;
+	@UiField
+	Label lblEstadoReproductivo;
+	@UiField
+	Label lblEstadoSanitario;
+	@UiField
+	Label lblDiasLactancia;
+	@UiField
+	Label lblIntPartoPreniez;
+	@UiField
+	Label lblIntPartoParto;
+	@UiField
+	Label lblPrenieces1Serv;
+	@UiField
+	Label lblServiciosPreniez;
+	@UiField
+	Label lblFechaUS;
+	@UiField
+	Label lblToroUS;
+	@UiField
+	Label lblNroUS;
+
 	
 	@UiField
 	DivElement clienteDiv;
@@ -97,46 +117,29 @@ public class FichaAnimalesView extends Composite implements IsWidget {
 
 	private void inicializarValidadores() {
 		rp.setExpresionRegular(RegularExpressionConstants.numeroLetrasEspacioGuion);
-		rc.setExpresionRegular(RegularExpressionConstants.numeros);
+
 	}
 	
 
-	
-/*	public void inicializarComboTipoDoc(List<String> tipoDocumento){
-		tipoDoc.clear();
-		
-		for (final String tp : tipoDocumento) {
-		tipoDoc.addItem(new ListBoxItem() {
-			
-			public String getItemValue() {
-
-				return tp;
-			}
-			
-			public String getItemText() {
-				return tp;
-			}
-		});
-		}
-	}
-
-*/
-	
 	public void limpiarControles() {
 		//Limpieza cuadros de texto
 		rp.setText("");
-		rc.setText("");
-		
-		//Limpieza combos
-		cmbRaza.setSelectedIndex(0);
-		cmbCategoria.setSelectedIndex(0);
-
+		lblRaza.setText("");
+		lblPadre.setText("");
+		lblMadre.setText("");
+		lblFNacim.setText("");
+		lblRodeo.setText("");
+		lblEstadoProductivo.setText("");
+		lblEstadoReproductivo.setText("");
+		lblEstadoSanitario.setText("");
+		lblDiasLactancia.setText("");
+		lblIntPartoPreniez.setText("");
+		lblIntPartoParto.setText("");
+		lblPrenieces1Serv.setText("");
+		lblServiciosPreniez.setText("");
+		lblFechaUS.setText("");
+		lblToroUS.setText("");
+		lblNroUS.setText("");
 	}
-	
-	
-	public VacaDTO getVacaActual(){
-		return listener.getVacaActual();
-	}
-	
 	
 }

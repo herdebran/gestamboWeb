@@ -9,9 +9,11 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import ar.com.cristal.creditos.client.dto.TipoCeloServicioEnumDTO;
 import ar.com.cristal.creditos.client.service.VacasRPCService;
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
+import ar.com.cristal.creditos.client.tambo.dto.FichaVacaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
@@ -19,6 +21,8 @@ import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
+import ar.com.cristal.creditos.common.Constantes;
+import ar.com.cristal.creditos.common.TipoCeloServicioEnum;
 import ar.com.cristal.creditos.entity.tambo.CeloServicio;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
 import ar.com.cristal.creditos.entity.tambo.Toro;
@@ -237,23 +241,100 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 	}
 	
 	@Override
-	public CeloServicioDTO insertarCeloServicioRPC (CeloServicioDTO csDTO)throws Exception {
+	public CeloServicioDTO insertarCeloServicioRPC (CeloServicioDTO csDTO,boolean actualizaSituacionActual)throws Exception {
 		try {
 			CeloServicio cs = mapper.map(csDTO, CeloServicio.class);
-			return mapper.map(vacasService.persistirCeloServicio(cs),CeloServicioDTO.class);
+			return mapper.map(vacasService.persistirCeloServicio(cs,actualizaSituacionActual),CeloServicioDTO.class);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	@Override
-	public CeloServicioDTO eliminarCeloServicioPorIdRPC (Long id)throws Exception {
+	public CeloServicioDTO eliminarCeloServicioPorIdRPC (Long id,boolean actualizaSituacionActual)throws Exception {
 		try {
-			return mapper.map(vacasService.eliminarCeloServicioById(id),CeloServicioDTO.class);
+			return mapper.map(vacasService.eliminarCeloServicioById(id,actualizaSituacionActual),CeloServicioDTO.class);
 			
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+	
+	@Override
+	public FichaVacaDTO armarFichaDTOPorIdVaca (Long id)throws Exception{
+		FichaVacaDTO result= new FichaVacaDTO();
+		Vaca v=null;
+		CeloServicio us=null;
+		try {
+			v = vacasService.obtenerVacaById(id);
+			if (v != null){
+				result=mapearDatosBasicosVacaEnFichaDTO (v,result);
+				us=vacasService.obtenerUltimoCeloServicioPorVacaId(id);
+				if (us != null){
+					result.setFechaUltimoServicio(us.getFecha());
+					if (TipoCeloServicioEnum.CELO_SIN_SERVICIO.equals(us.getTipo())){
+						result.setNombreToroUS(Constantes.CELO_SIN_SERVICIO);
+						result.setNroUS(0);
+					} else {
+						//Es un Servicio estandar
+						result.setNombreToroUS(us.getToro().getNombre());
+						result.setNroUS(us.getNroCeloServicio());
+
+					}
+				}
+			}
+			
+			return result;
+
+		} catch (Exception e) {
+			log.error("Error al ArmarFichaDTO: " + e.getMessage());
+			throw e;
+		}
+	}
+
+	/**
+	 * Mapea los datos basicos de una Vaca vaca en un Ficha f
+	 * @param vaca
+	 * @param f
+	 */
+	private FichaVacaDTO mapearDatosBasicosVacaEnFichaDTO(Vaca vaca, FichaVacaDTO f) {
+		VacaDTO v= mapper.map(vaca,VacaDTO.class);
+		f.setCategoria(v.getCategoria());
+		f.setCategoriaMadre(v.getCategoriaMadre());
+		f.setEliminado(v.getEliminado());
+		f.setEstablecimiento(v.getEstablecimiento());
+		f.setEstadoProductivo(v.getEstadoProductivo());
+		f.setEstadoReproductivo(v.getEstadoReproductivo());
+		f.setEstadoSanitario(v.getEstadoSanitario());
+		f.setFechaAlta(v.getFechaAlta());
+		f.setFechaBaja(v.getFechaBaja());
+		f.setFechaNacimiento(v.getFechaNacimiento());
+		f.setGrasa(v.getGrasa());
+		f.setHbaPadre("HBA PADRE - VER!");
+		f.setId(v.getId());
+		f.setImagen(v.getImagen());
+		f.setLactancia(v.getLactancia());
+		f.setLitrosPromedio(v.getLitrosPromedio());
+		f.setNombrePadre("Nombre Padre. ver!");
+		f.setObservaciones(v.getObservaciones());
+		f.setParaVender(v.getParaVender());
+		f.setPreniecesConfirmadas(v.getPreniecesConfirmadas());
+		f.setProduccionVitalicia(v.getProduccionVitalicia());
+		f.setProteina(v.getProteina());
+		f.setRaza("Ver RAZA!");
+		f.setRc(v.getRc());
+		f.setRcMadre(v.getRcMadre());
+		f.setRodeo("VER RODEO!");
+		f.setRp(v.getRp());
+		f.setRpMadre(v.getRpMadre());
+		f.setServiciosDados(v.getServiciosDados());
+		f.setSolidosTotales(v.getSolidosTotales());
+		f.setSomaticas(v.getSomaticas());
+		f.setUsuarioAlta(v.getUsuarioAlta());
+		f.setUsuarioBajaId(v.getUsuarioBajaId());
+		
+		return f;
+		
 	}
 
 }

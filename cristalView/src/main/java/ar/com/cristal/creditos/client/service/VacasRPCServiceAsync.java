@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
+import ar.com.cristal.creditos.client.tambo.dto.FichaVacaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
@@ -66,10 +67,14 @@ public interface VacasRPCServiceAsync {
 			AsyncCallback<List<CeloServicioDTO>> callback);
 
 	void insertarCeloServicioRPC(CeloServicioDTO csDTO,
+			boolean actualizaSituacionActual,
 			AsyncCallback<CeloServicioDTO> callback);
 
 	void eliminarCeloServicioPorIdRPC(Long id,
+			boolean actualizaSituacionActual,
 			AsyncCallback<CeloServicioDTO> callback);
+
+	void armarFichaDTOPorIdVaca(Long id, AsyncCallback<FichaVacaDTO> callback);
 
 
 }
