@@ -15,7 +15,10 @@
  */
 package ar.com.cristal.creditos.client.tambo.partediario;
 
+import java.util.Date;
+
 import ar.com.cristal.creditos.client.dto.ClienteDTO;
+import ar.com.snoop.gwt.commons.client.widget.datepicker.FullDatePicker;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
@@ -36,7 +39,10 @@ import com.google.gwt.user.client.ui.Widget;
 public class ParteDiarioView extends Composite implements IsWidget {
   
 	@UiField
-	Anchor anchorCelosServicios;
+	Anchor anchorFechaParteDiario;
+	
+	@UiField(provided=true)
+	FullDatePicker fechaParteDiario = new FullDatePicker("");
 	
 
 	public interface Presenter {
@@ -47,7 +53,7 @@ public class ParteDiarioView extends Composite implements IsWidget {
 
 		void onCerrar();
 
-		ClienteDTO getClienteActual();
+		Date getFechaParteDiario();
 
 		void irCelosServicios();
 
@@ -83,7 +89,6 @@ public class ParteDiarioView extends Composite implements IsWidget {
 	}
 
 	
-
 	@UiHandler("anchorCelosServicios")
 	void onCelosServicios(ClickEvent event) {
 		listener.irCelosServicios();
@@ -132,13 +137,14 @@ public class ParteDiarioView extends Composite implements IsWidget {
 
 	
 	public void limpiarControles() {
-//		apellido.setText("");
-		
+		fechaParteDiario.setSelectedDate(new Date());
+		fechaParteDiario.setSaturdaySelectable(true);
+		fechaParteDiario.setSundaySelectable(true);		
 	}
 	
 	
-	public ClienteDTO getClienteActual(){
-		return listener.getClienteActual();
+	public Date getFechaParteDiario(){
+		return listener.getFechaParteDiario();
 	}
 	
 }

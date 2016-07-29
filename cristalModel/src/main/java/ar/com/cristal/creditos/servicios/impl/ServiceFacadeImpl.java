@@ -1,6 +1,5 @@
 package ar.com.cristal.creditos.servicios.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +8,6 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +22,10 @@ import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.creditos.entity.login.Perfil;
 import ar.com.cristal.creditos.entity.login.Usuario;
 import ar.com.cristal.creditos.entity.sucursales.Sucursal;
-import ar.com.cristal.creditos.server.exception.EvaluadorServiceException;
 import ar.com.cristal.creditos.servicios.ComunesService;
 import ar.com.cristal.creditos.servicios.CreditosService;
 import ar.com.cristal.creditos.servicios.ImpresionService;
+import ar.com.cristal.creditos.servicios.RubrosProductosService;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.TemplateManagerService;
 import ar.com.cristal.creditos.servicios.VacasService;
@@ -44,6 +41,9 @@ public class ServiceFacadeImpl implements ServiceFacade {
 	
 	@Resource
 	private  VacasService vacasService;
+	
+	@Resource
+	private  RubrosProductosService rubrosProductosService;
 
 	@Resource
 	private CreditosService creditosService;
@@ -171,6 +171,10 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
 	public VacasService getVacasService() {
 		return vacasService;
+	}
+	
+	public RubrosProductosService getRubrosProductosService() {
+		return rubrosProductosService;
 	}
 
 	public CreditosService getCreditosService() {

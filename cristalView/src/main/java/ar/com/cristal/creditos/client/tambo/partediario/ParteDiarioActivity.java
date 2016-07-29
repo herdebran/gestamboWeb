@@ -16,12 +16,9 @@
 package ar.com.cristal.creditos.client.tambo.partediario;
 
 import java.util.Date;
-
 import ar.com.cristal.creditos.client.ClientFactory;
-import ar.com.cristal.creditos.client.dto.ClienteDTO;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioPlace;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
-import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
@@ -130,20 +127,20 @@ public class ParteDiarioActivity extends CustomAbstractActivity implements Parte
 		System.out.println("Tiempo de validación de permisos y usuario [ms]: " + (new Date().getTime() - tiempo));
 		tiempo = new Date().getTime();
 		inicializarControles();
-		view.anchorCelosServicios.getElement().getStyle().setBackgroundColor("#006AA4");		
+		view.anchorFechaParteDiario.getElement().getStyle().setBackgroundColor("#006AA4");		
 	}
 
 
 	@Override
-	public ClienteDTO getClienteActual() {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getFechaParteDiario() {
+		return view.fechaParteDiario.getSelectedDate();
 	}
 
 
 	@Override
 	public void irCelosServicios() {
-		Place place = new PdCeloServicioPlace("");
+		String fechaParam=String.valueOf(view.fechaParteDiario.getSelectedDate().getTime());
+		Place place = new PdCeloServicioPlace(fechaParam);
 		clientFactory.getPlaceController().goTo(place);
 	}
 

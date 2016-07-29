@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ar.com.cristal.creditos.common.ToroProbadoAventuraEnum;
@@ -51,6 +52,8 @@ public class Toro {
 	private Boolean eliminado=false;
 	@ManyToOne
 	private Establecimiento establecimiento;
+	@OneToOne
+	private Producto producto;
 	@Column
 	private Long usuarioAlta;
 	@Column
@@ -239,6 +242,16 @@ public class Toro {
 
 	public void setUsuarioBajaId(Long usuarioBajaId) {
 		this.usuarioBajaId = usuarioBajaId;
+	}
+
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 
 

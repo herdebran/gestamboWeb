@@ -181,8 +181,8 @@ public class BusquedaClientesActivity extends CustomAbstractActivity implements 
 		    tabla.setText(i+1,3, v.getRodeo_id().toString());			
 			tabla.setText(i+1,4, v.getEstadoReproductivo().name());
 			tabla.setText(i+1,5, v.getEstadoProductivo().name());
-			tabla.setText(i+1,6, "Ultimo parto!");
-			tabla.setText(i+1,7, "Ultimom Servicio!");
+			tabla.setText(i+1,6, "ultimo parto!");
+			tabla.setText(i+1,7, v.getFechaUltimoServicio()==null ? "":v.getFechaUltimoServicio().toString());
 			tabla.setText(i+1,8, v.getId().toString());
 			tabla.getCellFormatter().setVisible(i+1, 8, false);
 

@@ -64,8 +64,8 @@ public class ToroTest extends AbstractTransactionalJUnit4SpringContextTests {
 			
 			t.setAnimalVivo(false);
 			t.setEliminado(false);
-			t.setHba("11223344");
-			t.setNombre("DEROY");
+			t.setHba("29781095");
+			t.setNombre("FOTBOLLER");
 			t.setProbadoAventura(ToroProbadoAventuraEnum.P);
 			t.setRaza_id(1L);
 			t.setRp("");

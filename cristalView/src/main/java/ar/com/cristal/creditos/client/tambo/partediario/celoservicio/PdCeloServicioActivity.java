@@ -16,6 +16,7 @@
 package ar.com.cristal.creditos.client.tambo.partediario.celoservicio;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,7 @@ import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
 import ar.com.cristal.creditos.client.ui.util.InicializarCombos;
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
 import ar.com.cristal.creditos.client.widget.CustomSiNoDialogBox;
+import ar.com.cristal.creditos.util.DateUtil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -91,13 +93,17 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 
 	private void inicializarControles() {
 		try {
+			if (token != null && !token.isEmpty() && !token.equalsIgnoreCase("null")){
+				fechaParteDiario=new Date (Long.valueOf(token));
+				System.out.println(fechaParteDiario);
+			}
+			
 			view.limpiarControles();	
 			view.initTable();
 			cargarCelosServicios(fechaParteDiario);
 			inicializarCombos();
 			view.visibilizarControlesParaServicio(false);
 			
-			//if (token == null || token.isEmpty() || token.equalsIgnoreCase("null")){
 	
 		} catch (Exception e) {
 			popup.mostrarMensaje("Error", "No se pudo inicializar los controles");
@@ -176,7 +182,7 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 	@Override
 	public void inicializarActivity() {
 		System.out.println("Tiempo de validación de permisos y usuario [ms]: " + (new Date().getTime() - tiempo));
-		fechaParteDiario=new Date();
+		//fechaParteDiario=new Date();
 		tiempo = new Date().getTime();
 		inicializarControles();
 		view.anchorCelosServicios.getElement().getStyle().setBackgroundColor("#006AA4");

@@ -26,6 +26,7 @@
   <mapping class="ar.com.cristal.creditos.entity.tambo.Categoria"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.ResultadoTacto"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.Toro"/>
+  <mapping class="ar.com.cristal.creditos.entity.tambo.Producto"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.CeloServicio"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.TipoServicio"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.Inseminador"/>

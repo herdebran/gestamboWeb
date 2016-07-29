@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.cristal.creditos.common.CristalProperties;
+import ar.com.cristal.creditos.common.ProductoUnidadEnum;
+import ar.com.cristal.creditos.common.TipoCeloServicioEnum;
+import ar.com.cristal.creditos.common.TipoProductoEnum;
 import ar.com.cristal.creditos.dao.GenericDao;
 import ar.com.cristal.creditos.entity.creditos.CuotaSocial;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
@@ -23,6 +26,7 @@ import ar.com.cristal.creditos.entity.login.Usuario;
 import ar.com.cristal.creditos.entity.tambo.Categoria;
 import ar.com.cristal.creditos.entity.tambo.CeloServicio;
 import ar.com.cristal.creditos.entity.tambo.Inseminador;
+import ar.com.cristal.creditos.entity.tambo.Producto;
 import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
@@ -245,10 +249,11 @@ public class VacasServiceImpl implements VacasService {
 				toro.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
 				toro.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
 				toro.setEliminado(false);
+				toro.setProducto(crearProductoParaToro(toro));
 			}
 			genericDao.saveOrUpdate(toro);
 			if (toro.getId() != null)
-				log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " Se creó toro id: " + toro.getId());
+				log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " Se creó toro id: " + toro.getId());
 			
 			return toro;
 		} catch (Exception e) {
@@ -258,6 +263,30 @@ public class VacasServiceImpl implements VacasService {
 		
 	}
 
+	/**
+	 * Recibe un toro como parámetro y llama al servicio de productos para crear un producto nuevo
+	 * Un producto se asocia con un todo para llevar su stock y tener un precio.
+	 * @param toro
+	 * @return
+	 * @throws Exception 
+	 */
+	private Producto crearProductoParaToro(Toro toro) throws Exception {
+		Producto p=new Producto();
+		
+		try {
+			p.setCuentaStock(true);
+			p.setNombreProducto(toro.getNombre());
+			p.setTipo(TipoProductoEnum.EGRESO);
+			p.setUnidad(ProductoUnidadEnum.UNIDADES);
+			p=serviceFacade.getRubrosProductosService().persistirProducto(p);
+			
+			return p;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " crearProductoParaToro(): " + e.getMessage(), e);
+			throw e;
+		}
+		
+	}
 
 	/**
 	 * Devuelve TOROS del Establecmiento Logueado
@@ -438,9 +467,15 @@ public class VacasServiceImpl implements VacasService {
 			if (celoServicio.getInseminador() != null)
 				registrarServicioDadoInseminador(celoServicio.getInseminador().getId());
 			
+			//Obtengo la vaca para actualizar sus parameros
+			Vaca v=celoServicio.getVaca();
+			if (TipoCeloServicioEnum.SERVICIO.equals(celoServicio.getTipo()))
+					v.setServiciosDados(v.getServiciosDados()+1); //Incremento los servicios dados (si es un Servicio)
 			
-			//Actualizar ultimo Servicio Vaca
-			//Incrementar Servicios Dados Vaca
+			if (v.getFechaUltimoServicio()==null || v.getFechaUltimoServicio().before(celoServicio.getFecha()))
+				v.setFechaUltimoServicio(celoServicio.getFecha()); //Actualizo la fecha ultimo servicio si corresponde
+			
+			guardarVaca(v);
 			
 			return celoServicio;
 		} catch (Exception e) {
@@ -680,5 +715,7 @@ public class VacasServiceImpl implements VacasService {
 			throw e;
 		}
 	}
+	
+	
 	
 }

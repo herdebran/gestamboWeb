@@ -13,7 +13,6 @@ import ar.com.cristal.creditos.entity.creditos.Cliente;
 import ar.com.cristal.creditos.entity.login.Establecimiento;
 import ar.com.cristal.creditos.entity.login.Perfil;
 import ar.com.cristal.creditos.entity.login.Usuario;
-import ar.com.cristal.creditos.entity.sucursales.Sucursal;
 import ar.com.cristal.creditos.servicios.impl.ClienteService;
 import ar.com.cristal.creditos.servicios.impl.ReporteService;
 import ar.com.cristal.creditos.servicios.impl.UsuarioServiceImpl;
@@ -69,6 +68,8 @@ public interface ServiceFacade {
 	ClienteService getClienteService();
 
 	VacasService getVacasService();
+	
+	RubrosProductosService getRubrosProductosService();
 
 	CreditosService getCreditosService();
 

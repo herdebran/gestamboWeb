@@ -14,6 +14,7 @@
 	
 	<g:HTMLPanel>
 		<ul id="menu">
+			<li><g:Anchor ui:field="anchorFechaParteDiario" debugId="anchorFechaParteDiario">Fecha</g:Anchor></li>
 			<li><g:Anchor ui:field="anchorCelosServicios" debugId="anchorCelosServicios">Celos y Servicios</g:Anchor></li>
 			<li><g:Anchor ui:field="anchorPartos" debugId="anchorPartos">Partos</g:Anchor></li>
 			<li><g:Anchor ui:field="anchorIngresosSecadas" debugId="anchorIngresosSecadas">Ingresos y Secadas</g:Anchor></li>
@@ -23,7 +24,25 @@
 		</ul>
 	</g:HTMLPanel>
 	
+
 	
+		<div class="title" style="float:left">Fecha de Parte Diario</div>
+		<div class="clear5"></div>
+		  <table>
+		  	<thead></thead>
+			<tbody>
+		  		<tr>
+					<td>Fecha de carga</td>
+					<td><dp:FullDatePicker ui:field="fechaParteDiario"></dp:FullDatePicker></td>
+				</tr>
+					
+			</tbody>
+			<tfoot>
+			</tfoot>
+	    </table>
+		  		    
+	
+		
 		<div class="clear10"></div>
 		<div style="float:right">
 			<g:Button ui:field="cerrar" text="Cerrar" />
