@@ -25,6 +25,7 @@ public class ToroDTO  extends DTO implements ListBoxItem{
 	private Boolean animalVivo;
 	private Boolean eliminado;
 	private EstablecimientoDTO establecimiento;
+	private ProductoDTO producto;
 	private Long usuarioAlta;
 	private Long usuarioBajaId;
 
@@ -123,6 +124,13 @@ public class ToroDTO  extends DTO implements ListBoxItem{
 	}
 	public void setEstablecimiento(EstablecimientoDTO establecimiento) {
 		this.establecimiento = establecimiento;
+	}
+	
+	public ProductoDTO getProducto() {
+		return producto;
+	}
+	public void setProducto(ProductoDTO producto) {
+		this.producto = producto;
 	}
 	public Long getUsuarioAlta() {
 		return usuarioAlta;

@@ -40,6 +40,8 @@ public class CeloServicio {
 	private TipoServicio tipoServicio;	
 	@ManyToOne
 	private Inseminador inseminador;	
+	@Column
+	private double precio=0.0;
 	@Column(length=50)
 	private String observaciones;
 	@Column
@@ -158,6 +160,18 @@ public class CeloServicio {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+
+	
+	
+	public double getPrecio() {
+		return precio;
+	}
+
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 
 

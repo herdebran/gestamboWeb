@@ -19,6 +19,7 @@ public class CeloServicioDTO  extends DTO implements ListBoxItem{
 	private ToroDTO toro;	
 	private TipoServicioDTO tipoServicio;	
 	private InseminadorDTO inseminador;	
+	private double precio;
 	private String observaciones;
 	private Boolean eliminado=false;
 	private EstablecimientoDTO establecimiento;
@@ -82,6 +83,13 @@ public class CeloServicioDTO  extends DTO implements ListBoxItem{
 	}
 	public void setInseminador(InseminadorDTO inseminador) {
 		this.inseminador = inseminador;
+	}
+	
+	public double getPrecio() {
+		return precio;
+	}
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 	public String getObservaciones() {
 		return observaciones;

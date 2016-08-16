@@ -294,6 +294,12 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		result.setToro((view.cmbToro.isVisible() && view.cmbToro.getSelectedItem()!=null)?(ToroDTO) view.cmbToro.getSelectedItem():null);
 		result.setVaca((VacaDTO) view.cmbVaca.getSelectedItem());
 		
+		if ((view.cmbToro.isVisible() && view.cmbToro.getSelectedItem()!=null)){
+			ToroDTO t = (ToroDTO) view.cmbToro.getSelectedItem();
+			if (t.getProducto()!= null)
+				result.setPrecio(t.getProducto().getPrecioUnitario());
+		}
+		
 		return result;
 	}
 

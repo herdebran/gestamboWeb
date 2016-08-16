@@ -12,9 +12,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import ar.com.cristal.creditos.common.TipoCeloServicioEnum;
+import ar.com.cristal.creditos.common.TipoMovStockEnum;
 import ar.com.cristal.creditos.dao.GenericDao;
 import ar.com.cristal.creditos.entity.tambo.CeloServicio;
 import ar.com.cristal.creditos.entity.tambo.Inseminador;
+import ar.com.cristal.creditos.entity.tambo.Producto;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
 import ar.com.cristal.creditos.servicios.ServiceFacade;
 import ar.com.cristal.creditos.servicios.VacasService;
@@ -114,6 +116,22 @@ public class CeloServicioTest extends AbstractTransactionalJUnit4SpringContextTe
 			System.out.println(cs.getFecha() + " Tipo:" + cs.getTipo().name());
 			
 			Assert.assertTrue(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	@Rollback(false)
+	public void InsertarConsumoSemenTest() {
+		try {
+			
+			Producto p= serviceFacade.getRubrosProductosService().obtenerProductoById(1L);
+			
+			if (p != null)
+				serviceFacade.getRubrosProductosService().cargarMovStockProducto(p, 10,TipoMovStockEnum.CONSUMO);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

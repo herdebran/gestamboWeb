@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.com.cristal.creditos.common.CristalProperties;
 import ar.com.cristal.creditos.common.ProductoUnidadEnum;
 import ar.com.cristal.creditos.common.TipoCeloServicioEnum;
+import ar.com.cristal.creditos.common.TipoMovStockEnum;
 import ar.com.cristal.creditos.common.TipoProductoEnum;
 import ar.com.cristal.creditos.dao.GenericDao;
 import ar.com.cristal.creditos.entity.creditos.CuotaSocial;
@@ -475,7 +476,15 @@ public class VacasServiceImpl implements VacasService {
 			if (v.getFechaUltimoServicio()==null || v.getFechaUltimoServicio().before(celoServicio.getFecha()))
 				v.setFechaUltimoServicio(celoServicio.getFecha()); //Actualizo la fecha ultimo servicio si corresponde
 			
+			//Finalmente persisto la vaca
 			guardarVaca(v);
+			
+			
+			//Resto Stock Semen
+			if (celoServicio.getToro() != null && celoServicio.getToro().getProducto() != null)
+				serviceFacade.getRubrosProductosService().cargarMovStockProducto(celoServicio.getToro().getProducto(),1, TipoMovStockEnum.CONSUMO);			
+			
+			
 			
 			return celoServicio;
 		} catch (Exception e) {
