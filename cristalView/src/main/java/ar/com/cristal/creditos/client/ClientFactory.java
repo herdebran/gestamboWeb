@@ -23,6 +23,8 @@ import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioView;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioView;
+import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoView;
 import ar.com.cristal.creditos.client.tambo.rodeos.ui.BusquedaRodeosView;
 import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosView;
 import ar.com.cristal.creditos.client.ui.MenuView;
@@ -76,6 +78,7 @@ public interface ClientFactory {
     Place getCausaLegalPlace(UsuarioLogueadoDTO usuarioLogueadoDTO, String gestionCausasLegalesEscritura, String token);
     SeleccionEstablecimientoPlace getSeleccionEstablecimientoPlace (String id);
     ParteDiarioPlace getParteDiarioPlace (String id);
+    PdPartoPlace getPdPartoPlace (String id);
     
     ///Vistas
     MenuView getMenuView();
@@ -84,6 +87,7 @@ public interface ClientFactory {
     FichaAnimalesView getFichaAnimalesView();
     ParteDiarioView getParteDiarioView();
     PdCeloServicioView getPdCeloServicioView();
+    PdPartoView getPdPartoView();
     
     OperacionesHistorialCreditosClienteView getOperacionesHistorialCreditosClienteView();
     PerfilesCRUDView getPerfilesView();

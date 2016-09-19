@@ -34,6 +34,7 @@ public class VacaDTO  extends DTO implements ListBoxItem{
 	private double produccionVitalicia=0.0;
 	private double litrosPromedio=0.0;
 	private Date fechaUltimoServicio;
+	private ToroDTO toroUltimoServicio;
 	private int serviciosDados=0;
 	private int preniecesConfirmadas=0;
 	private Date fechaUltimoParto;
@@ -266,6 +267,12 @@ public class VacaDTO  extends DTO implements ListBoxItem{
 	@Override
 	public String getItemValue() {
 		return this.id.toString();
+	}
+	public ToroDTO getToroUltimoServicio() {
+		return toroUltimoServicio;
+	}
+	public void setToroUltimoServicio(ToroDTO toroUltimoServicio) {
+		this.toroUltimoServicio = toroUltimoServicio;
 	}
 	
 	

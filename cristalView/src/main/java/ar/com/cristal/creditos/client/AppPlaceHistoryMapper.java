@@ -10,6 +10,7 @@ import ar.com.cristal.creditos.client.tambo.animales.alta.AltaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.animales.ficha.FichaAnimalesPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoPlace;
 import ar.com.cristal.creditos.client.ui.MenuPlace;
 import ar.com.cristal.creditos.client.ui.establecimientos.SeleccionEstablecimientoPlace;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
@@ -25,7 +26,7 @@ import com.google.gwt.place.shared.WithTokenizers;
 
 @WithTokenizers({MenuPlace.Tokenizer.class, HomePlace.Tokenizer.class,AltaAnimalesPlace.Tokenizer.class,FichaAnimalesPlace.Tokenizer.class, 
 	ParteDiarioPlace.Tokenizer.class,PopUpInfoPlace.Tokenizer.class, AltaEdicionUsuarioPlace.Tokenizer.class,
-	PdCeloServicioPlace.Tokenizer.class,ListadoUsuariosPlace.Tokenizer.class, OperacionesHistorialCreditosClientePlace.Tokenizer.class, 
+	PdCeloServicioPlace.Tokenizer.class,PdPartoPlace.Tokenizer.class,ListadoUsuariosPlace.Tokenizer.class, OperacionesHistorialCreditosClientePlace.Tokenizer.class, 
 	ListadoUsuariosPlace.Tokenizer.class, OperacionesHistorialCreditosClientePlace.Tokenizer.class,
 	BusquedaClientesPlace.Tokenizer.class, ClientePlace.Tokenizer.class,
 	PerfilesCRUDPlace.Tokenizer.class,PerfilesCRUDPlace.Tokenizer.class, 

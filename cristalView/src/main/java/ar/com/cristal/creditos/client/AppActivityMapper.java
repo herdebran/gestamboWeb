@@ -22,6 +22,8 @@ import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioActivity;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoActivity;
+import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoPlace;
 import ar.com.cristal.creditos.client.ui.home.HomeActivity;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
 import ar.com.cristal.creditos.client.ui.sucursales.ABMSucursalActivity;
@@ -68,6 +70,9 @@ public class AppActivityMapper implements ActivityMapper {
 
         else if (place instanceof PdCeloServicioPlace)
         	currentActivity = new PdCeloServicioActivity((PdCeloServicioPlace)place, clientFactory);
+
+        else if (place instanceof PdPartoPlace)
+        	currentActivity = new PdPartoActivity((PdPartoPlace)place, clientFactory);
 
         else if (place instanceof ListadoUsuariosPlace)
         	currentActivity = new ListadoUsuariosActivity((ListadoUsuariosPlace)place, clientFactory);

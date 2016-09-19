@@ -67,10 +67,15 @@ public class RubrosProductosServiceImpl implements RubrosProductosService {
 				prod.setActivo(true);
 				prod.setStock(0.0);
 				prod.setPrecioUnitario(0.0);
+
+				genericDao.save(prod);
+				if (prod.getId() != null)
+					log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " Se creó producto id: " + prod.getId());
+			} else {
+				genericDao.merge(prod);
+				log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " Se actualizo el producto: " + prod.getId());
+
 			}
-			genericDao.saveOrUpdate(prod);
-			if (prod.getId() != null)
-				log.info(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " Se creó producto id: " + prod.getId());
 			
 			return prod;
 		} catch (Exception e) {

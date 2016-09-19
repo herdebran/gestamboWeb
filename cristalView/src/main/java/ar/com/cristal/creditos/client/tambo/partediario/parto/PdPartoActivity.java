@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.cristal.creditos.client.tambo.partediario.celoservicio;
+package ar.com.cristal.creditos.client.tambo.partediario.parto;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import ar.com.cristal.creditos.client.ClientFactory;
-import ar.com.cristal.creditos.client.dto.TipoCeloServicioEnumDTO;
+import ar.com.cristal.creditos.client.dto.EstadoCriaEnumDTO;
+import ar.com.cristal.creditos.client.dto.SexoAnimalEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
-import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
-import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
+import ar.com.cristal.creditos.client.tambo.dto.PartoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoPartoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
-import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioView;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
 import ar.com.cristal.creditos.client.ui.util.ClientContext;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
@@ -35,7 +37,7 @@ import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
 import ar.com.cristal.creditos.client.ui.util.InicializarCombos;
 import ar.com.cristal.creditos.client.ui.util.PopUpInfo;
 import ar.com.cristal.creditos.client.widget.CustomSiNoDialogBox;
-import ar.com.cristal.creditos.util.DateUtil;
+import ar.com.cristal.creditos.common.EstadoCriaEnum;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -51,12 +53,12 @@ import com.google.gwt.user.client.ui.HTMLTable.Cell;
 /**
  * Activities are started and stopped by an ActivityManager associated with a container Widget.
  */
-public class PdCeloServicioActivity extends CustomAbstractActivity implements PdCeloServicioView.Presenter {
+public class PdPartoActivity extends CustomAbstractActivity implements PdPartoView.Presenter {
 
 	
 	private ClientFactory clientFactory;
 	public PopUpInfo popup=null;
-	private PdCeloServicioView view;
+	private PdPartoView view;
 	private String token;
 	private Place place = null;
 	private HandlerRegistration handlerRegistrationAdd;
@@ -64,10 +66,10 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 	private long tiempo = new Date().getTime();
 	private Date fechaParteDiario;
 	
-	public PdCeloServicioActivity(PdCeloServicioPlace place, ClientFactory cf) {
+	public PdPartoActivity(PdPartoPlace place, ClientFactory cf) {
 		clientFactory = cf;
 		popup = clientFactory.getPopUp();				
-		view = clientFactory.getPdCeloServicioView();
+		view = clientFactory.getPdPartoView();
 		view.limpiarControles();
 		view.setWidth(ConstantesView.maxPanelWidthPixels);
 		token = place.getToken();
@@ -101,9 +103,9 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 			
 			view.limpiarControles();	
 			view.initTable();
-			cargarCelosServicios(fechaParteDiario);
+			cargarPartos(fechaParteDiario);
 			inicializarCombos();
-			view.visibilizarControlesParaServicio(false);
+			view.visibilizarControlesParto(false);
 			
 	
 		} catch (Exception e) {
@@ -114,13 +116,13 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 	}
 
 	/**
-	 * Recupera los celos y servicios de la fecha y los muestra en la grilla
+	 * Recupera los partos de la fecha y los muestra en la grilla
 	 * @param date
 	 */
-	private void cargarCelosServicios(Date fecha) {
-		popup.mostrarMensaje("Espere", "Obteniendo celos y servicios...");
-		clientFactory.getVacasService().obtenerCelosServiciosPorFechaRPC(fecha, 
-				new AsyncCallback<List<CeloServicioDTO>>(){
+	private void cargarPartos(Date fecha) {
+		popup.mostrarMensaje("Espere", "Obteniendo partos...");
+		clientFactory.getVacasService().obtenerPartosPorFechaRPC(fecha, 
+				new AsyncCallback<List<PartoDTO>>(){
 
 					@Override
 					public void onFailure(Throwable e) {
@@ -129,10 +131,10 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 					}
 
 					@Override
-					public void onSuccess(List<CeloServicioDTO> lista) {
+					public void onSuccess(List<PartoDTO> lista) {
 						view.initTable();
-						for (CeloServicioDTO c:lista){
-							agregarCeloServicioATabla(c);							
+						for (PartoDTO c:lista){
+							agregarPartoATabla(c);							
 						}
 						popup.ocultar();
 						
@@ -186,22 +188,21 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		//fechaParteDiario=new Date();
 		tiempo = new Date().getTime();
 		inicializarControles();
-		view.anchorCelosServicios.getElement().getStyle().setBackgroundColor("#006AA4");
+		view.anchorPartos.getElement().getStyle().setBackgroundColor("#006AA4");
 	}
 
 
 	@Override
 	public void irCelosServicios() {
-		// TODO Auto-generated method stub
-		
+		String fechaParam=String.valueOf(fechaParteDiario.getTime());
+		Place place = new PdCeloServicioPlace(fechaParam);
+		clientFactory.getPlaceController().goTo(place);	
 	}
 
 
 	@Override
 	public void irPartos() {
-		String fechaParam=String.valueOf(fechaParteDiario.getTime());
-		Place place = new PdPartoPlace(fechaParam);
-		clientFactory.getPlaceController().goTo(place);
+		popup.mostrarMensaje("Atención","Ud. se encuentra en la solapa Partos.");
 		
 	}
 
@@ -242,20 +243,23 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 
 	private void inicializarCombos() {
 		InicializarCombos.inicializarComboVacas(null, view.cmbVaca);
-		InicializarCombos.inicializarComboToros(null, view.cmbToro);
-		InicializarCombos.InicializarComboTipoCeloServicio(view.cmbTipo);
-		InicializarCombos.inicializarComboInseminadores(null, view.cmbInseminador);
-		InicializarCombos.inicializarComboTiposServicio(null, view.cmbTipoServicio);
+		InicializarCombos.inicializarComboToros(null, view.cmbPadre);
+		InicializarCombos.inicializarComboTiposParto(null, view.cmbTipoParto);
+		InicializarCombos.inicializarComboSexoAnimal(null,view.cmbSexoCria1);
+		InicializarCombos.inicializarComboSexoAnimal(null,view.cmbSexoCria2);
+		InicializarCombos.inicializarComboEstadoCria(null, view.cmbEstadoCria1);
+		InicializarCombos.inicializarComboEstadoCria(null, view.cmbEstadoCria2);
+		
 	}
 
 	@Override
-	public void onAgregarCeloServicio() {
+	public void onAgregarParto() {
 		List<String> errores = new ArrayList<String>();
 		boolean datosValidos=validarDatos(errores);
 		if (datosValidos){
-			CeloServicioDTO csDTO=armarCeloServicioDTO();
+			PartoDTO parto=armarPartoDTO();
 			popup.mostrarMensaje("Espere", "Insertando novedad...");
-			clientFactory.getVacasService().insertarCeloServicioRPC(csDTO,true, new AsyncCallback<CeloServicioDTO>() {
+			clientFactory.getVacasService().insertarPartoRPC(parto, true,new AsyncCallback<PartoDTO>() { 
 
 				@Override
 				public void onFailure(Throwable e) {
@@ -263,9 +267,9 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 				}
 
 				@Override
-				public void onSuccess(CeloServicioDTO r) {
+				public void onSuccess(PartoDTO r) {
 					view.limpiarControles();
-					cargarCelosServicios(fechaParteDiario);
+					cargarPartos(fechaParteDiario);
 				}
 				
 			});
@@ -282,27 +286,29 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 	 * Devuelve el DTO armado con los datos de la pantalla
 	 * @return
 	 */
-	private CeloServicioDTO armarCeloServicioDTO() {
-		CeloServicioDTO result= new CeloServicioDTO();
+	private PartoDTO armarPartoDTO() {
+		PartoDTO result= new PartoDTO();
 
 		result.setEliminado(false);
 		result.setFecha(fechaParteDiario);
 		result.setEstablecimiento(ClientContext.getInstance().getUsuarioLogueadoDTO().getEstablecimientoActual());
-		result.setInseminador((view.cmbInseminador.isVisible() && view.cmbInseminador.getSelectedItem()!=null)?(InseminadorDTO) view.cmbInseminador.getSelectedItem():null);
-		result.setLactancia(Integer.valueOf(view.nroLactancia.getText()));
-		result.setNroCeloServicio(Integer.valueOf(view.nroCeloServicio.getText()));
+		if (view.cmbEstadoCria1.getSelectedItem()!=null)
+			result.setEstadoCria1((EstadoCriaEnumDTO) view.cmbEstadoCria1.getSelectedItem());
+		if (view.cmbEstadoCria2.getSelectedItem()!=null)
+			result.setEstadoCria2((EstadoCriaEnumDTO) view.cmbEstadoCria2.getSelectedItem());
+		result.setMellizos(view.chkMellizos.getValue());
+		result.setNroParto(Integer.valueOf(view.nroParto.getText()));
 		result.setObservaciones("");
-		result.setTipo((TipoCeloServicioEnumDTO) view.cmbTipo.getSelectedItem());
-		result.setTipoServicio(view.cmbTipoServicio.isVisible()?(TipoServicioDTO) view.cmbTipoServicio.getSelectedItem():null);
-		result.setToro((view.cmbToro.isVisible() && view.cmbToro.getSelectedItem()!=null)?(ToroDTO) view.cmbToro.getSelectedItem():null);
+		result.setPadre((view.cmbPadre.getSelectedItem()!=null)?(ToroDTO) view.cmbPadre.getSelectedItem():null);
+		result.setRpCria1(view.rpCria1.getText()!=null?view.rpCria1.getText():"");
+		result.setRpCria1(view.rpCria2.getText()!=null?view.rpCria2.getText():"");
+		if (view.cmbSexoCria1.getSelectedItem() != null)
+			result.setSexoCria1((SexoAnimalEnumDTO)view.cmbSexoCria1.getSelectedItem());
+		if (view.cmbSexoCria2.getSelectedItem() != null)
+			result.setSexoCria2((SexoAnimalEnumDTO)view.cmbSexoCria2.getSelectedItem());
+		result.setTipoParto((TipoPartoDTO) view.cmbTipoParto.getSelectedItem());
 		result.setVaca((VacaDTO) view.cmbVaca.getSelectedItem());
-		
-		if ((view.cmbToro.isVisible() && view.cmbToro.getSelectedItem()!=null)){
-			ToroDTO t = (ToroDTO) view.cmbToro.getSelectedItem();
-			if (t.getProducto()!= null)
-				result.setPrecio(t.getProducto().getPrecioUnitario());
-		}
-		
+
 		return result;
 	}
 
@@ -320,30 +326,45 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 			}
 
 			// valida Nro
-			if (view.nroCeloServicio.getText().isEmpty()) {
+			if (view.nroParto.getText().isEmpty()) {
 				result = false;
-				mensajeError.add("El Nro es un campo obligatorio.");
+				mensajeError.add("El Nro de parto es un campo obligatorio.");
+			}
+
+			// valida Tipo Parto
+			if (view.cmbTipoParto.getSelectedItemText().length() == 0) {
+				result = false;
+				mensajeError.add("El tipo de parto es un campo obligatorio.");
+			}
+			// valida Estado de la cria 1
+			if (view.cmbEstadoCria1.getSelectedItemText().length() == 0) {
+				result = false;
+				mensajeError.add("El estado de la cria 1 es un campo obligatorio.");
+			} else {
+				if (view.cmbEstadoCria1.getSelectedItemText().equals(EstadoCriaEnumDTO.VIVO.name())){
+					if (view.cmbSexoCria1.getSelectedItemText().length() == 0) {
+						result = false;
+						mensajeError.add("Debe elegir un sexo para la cria 1.");
+					}
+				}
+			}
 			
+			// valida Estado de la cria 2 (solo si es mellizos
+			if (view.chkMellizos.getValue()){
+				if (view.cmbEstadoCria2.getSelectedItemText().length() == 0) {
+					result = false;
+					mensajeError.add("El estado de la cria 2 es un campo obligatorio para un parto de mellizos.");
+				} else {
+					if (view.cmbEstadoCria2.getSelectedItemText().equals(EstadoCriaEnum.VIVO.name())){
+						if (view.cmbSexoCria2.getSelectedItemText().length() == 0) {
+							result = false;
+							mensajeError.add("Debe elegir un sexo para la cria 2.");
+						}
+					}
+				}
 			}
-
-			// valida Lactancia
-			if (view.nroLactancia.getText().isEmpty()) {
-				result = false;
-				mensajeError.add("Lactancia es un campo obligatorio.");
-			}
-
-			// valida Evento
-			if (view.cmbTipo.getSelectedItemText().length() == 0) {
-				result = false;
-				mensajeError.add("El evento es un campo obligatorio.");
-			}
-
-			// Si es Servicio, valida Toro
-			if (view.cmbToro.isVisible() && view.cmbToro.getSelectedItemText().length() == 0) {
-				result = false;
-				mensajeError.add("El Toro es un campo obligatorio para cargar un servicio.");
-			}
-			
+		
+		
 		} catch (Exception e) {
 			mensajeError.add("Error: " + e.getMessage());
 			result = false;
@@ -352,29 +373,32 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 		return result;
 	}
 
-	private void agregarCeloServicioATabla(CeloServicioDTO c) {
+	private void agregarPartoATabla(PartoDTO c) {
 		int i= view.lstCelosServicios.getRowCount()-1;
 		
 		view.lstCelosServicios.setText(i+1, 0, String.valueOf(c.getId()));
 		view.lstCelosServicios.setText(i+1, 1, c.getVaca().getRp());
-		view.lstCelosServicios.setText(i+1, 2, String.valueOf(c.getNroCeloServicio()));
-		view.lstCelosServicios.setText(i+1, 3, String.valueOf(c.getLactancia()));
-		view.lstCelosServicios.setText(i+1, 4, c.getTipo().getItemText());
-		view.lstCelosServicios.setText(i+1, 5, (c.getToro()!=null)?c.getToro().getNombre():"");
-		view.lstCelosServicios.setText(i+1, 6, (c.getTipoServicio() != null)?c.getTipoServicio().getDescripcion(): "");
-		view.lstCelosServicios.setText(i+1, 7, (c.getInseminador()!=null)?c.getInseminador().getItemText():"");
+		view.lstCelosServicios.setText(i+1, 2, c.getPadre().getNombre());
+		view.lstCelosServicios.setText(i+1, 3, String.valueOf(c.getNroParto()));
+		view.lstCelosServicios.setText(i+1, 4, c.getTipoParto().getItemText());
+		view.lstCelosServicios.setText(i+1, 5, (c.getSexoCria1()!=null)?c.getSexoCria1().getItemText():"");
+		view.lstCelosServicios.setText(i+1, 6, (c.getEstadoCria1()!=null)?c.getEstadoCria1().getItemText():"");
+		view.lstCelosServicios.setText(i+1, 7, (c.getSexoCria2()!=null)?c.getSexoCria2().getItemText():"");
+		view.lstCelosServicios.setText(i+1, 8, (c.getEstadoCria2()!=null)?c.getEstadoCria2().getItemText():"");
+		view.lstCelosServicios.setText(i+1, 9, (c.isMellizos())?"SI": "NO");
 		
 		//Boton Elimimnar
-		Button cmdEliminarCeloServicio=new Button("Eliminar");
-		cmdEliminarCeloServicio.addClickHandler(new ClickHandler() {
+		Button cmdEliminarParto=new Button("Eliminar");
+		cmdEliminarParto.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				Cell cellSelected =  view.lstCelosServicios.getCellForEvent(event);
 				int rowSelected=cellSelected.getRowIndex();
 				Long idCeloServicio= Long.valueOf(view.lstCelosServicios.getText(rowSelected, 0));
-				eliminarCeloServicio (idCeloServicio);
+				//eliminarCeloServicio (idCeloServicio);
+				popup.mostrarMensaje("Falta implementar");
 			}
 		});
-		view.lstCelosServicios.setWidget(i+1, 8, cmdEliminarCeloServicio);
+		view.lstCelosServicios.setWidget(i+1, 10, cmdEliminarParto);
 		
 		
 		if (i % 2 == 0) {
@@ -413,13 +437,36 @@ public class PdCeloServicioActivity extends CustomAbstractActivity implements Pd
 					@Override
 					public void onSuccess(CeloServicioDTO result) {
 						popup.ocultar();
-						cargarCelosServicios(fechaParteDiario);
+						cargarPartos(fechaParteDiario);
 					}
 				});
 			}
 		};
 	
 		CustomSiNoDialogBox.setHandlers(listenerSi, listenerNo);
+		
+	}
+
+
+	@Override
+	public void cargarUltimoServicioVaca(String rpVaca) {
+		popup.mostrarMensaje("Espere","Obteniendo datos de ultimo servicio...");
+		clientFactory.getVacasService().obtenerVacaDTOPorRP(rpVaca,new AsyncCallback<VacaDTO>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				popup.mostrarMensaje("Atencion","Ha ocurrido un error al tratar de obtener ultimo servicio.");
+				
+			}
+
+			@Override
+			public void onSuccess(VacaDTO v) {
+				view.txtFechaUS.setText(v.getFechaUltimoServicio()!=null?new SimpleDateFormat("dd/MM/yyyy").format(v.getFechaUltimoServicio()):"SIN SERVICIO");
+				view.cmbPadre.selectByText(v.getToroUltimoServicio()!=null?v.getToroUltimoServicio().getNombre():"");
+				popup.ocultar();
+			}
+			
+		});
 		
 	}
 	

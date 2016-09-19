@@ -7,9 +7,11 @@ import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.FichaVacaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
+import ar.com.cristal.creditos.client.tambo.dto.PartoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoPartoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
@@ -75,6 +77,14 @@ public interface VacasRPCServiceAsync {
 			AsyncCallback<CeloServicioDTO> callback);
 
 	void armarFichaDTOPorIdVaca(Long id, AsyncCallback<FichaVacaDTO> callback);
+
+	void insertarPartoRPC(PartoDTO partoDTO, boolean actualizaSituacionActual,
+			AsyncCallback<PartoDTO> callback);
+
+	void obtenerTiposPartoRPC(AsyncCallback<List<TipoPartoDTO>> callback);
+
+	void obtenerPartosPorFechaRPC(Date fecha,
+			AsyncCallback<List<PartoDTO>> callback);
 
 
 }

@@ -15,3 +15,10 @@ INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('2'
 INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('3', 1, 'A CAMPO');
 INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('4', 1, 'ROBO');
 INSERT INTO `cristal`.`TipoServicio` (`id`, `activo`, `descripcion`) VALUES ('5', 1, 'IATF');
+
+--TIPOS DE PARTO
+INSERT INTO `cristal`.`TipoParto` (`id`, `activo`, `descripcion`) VALUES ('1', 1, 'NORMAL');
+INSERT INTO `cristal`.`TipoParto` (`id`, `activo`, `descripcion`) VALUES ('2', 1, 'CESAREA');
+INSERT INTO `cristal`.`TipoParto` (`id`, `activo`, `descripcion`) VALUES ('3', 1, 'ASISTIDO');
+INSERT INTO `cristal`.`TipoParto` (`id`, `activo`, `descripcion`) VALUES ('4', 1, 'DISTOCICO');
+INSERT INTO `cristal`.`TipoParto` (`id`, `activo`, `descripcion`) VALUES ('5', 1, 'ABORTO');

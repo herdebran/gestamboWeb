@@ -9,21 +9,23 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import ar.com.cristal.creditos.client.dto.TipoCeloServicioEnumDTO;
 import ar.com.cristal.creditos.client.service.VacasRPCService;
 import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.FichaVacaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
+import ar.com.cristal.creditos.client.tambo.dto.PartoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoPartoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
 import ar.com.cristal.creditos.common.Constantes;
 import ar.com.cristal.creditos.common.TipoCeloServicioEnum;
 import ar.com.cristal.creditos.entity.tambo.CeloServicio;
+import ar.com.cristal.creditos.entity.tambo.Parto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
 import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
@@ -335,6 +337,34 @@ public class VacasRPCServiceImpl extends RemoteEventServiceServlet implements Va
 		
 		return f;
 		
+	}
+	
+	@Override
+	public PartoDTO insertarPartoRPC (PartoDTO partoDTO,boolean actualizaSituacionActual)throws Exception {
+		try {
+			Parto p = mapper.map(partoDTO, Parto.class);
+			return mapper.map(vacasService.persistirParto(p,actualizaSituacionActual),PartoDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<TipoPartoDTO> obtenerTiposPartoRPC() throws Exception{
+		try {
+			return mapper.convertList(vacasService.obtenerTiposParto(),TipoPartoDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<PartoDTO> obtenerPartosPorFechaRPC(Date fecha) throws Exception{
+		try {
+			return mapper.convertList(vacasService.obtenerPartosPorFecha(fecha),PartoDTO.class);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }

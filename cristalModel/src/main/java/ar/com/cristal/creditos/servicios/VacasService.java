@@ -6,9 +6,11 @@ import java.util.List;
 import ar.com.cristal.creditos.entity.tambo.Categoria;
 import ar.com.cristal.creditos.entity.tambo.CeloServicio;
 import ar.com.cristal.creditos.entity.tambo.Inseminador;
+import ar.com.cristal.creditos.entity.tambo.Parto;
 import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
+import ar.com.cristal.creditos.entity.tambo.TipoParto;
 import ar.com.cristal.creditos.entity.tambo.TipoServicio;
 import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
@@ -71,6 +73,13 @@ public interface VacasService {
 
 	CeloServicio obtenerUltimoCeloServicioPorVacaId(Long vacaId)
 			throws Exception;
+
+	Parto persistirParto(Parto parto, boolean actualizaSituacionActual)
+			throws Exception;
+
+	List<TipoParto> obtenerTiposParto() throws Exception;
+
+	List<Parto> obtenerPartosPorFecha(Date fecha) throws Exception;
 	
 
 }

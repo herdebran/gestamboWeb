@@ -18,6 +18,7 @@ package ar.com.cristal.creditos.client.tambo.partediario;
 import java.util.Date;
 import ar.com.cristal.creditos.client.ClientFactory;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoPlace;
 import ar.com.cristal.creditos.client.ui.home.HomePlace;
 import ar.com.cristal.creditos.client.ui.util.ConstantesView;
 import ar.com.cristal.creditos.client.ui.util.CustomAbstractActivity;
@@ -147,7 +148,9 @@ public class ParteDiarioActivity extends CustomAbstractActivity implements Parte
 
 	@Override
 	public void irPartos() {
-		popup.mostrarMensaje("Ir a Partos");
+		String fechaParam=String.valueOf(view.fechaParteDiario.getSelectedDate().getTime());
+		Place place = new PdPartoPlace(fechaParam);
+		clientFactory.getPlaceController().goTo(place);
 		
 	}
 

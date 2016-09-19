@@ -82,6 +82,7 @@ public class ConstantesView {
 	public static final String COMBO_ESTADO_CLIENTE = "COMBO_ESTADO_CLIENTE";
 	public static final String PREJUDICIAL ="Prejudicial";
 	public static final int DIAS_ULTIMO_PAGO_MORA_TARDIA = 105; //Son los dias que deben pasar desde el ultimo pago hasta que una persona entra en Mora tardia
+	public static final String ABORTO = "ABORTO";
 	
 	
 

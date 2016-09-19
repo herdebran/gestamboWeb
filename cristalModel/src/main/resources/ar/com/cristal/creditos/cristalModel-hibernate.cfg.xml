@@ -34,6 +34,8 @@
   <mapping class="ar.com.cristal.creditos.entity.tambo.CeloServicio"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.TipoServicio"/>
   <mapping class="ar.com.cristal.creditos.entity.tambo.Inseminador"/>
+  <mapping class="ar.com.cristal.creditos.entity.tambo.TipoParto"/>
+  <mapping class="ar.com.cristal.creditos.entity.tambo.Parto"/>
   <mapping class="ar.com.cristal.creditos.entity.creditos.Cliente"/>
   <mapping class="ar.com.cristal.creditos.entity.login.Usuario"/> 
   <mapping class="ar.com.cristal.creditos.entity.login.Perfil"/>

@@ -67,6 +67,8 @@ public class Vaca {
 	private double litrosPromedio=0.0;
 	@Column
 	private Date fechaUltimoServicio;
+	@ManyToOne
+	private Toro toroUltimoServicio;
 	@Column
 	private int serviciosDados=0;
 	@Column
@@ -446,6 +448,16 @@ public class Vaca {
 
 	public void setUsuarioBajaId(Long usuarioBajaId) {
 		this.usuarioBajaId = usuarioBajaId;
+	}
+
+
+	public Toro getToroUltimoServicio() {
+		return toroUltimoServicio;
+	}
+
+
+	public void setToroUltimoServicio(Toro toroUltimoServicio) {
+		this.toroUltimoServicio = toroUltimoServicio;
 	}
 
 	

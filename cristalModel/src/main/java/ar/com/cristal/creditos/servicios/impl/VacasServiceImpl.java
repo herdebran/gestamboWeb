@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.cristal.creditos.common.CristalProperties;
+import ar.com.cristal.creditos.common.EstadoReproductivoEnum;
 import ar.com.cristal.creditos.common.ProductoUnidadEnum;
 import ar.com.cristal.creditos.common.TipoCeloServicioEnum;
 import ar.com.cristal.creditos.common.TipoMovStockEnum;
@@ -27,10 +28,12 @@ import ar.com.cristal.creditos.entity.login.Usuario;
 import ar.com.cristal.creditos.entity.tambo.Categoria;
 import ar.com.cristal.creditos.entity.tambo.CeloServicio;
 import ar.com.cristal.creditos.entity.tambo.Inseminador;
+import ar.com.cristal.creditos.entity.tambo.Parto;
 import ar.com.cristal.creditos.entity.tambo.Producto;
 import ar.com.cristal.creditos.entity.tambo.Raza;
 import ar.com.cristal.creditos.entity.tambo.ResultadoTacto;
 import ar.com.cristal.creditos.entity.tambo.Rodeo;
+import ar.com.cristal.creditos.entity.tambo.TipoParto;
 import ar.com.cristal.creditos.entity.tambo.TipoServicio;
 import ar.com.cristal.creditos.entity.tambo.Toro;
 import ar.com.cristal.creditos.entity.tambo.Vaca;
@@ -456,6 +459,7 @@ public class VacasServiceImpl implements VacasService {
 			if (celoServicio.getId() == null){
 				//ALTA: Agrega usuario y Fecha
 				celoServicio.setFechaAlta(serviceFacade.getFechaActual());
+				celoServicio.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
 				celoServicio.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
 			}
 			genericDao.saveOrUpdate(celoServicio);
@@ -473,9 +477,10 @@ public class VacasServiceImpl implements VacasService {
 			if (TipoCeloServicioEnum.SERVICIO.equals(celoServicio.getTipo()))
 					v.setServiciosDados(v.getServiciosDados()+1); //Incremento los servicios dados (si es un Servicio)
 			
-			if (v.getFechaUltimoServicio()==null || v.getFechaUltimoServicio().before(celoServicio.getFecha()))
+			if (v.getFechaUltimoServicio()==null || v.getFechaUltimoServicio().before(celoServicio.getFecha())){
 				v.setFechaUltimoServicio(celoServicio.getFecha()); //Actualizo la fecha ultimo servicio si corresponde
-			
+				v.setToroUltimoServicio(celoServicio.getToro());
+			}
 			//Finalmente persisto la vaca
 			guardarVaca(v);
 			
@@ -524,7 +529,7 @@ public class VacasServiceImpl implements VacasService {
 	private void registrarServicioDadoToro(Long id,	boolean actualizaSituacionActual) {
 		try {
 			Toro t = obtenerToroById(id);
-			t.setServiciosCampo(t.getServiciosCampo()+1);
+			t.setServiciosCampo(t.getServiciosCampo()==null?1:t.getServiciosCampo()+1);
 			
 			if (actualizaSituacionActual)
 				registrarSalidaSemenPorIdToro(id);
@@ -725,6 +730,102 @@ public class VacasServiceImpl implements VacasService {
 		}
 	}
 	
+	/**
+	 * Persiste el parto de la vaca
+	 * Si corresponde: La marca como Vacia y abre ficha de la cria.
+	 * @param parto
+	 * @param actualizaSituacionActual
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	@Transactional
+	public Parto persistirParto(Parto parto,boolean actualizaSituacionActual) throws Exception {
+		try {
+			if (parto.getId() == null){
+				//ALTA: Agrega usuario y Fecha
+				parto.setFechaAlta(serviceFacade.getFechaActual());
+				parto.setEstablecimiento(serviceFacade.obtenerEstablecimientoLogueado());
+				parto.setUsuarioAlta(serviceFacade.obtenerUsuarioLogueadoId());
+			}
+			genericDao.saveOrUpdate(parto);
+			
+			//Obtengo la vaca para actualizar sus parameros
+			Vaca v=parto.getVaca();
+			if (v.getFechaUltimoParto()==null || v.getFechaUltimoParto().before(parto.getFecha()))
+				v.setFechaUltimoParto(parto.getFecha()); //Actualizo la fecha ultimo parto
+
+			if (actualizaSituacionActual){
+				v.setEstadoReproductivo(EstadoReproductivoEnum.VACÍA);
+				
+				
+				//Abrir Ficha Vaca1 si corresponde
+				
+				//Abrir ficha Vaca2 si corresponde
+				
+				
+			}
+			
+			//Finalmente persisto la vaca
+			guardarVaca(v);
+			
+			
+			
+			
+			return parto;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " persistirParto(): " + e.getMessage(), e);
+			throw e;
+		}
+		
+	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<TipoParto> obtenerTiposParto() throws Exception{
+		try {
+			
+			List<TipoParto> tp = genericDao.getSessionFactory().getCurrentSession().createCriteria(TipoParto.class)
+				.add(Restrictions.eq("activo", Boolean.TRUE))
+				.addOrder(Order.asc("id")).list();
+			  
+			return tp;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerTiposParto(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
 	
+	/**
+	 * Devuelve los partos cargados en Fecha dentro del establecimiento logueado
+	 * @param fecha
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Parto> obtenerPartosPorFecha(final Date fecha) throws Exception{
+		try {
+			Establecimiento establecimiento=serviceFacade.obtenerEstablecimientoLogueado();
+			Calendar fDesde = DateUtil.createCalendar(fecha);
+			fDesde.set(Calendar.HOUR, 0);
+			fDesde.set(Calendar.MINUTE, 0);
+			fDesde.set(Calendar.SECOND, 0);
+			Calendar fHasta = DateUtil.createCalendar(fecha);
+			fHasta.set(Calendar.HOUR, 23);
+			fHasta.set(Calendar.MINUTE,59);
+			fHasta.set(Calendar.SECOND, 59);
+			
+			List<Parto> result = genericDao.getSessionFactory().getCurrentSession().createCriteria(Parto.class)
+				.add(Restrictions.between("fecha", fDesde.getTime(),fHasta.getTime()))
+				.add(Restrictions.eq("establecimiento", establecimiento))
+				.add(Restrictions.eq("eliminado", false)).list();
+			  
+			return result;
+		} catch (Exception e) {
+			log.error(serviceFacade.obtenerNombreSesionUsuarioUsuarioLogueado() + " obtenerPartosPorFecha(): " + e.getMessage(), e);
+			throw e;
+		}
+	}
+
 }

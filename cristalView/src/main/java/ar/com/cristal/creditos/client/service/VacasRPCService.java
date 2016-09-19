@@ -7,9 +7,11 @@ import ar.com.cristal.creditos.client.tambo.dto.CategoriaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.CeloServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.FichaVacaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
+import ar.com.cristal.creditos.client.tambo.dto.PartoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoPartoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
 import ar.com.cristal.creditos.client.tambo.dto.VacaDTO;
@@ -68,5 +70,11 @@ public interface VacasRPCService extends RemoteService {
 	CeloServicioDTO eliminarCeloServicioPorIdRPC(Long id,boolean actualizaSituacionActual) throws Exception;
 
 	FichaVacaDTO armarFichaDTOPorIdVaca(Long id) throws Exception;
+
+	PartoDTO insertarPartoRPC(PartoDTO partoDTO,boolean actualizaSituacionActual) throws Exception;
+
+	List<TipoPartoDTO> obtenerTiposPartoRPC() throws Exception;
+
+	List<PartoDTO> obtenerPartosPorFechaRPC(Date fecha) throws Exception;
 
 }

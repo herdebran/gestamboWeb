@@ -11,8 +11,10 @@ import ar.com.cristal.creditos.client.LocalidadFactoryImpl;
 import ar.com.cristal.creditos.client.accesibilidad.PerfilesDto;
 import ar.com.cristal.creditos.client.dto.EmpresaDTO;
 import ar.com.cristal.creditos.client.dto.EstablecimientoDTO;
+import ar.com.cristal.creditos.client.dto.EstadoCriaEnumDTO;
 import ar.com.cristal.creditos.client.dto.ItemGastoSucursalDTO;
 import ar.com.cristal.creditos.client.dto.MedioContactoDTO;
+import ar.com.cristal.creditos.client.dto.SexoAnimalEnumDTO;
 import ar.com.cristal.creditos.client.dto.TipoCeloServicioEnumDTO;
 import ar.com.cristal.creditos.client.dto.TipoReporteDTO;
 import ar.com.cristal.creditos.client.localidad.LocalidadDTO;
@@ -23,6 +25,7 @@ import ar.com.cristal.creditos.client.tambo.dto.InseminadorDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RazaDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ResultadoTactoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.RodeoDTO;
+import ar.com.cristal.creditos.client.tambo.dto.TipoPartoDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoRodeoEnumDTO;
 import ar.com.cristal.creditos.client.tambo.dto.TipoServicioDTO;
 import ar.com.cristal.creditos.client.tambo.dto.ToroDTO;
@@ -1071,4 +1074,67 @@ static public void inicializarComboOperadoresMoraTardia(final ClientFactory clie
 		});
 	}
 	
+	static public void inicializarComboTiposParto(final String descripcion,final ListBox listBox){
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		listBox.addItem("", "");
+		popup.mostrarMensaje("Espere.","Cargando Tipos de parto...");
+		cf.getVacasService().obtenerTiposPartoRPC(new AsyncCallback<List<TipoPartoDTO>>() {
+			
+			public void onFailure(Throwable caught) {
+				cf.getPopUp().mostrarMensaje("Error", caught.getMessage());
+			}
+
+			public void onSuccess(List<TipoPartoDTO> result) {
+				
+				for (TipoPartoDTO obj : result) {
+					listBox.addItem(obj);
+				}
+				
+				if (descripcion != null && !descripcion.isEmpty())
+					listBox.selectByText(descripcion);
+				
+				Log.debug("inicializarComboTiposParto Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+				popup.ocultar();
+			}
+
+		});
+	}
+
+
+	static public void inicializarComboSexoAnimal(String descripcion,
+			ListBox listBox) {
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		listBox.addItem("", "");
+		popup.mostrarMensaje("Espere.","Cargando sexos...");
+
+		for (SexoAnimalEnumDTO v: SexoAnimalEnumDTO.values()){
+			listBox.addItem(v);
+		}
+		
+		if (descripcion != null)
+			listBox.selectByText(descripcion);
+		
+		Log.debug("inicializarComboSexoAnimal. Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+		popup.ocultar();		
+	}
+
+	static public void inicializarComboEstadoCria(String descripcion,
+			ListBox listBox) {
+		final long tiempoCarga = new Date().getTime();
+		listBox.clear();
+		listBox.addItem("", "");
+		popup.mostrarMensaje("Espere.","Cargando estados...");
+
+		for (EstadoCriaEnumDTO e: EstadoCriaEnumDTO.values()){
+			listBox.addItem(e);
+		}
+		
+		if (descripcion != null)
+			listBox.selectByText(descripcion);
+		
+		Log.debug("inicializarComboEsatdoCria. Tiempo carga ms: " + (new Date().getTime() - tiempoCarga));
+		popup.ocultar();		
+	}
 }

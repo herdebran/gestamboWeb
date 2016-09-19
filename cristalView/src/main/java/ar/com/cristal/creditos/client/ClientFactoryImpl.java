@@ -28,6 +28,8 @@ import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioPlace;
 import ar.com.cristal.creditos.client.tambo.partediario.ParteDiarioView;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioActivity;
 import ar.com.cristal.creditos.client.tambo.partediario.celoservicio.PdCeloServicioView;
+import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoPlace;
+import ar.com.cristal.creditos.client.tambo.partediario.parto.PdPartoView;
 import ar.com.cristal.creditos.client.tambo.rodeos.ui.BusquedaRodeosView;
 import ar.com.cristal.creditos.client.tambo.toros.ui.BusquedaTorosView;
 import ar.com.cristal.creditos.client.ui.MenuView;
@@ -69,6 +71,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private FichaAnimalesView fichaAnimalesView = null;
     private ParteDiarioView parteDiarioView = null;
     private PdCeloServicioView pdCeloServicioView = null;
+    private PdPartoView pdPartoView = null;
     
     private OperacionesHistorialCreditosClienteView operacionesHistorialCreditosClienteView = null;
     private BusquedaClientesView busquedaClientesView = null;
@@ -96,6 +99,7 @@ public class ClientFactoryImpl implements ClientFactory {
     private AltaAnimalesPlace altaAnimalesPlace = null;
     private FichaAnimalesPlace fichaAnimalesPlace = null;
     private ParteDiarioPlace parteDiarioPlace = null;
+    private PdPartoPlace pdPartoPlace = null;
     
     private AltaEdicionUsuarioPlace altaEdicionUsuarioPlace;
     private OperacionesHistorialCreditosClientePlace operacionesHistorialCreditosClientePlace = null;
@@ -156,7 +160,12 @@ public class ClientFactoryImpl implements ClientFactory {
 			return parteDiarioPlace;
 		}
 	 
-	 public AltaEdicionUsuarioPlace getAltaEdicionUsuarioPlace(String token) {
+	public PdPartoPlace getPdPartoPlace(String token) {
+		if (pdPartoPlace == null) pdPartoPlace = new PdPartoPlace(token);
+		return pdPartoPlace;
+	}
+
+	public AltaEdicionUsuarioPlace getAltaEdicionUsuarioPlace(String token) {
 		 if (altaEdicionUsuarioPlace == null) altaEdicionUsuarioPlace = new AltaEdicionUsuarioPlace(token);
 		 altaEdicionUsuarioPlace.setToken(token);
 			return altaEdicionUsuarioPlace;
@@ -215,7 +224,10 @@ public class ClientFactoryImpl implements ClientFactory {
 		if (pdCeloServicioView == null) pdCeloServicioView = new PdCeloServicioView();
 		return pdCeloServicioView;
 	}
-
+	public PdPartoView getPdPartoView() {
+		if (pdPartoView == null) pdPartoView = new PdPartoView();
+		return pdPartoView;
+	}
 	public PopUpInfoView getPopUpInfoView() {
 		if (popUpInfoView == null) popUpInfoView = new PopUpInfoView();
 		return popUpInfoView;
